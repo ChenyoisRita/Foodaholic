@@ -8,7 +8,7 @@ We are building a mobile app where people can join a party, choose places, comin
 
 # Problem
 
-Complexity in planning a Party
+Complexity in planning a party
 
 ## Introduction to Domain
 
