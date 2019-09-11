@@ -47,10 +47,33 @@ We are building a a mobile app.
 	- Pay the bill
 
 ## Wireframes
+**Events Page**<br>
+<div align=center>
+<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Events-page.png?token=AJEU26GORPH4ECUZZAPEFRC5QJH44" 
+    width="360" alt="events_page" />
+</div> <br>
+<br>
 
-**<!-- Description, for example, “Events Map” -->**
+**Create Events**<br>
+<div align=center>
+<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Events%26Create_Page.png?token=AJEU26FXQJNOTTWLC7DSO225QJH6S" 
+    width="1000" alt="create_Events_page" />
+</div> <br>
+<br>
 
-![](<!-- TODO -->)
+**Chats & Split Bill Page**<br>
+<div align=center>
+<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Chats.png?token=AJEU26HS2RM4GDRSJV3WMH25QJIAC" 
+    width="720" alt="chats_split_page" />
+</div> <br>
+<br>
+
+**Friends & Profile Page**<br>
+<div align=center>
+<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Friends-Profile.png?token=AJEU26FOY5NAP5O3ZYSA7MC5QJIBI" 
+    width="720" alt="friends_profile_page" />
+</div> <br>
+
 
 ## User Stories
 
