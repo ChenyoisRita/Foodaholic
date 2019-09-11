@@ -8,15 +8,13 @@ We are building a mobile app where people can join a party, choose places, comin
 
 # Problem
 
-<!-- TODO -->
+Complexity in planning a Party
 
 ## Introduction to Domain
 
-<!-- TODO -->
-
 # Solution
 
-<!-- TODO -->
+Organizers will use our app to plan a party online, which will reduce the complexity of preparing for the party. At the mean time, particapants are able to DIY their own experience in the party by voting food and activity online.
 
 ## Architecture Overview
 
