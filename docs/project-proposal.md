@@ -77,17 +77,17 @@ As a user, I want to join a party of my friends. By viewing Foodaholic, I can br
 
 # Difficulty
 
-<!-- TODO -->
+Our project we proposed is at the right difficulty scale because we would build an Android App and integrate the Google Maps API, Google Calendar API, Gmail API and Paypal API with our project. Combining these APIs would be difficult for us because it requires these applications to talk with each other, meanwhile, not conflict with other applications or functions. Also, these features we have proposed should be connected logically and interact with each other.
 
 # Market Research
 
 ## Users
 
-<!-- TODO -->
+The users of this application would be people who need to attend some organized events like party and seminar. It's really convenient and helpful because this application provides a platform to allows people to get the real-time events information and search nearby events information online, join the events just by phone, select favorite food, chat with others, comment on the food and activities, and even organize or customize an event.
 
 ## Competition
 
-<!-- TODO -->
+Twitter is similar to our projet. Twitter allows people to know about the real-time events that they can join and track the event information. Different from the Twitter, our project helps people organize and join the event and order the food based on the food ranking and comments. There are many other features and functions such as chatting with others. It's not limited to knowing about the events information.
 
 # Roadmap
 
