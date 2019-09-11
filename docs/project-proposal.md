@@ -20,11 +20,12 @@ Organizers will use our app to plan a party online, which will reduce the comple
 
 ## Architecture Overview
 
+We are building a a mobile app.
 - Frontend: Android
 - Backend: Java
 - Database: SQLite
 - API: Google Maps, Google Calender, Gmail, Paypal
-- Tools: tools in Toolbox.
+- Tools: tools in Toolbox, Android Studio.
 
 ## Features
 
@@ -61,19 +62,19 @@ As a user, I want to join a party of my friends. By viewing Foodaholic, I can br
 
 ## Hardware
 
-<!-- TODO -->
+We are developing an Android application, so we have the hardware.
 
 ## APIs
 
-<!-- TODO -->
+All of these APIs are widely used, we should have access to them.
 
 ## Tools
 
-<!-- TODO -->
+We have access to Android Studio.
 
 ## Proof of Concept
 
-<!-- TODO -->
+It’s clear that our project is technically viable because beside tools in the toolbox, the APIs and other tools are also available.
 
 # Difficulty
 
