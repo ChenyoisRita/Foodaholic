@@ -49,12 +49,6 @@ We are building a a mobile app.
 ## Wireframes
 **Events Page**
 
-<!-- <br>
-<div align=center>
-<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Events-page.png?token=AJEU26GORPH4ECUZZAPEFRC5QJH44" 
-    width="360" alt="events_page" />
-</div> <br>
-<br> -->
 
 ![events_page](/pictures/Events-page.png)
 

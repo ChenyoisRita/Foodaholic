@@ -3,6 +3,69 @@
 # Architecture
 
 <!-- Is this a web application, a mobile application (React Native, iOS, Android?), a desktop application, and so forth? How do the different components (client, server, and so forth) communicate? Don’t simply list tools; tell a story. -->
+## Client
+
+### Login
+
+- Properties
+    - Sign Up
+    - Log In
+    - Forgot Password?
+
+### My Events
+
+- Properties
+	- List of My Events
+	- View Event Abstract
+	- Enter My Event
+
+### Event Search
+
+- Properties
+    - Event Search
+        - Keyword
+        - Map
+    - List of Event
+    - View Event Abstract
+    - View Event Details
+    - Request to Join in Event
+
+### In Event
+
+- Properties
+    - List of Activity
+    - Add Activity
+    - Edit Activity
+    - Vote Activity
+    - Admin: Delete Activity
+    - Admin: Edit bill
+    - Admin: Publish bill
+    - Invite 
+    - Leave Event
+    - Admin: Cancel Event
+    - Set Notification
+    - Admin: Send Notification
+    - Admin: End Event
+
+### Chats
+
+- Categories
+	- Notification
+	- Event Message
+
+### Friends
+
+- Properties
+	- List of Friends
+	- Search Friends
+	- View Friend Profile
+
+### Profile
+
+- Properties
+	- My Profile
+	- Edit Profile
+	- Log out
 
 ## Tools Outside the Toolbox
 
