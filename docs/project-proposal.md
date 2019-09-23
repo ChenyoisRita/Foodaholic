@@ -56,7 +56,7 @@ We are building a a mobile app.
 </div> <br>
 <br> -->
 
-![events_page](/pictures/Event-page.png)
+![events_page](/pictures/Events-page.png)
 
 **Create Events**<br>
 <div align=center>
