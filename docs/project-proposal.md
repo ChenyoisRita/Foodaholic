@@ -53,7 +53,7 @@ We are building a a mobile app.
     width="360" alt="events_page" />
 </div> <br>
 <br> -->
-！[events_page](/pictures/Event-page.png)
+![events_page](/pictures/Event-page.png)
 
 **Create Events**<br>
 <div align=center>
