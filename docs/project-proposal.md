@@ -47,12 +47,13 @@ We are building a a mobile app.
 	- Pay the bill
 
 ## Wireframes
-**Events Page**<br>
+**Events Page**<!-- <br>
 <div align=center>
 <img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Events-page.png?token=AJEU26GORPH4ECUZZAPEFRC5QJH44" 
     width="360" alt="events_page" />
 </div> <br>
-<br>
+<br> -->
+！[events_page](/pictures/Event-page.png)
 
 **Create Events**<br>
 <div align=center>
