@@ -117,49 +117,90 @@
 
 <!-- TODO for Amanda -->
 - User
-	- Attributes
-		- Name
-		- Password
-		- ID
-		- Email
-		- Address
-		- Photo
-	- Methods (Implementation of Interfaces)
-		- GetFriendList
-		- SearchID
-		- SearchName
-		- SearchEmail
-		- SearchPhone
-		- AddFriends
-		- GetMyinfo
-		- EditProfile 
-		- SaveProfile 
-		- ExitProfile
-		- LogOut
-		- SwitchAccount
-			
+    - Attributes
+        - Name
+        - Password
+        - ID
+        - Email
+        - Address
+        - Photo
+        - Phone
+    - Methods (Implementation of Interfaces)
+        - SignUp
+        - EmailVerification
+        - LogIn
+        - GetSecurityQuestion
+        - VerifySecurityQuestionAnswer
+        - ResetPassword
+        - SearchID
+        - SearchName
+        - SearchEmail
+        - SearchPhone
+        - AddFriends
+        - EditProfile
+        - SaveProfile
+        - ExitProfile
+        - LogOut
+        - SwitchAccount
+        
 - UserView
-	- Attributes
-        	- 
-	- Methods (Implementation of Interfaces)
-        	- CheckExistUser
-        	- ViewProfile
-        	- PublicView
-        	- ...
-		
-- UserController
-	- Attributes
-	- Methods
-	
-- UserRepository
-	- Attributes
-	- Methods
-	
-- Recommendation
-	- Attributes
-	- Methods
-	
+    - Attributes
+        - Name
+        - Password
+        - ID
+        - Email
+        - Address
+        - Photo
+        - Phone
+    - Methods (Implementation of Interfaces) - CheckExistUser - ViewProfile - PublicView
+        - GetFriendList
+        - GetMyinfo
 
+- UserController
+    - Attributes
+        - Name
+        - Password
+        - ID
+        - Email
+        - Address
+        - Photo
+        - Phone
+    - Methods
+        - Connection
+        - getAll
+        - CreateAccount
+        - CancelAccount
+        - UpdateProfile
+        - UpdateFriendsList
+
+- UserRepository
+    - Attributes
+        - Name
+        - Password
+        - ID
+        - Email
+        - Address
+        - Photo
+        - Phone
+    - Methods
+        - Connection
+        - getAll
+        - CreateAccount
+        - CancelAccount
+        - UpdateProfile
+        - UpdateFriendsList
+
+- Recommendation
+    - Attributes
+        - FriendsName
+        - FriendsID
+        - FriendsEmail
+        - FriendsPhoto
+        - FriendsPhone
+    - Methods
+        - GetFriendsInfo
+        - DisplayRecomFriends
+	
 <!-- TODO for Mou -->
 
 - Event
