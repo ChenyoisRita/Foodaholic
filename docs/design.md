@@ -106,6 +106,7 @@
 
 ## Server
 
+<!-- TODO for Amanda -->
 - User
 	- Attributes
 		- Name
@@ -113,28 +114,35 @@
 	- Methods (Implementation of Interfaces)
 		- ...
 - UserView
-	- Attributes
-		- ...
-	- Methods (Implementation of Interfaces)
-		- ICheckExistUser
-		- IProfileView
-		- IPublicView
-		- ...
+    - Attributes
+        - ...
+    - Methods (Implementation of Interfaces)
+        - ICheckExistUser
+        - IProfileView
+        - IPublicView
+        - ...
 - UserController
+- UserRepository
+- Recommendation
+
+<!-- TODO for Mou -->
+
 - Event
 - EventView
+- EventRepository
+- Email
+
+<!-- TODO for Haoran -->
 - EventController
 - Activity
 - ActivityView
 - ActivityController
-- UserRepository
-- EventRepository
-- Email
+
+<!-- TODO for Shuofeng -->
 - Map
 - Notification
 - Message
 - Search
-- Recommendation
 - ...
 
 
