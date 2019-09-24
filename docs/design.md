@@ -46,6 +46,7 @@
 	- Time
 	- List of Participants
 	- List of Activities
+	
 - Features
     - Browse Activity
     	- IGetAllActivityAbstract
@@ -101,7 +102,7 @@
 
 - Properties
 	- My Profile
-	   	- IGetMyInfo
+	   	- IGetMyinfo
 	- Edit Profile
 		- IEditProfile 
 		- ISaveProfile 
@@ -124,42 +125,82 @@
 		- Email
 		- Address
 		- Photo
+		- Phone
 	- Methods (Implementation of Interfaces)
-		- GetFriendList
+		- SignUp
+		- EmailVerification
+		- LogIn
+		- GetSecurityQuestion
+		- VerifySecurityQuestionAnswer 
+		- ResetPassword
 		- SearchID
 		- SearchName
 		- SearchEmail
 		- SearchPhone
 		- AddFriends
-		- GetMyinfo
 		- EditProfile 
 		- SaveProfile 
 		- ExitProfile
 		- LogOut
-		- SwitchAccount
-			
+		- SwitchAccount		
 - UserView
 	- Attributes
-        	- 
+        	- Name
+		- Password
+		- ID
+		- Email
+		- Address
+		- Photo
+		- Phone
 	- Methods (Implementation of Interfaces)
         	- CheckExistUser
         	- ViewProfile
         	- PublicView
-        	- ...
-		
+		- GetFriendList
+		- GetMyinfo	
 - UserController
 	- Attributes
+		- Name
+		- Password
+		- ID
+		- Email
+		- Address
+		- Photo
+		- Phone
 	- Methods
-	
+		- Connection
+		- getAll
+		- CreateAccount
+		- CancelAccount
+	        - UpdateProfile
+		- UpdateFriendsList
 - UserRepository
 	- Attributes
+		- Name
+		- Password
+		- ID
+		- Email
+		- Address
+		- Photo
+		- Phone
 	- Methods
-	
+		- Connection
+		- getAll
+		- CreateAccount
+		- CancelAccount
+		- UpdateProfile
+		- UpdateFriendsList
 - Recommendation
 	- Attributes
+		- FriendsName
+		- FriendsID
+		- FriendsEmail
+		- FriendsPhoto
+		- FriendsPhone
 	- Methods
+		- GetFriendsInfo
+		- DisplayRecomFriends
 	
-
 <!-- TODO for Mou -->
 
 - Event
@@ -172,12 +213,8 @@
         - Participants
         - Accessibility
         - Activity
-    - Methods
-        - ICreateEvent
-        - IGetEventBasicInfo
-        - IDeleteEvent
-        - IGetEventDetailInfo
-        
+    -Methods
+        - 
 - EventView
     - Attributes 
         - EventName
@@ -189,24 +226,16 @@
         - Accessibility
         - Activity
     - Methods
-        - IGetEventDetailInfo
-        - IGetEventDetailInfo
-        - IEventInfo
 - EventRepository
     - Attributes 
         - Connection
     - Methods
-        - IGetAllMyEventsInfo
-        - ISearchByKeyword 
-        - ISearchByEventName
-        - ISearchByInvitationCode
-        - IGetAllEvents
-        - IRequestJoinEvent
 - Email
     - Attributes 
+        - SenderEmailAddress
         - ReceiverEmailAddress
     - Methods
-        - IEventMessageSender
+
 <!-- TODO for Haoran -->
 - EventController
 - Activity
@@ -215,27 +244,10 @@
 
 <!-- TODO for Shuofeng -->
 - Map
-    - Attributes
-    
-    - Methods
-    
 - Notification
-    - Attributes
-    
-    - Methods
-    
 - Message
-    - Attributes
-    
-    - Methods
-    
 - Search
-    - Attributes
-    
-    - Methods
-    
 - ...
-
 
 ## Tools Outside the Toolbox
 
