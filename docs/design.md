@@ -163,9 +163,37 @@
 <!-- TODO for Mou -->
 
 - Event
+    - Attributes
+        - EventName
+        - Organizer
+        - Location
+        - Time 
+        - Notes
+        - Participants
+        - Accessibility
+        - Activity
+    -Methods
+        - 
 - EventView
+    - Attributes 
+        - EventName
+        - Organizer
+        - Location
+        - Time 
+        - Notes
+        - Participants
+        - Accessibility
+        - Activity
+    - Methods
 - EventRepository
+    - Attributes 
+        - Connection
+    - Methods
 - Email
+    - Attributes 
+        - SenderEmailAddress
+        - ReceiverEmailAddress
+    - Methods
 
 <!-- TODO for Haoran -->
 - EventController
