@@ -27,15 +27,15 @@
 
 - Properties
     - Event Search
-        - I_SearchByKeyword, I_SearchByEventName, I_SearchByInvitationCode
+        - ISearchByKeyword, ISearchByEventName, ISearchByInvitationCode
     - List of Event
-        - I_GetAllEvents
+        - IGetAllEvents
     - View Event Abstract
-        - I_GetEventBasicInfo
+        - IGetEventBasicInfo
     - View Event Details
-        - I_GetEventDetailInfo
+        - IGetEventDetailInfo
     - Request to Join in Event
-        - I_RequestJoinEvent
+        - IRequestJoinEvent
 
 ### In Event
 
@@ -78,7 +78,7 @@
 
 - Categories
 	- Notification
-	    - I_BillNotify, I_InviteNotify, I_UpcomingEventNotify
+	    - IBillNotify, IInviteNotify, IUpcomingEventNotify
 	- Event Message
 	    - IEventInfo : It will display an event on the "chats" page
 
