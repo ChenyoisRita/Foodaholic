@@ -9,13 +9,17 @@
 
 - Properties
     - Sign Up
+        - IEmailSender, ISignUp, IAuthView
     - Log In
+        - ILogIn
     - Forgot Password?
+        - IGetSecurityQuestion, IVerifySecurityQuestionAnswer, IResetPassword
 
 ### My Events
 
 - Properties
 	- List of My Events
+	    - IGetAllMyEventsInfo
 	- View Event Abstract
 	- Enter My Event
 
