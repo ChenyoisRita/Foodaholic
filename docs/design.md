@@ -216,23 +216,53 @@
 <!-- TODO for Shuofeng -->
 - Map
     - Attributes
-    
+        - GoogleMap (This depends on the Google Map API)
+        - User (Users who request the map)
+        - EventLocationList (The List which contains all the locations of events from the user who request the map)
     - Methods
+        - IGetUser
+        - IGetEventLocationList
+        - ISetupMap (Initialize the map)
     
 - Notification
     - Attributes
-    
+        - Sender
+        - ReceiverList
+        - Receiver
+        - Content
+        - SendTime
     - Methods
+        - GetSender
+        - GetReceiverList
+        - GetReceiver
+        - GetContent
+        - GetSendTime
+        - SendToReceiver
     
 - Message
     - Attributes
-    
+        - Sender
+        - Receiver
+        - Content
+        - SendTime
     - Methods
+        - GetSender
+        - GetReceiver
+        - GetContent
+        - GetSendTime
+        - SendToReceiver
     
 - Search
     - Attributes
-    
+        - SearchContent (The content in the user's search input field)
+        - User (User who want to search an event)
+        - SearchResult (The results that the server finds in its database)
     - Methods
+        - GetSearchContent
+        - GetUser (Get the user who want to search an event. After processing this request, the server can return the 
+        search results to the corresponding user)
+        - ProcessSearchRequest (Search the content on the database of the server.)
+        - ReturnSearchResult (Return the search result to the user who request the search action)
     
 - ...
 
