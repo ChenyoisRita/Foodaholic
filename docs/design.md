@@ -37,19 +37,39 @@
 ### In Event
 
 - Properties
-    - List of Activity
+	- Abstract
+	- Description
+	- Place
+	- Time
+	- List of Participants
+	- List of Activities
+- Features
+    - Browse Activity
+    	- IGetAllActivityAbstract
+    - View Activity Details
+    	- IGetActivityDetail
     - Add Activity
+    	- ICreateActivity
     - Edit Activity
+    	- IEditActivity, IGetActivityDetail
     - Vote Activity
+    	- IVoteActivity, IDownVoteActivity
     - Admin: Delete Activity
+    	- IDeleteActivity
     - Admin: Edit bill
+    	- IEditActivity
     - Admin: Publish bill
-    - Invite 
+    	- INotificationSender, IEventMessageSender
+    - Invite
+    	- INotificationSender
+    - Accept Invitation
+    	- ICreateParticipant, IEventMessageSender
     - Leave Event
-    - Admin: Cancel Event
-    - Set Notification
+    	- IDeleteParticipant, IEventMessageSender
     - Admin: Send Notification
-    - Admin: End Event
+    	- INotificationSender
+    - Admin: Cancel/End Event
+    	- IDeleteEvent, INotificationSender
 
 ### Chats
 
