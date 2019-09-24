@@ -63,14 +63,14 @@ We are building a a mobile app.
 
 **Chats & Split Bill Page**<br>
 <div align=center>
-<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Chats.png?token=AJEU26HS2RM4GDRSJV3WMH25QJIAC" 
+<img src="/pictures/Chats.png" 
     width="720" alt="chats_split_page" />
 </div> <br>
 <br>
 
 **Friends & Profile Page**<br>
 <div align=center>
-<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Friends-Profile.png?token=AJEU26FOY5NAP5O3ZYSA7MC5QJIBI" 
+<img src="/pictures/Friends-Profile.png" 
     width="720" alt="friends_profile_page" />
 </div> <br>
 
