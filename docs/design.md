@@ -57,16 +57,23 @@
 
 - Properties
 	- List of Friends
+		- IGetfriendList
 	- Search Friends
+		- ISearchID, ISearchName, ISearchEmail, ISearchPhone.
 	- View Friend Profile
+		- IViewProfile
+	- Add Friends
+		- IAddFriends
 
 ### Profile
 
 - Properties
 	- My Profile
+	        - 
 	- Edit Profile
+		- IEditProfile, ISaveProfile, IExitProfile.
 	- Log out
-
+		-ILogOut, ISwitchAccount。
 ## Tools Outside the Toolbox
 
 <!-- For each tool: What is it? Why did you choose it? Where do you get it? How do you learn it? Follow the model of how we presented the tools in the Toolbox. Cute original drawings encouraged. -->
