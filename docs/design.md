@@ -55,7 +55,9 @@
 
 - Categories
 	- Notification
+	    - I_BillNotify, I_InviteNotify, I_UpcomingEventNotify
 	- Event Message
+	    - IGetMsgSender, IGetMsgContent, IGetMsgSentTime
 
 ### Friends
 
