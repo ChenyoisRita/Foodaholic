@@ -101,7 +101,7 @@
 
 - Properties
 	- My Profile
-	   	- IGetMyinfo
+	   	- IGetMyInfo
 	- Edit Profile
 		- IEditProfile 
 		- ISaveProfile 
@@ -172,8 +172,12 @@
         - Participants
         - Accessibility
         - Activity
-    -Methods
-        - 
+    - Methods
+        - ICreateEvent
+        - IGetEventBasicInfo
+        - IDeleteEvent
+        - IGetEventDetailInfo
+        
 - EventView
     - Attributes 
         - EventName
@@ -185,16 +189,24 @@
         - Accessibility
         - Activity
     - Methods
+        - IGetEventDetailInfo
+        - IGetEventDetailInfo
+        - IEventInfo
 - EventRepository
     - Attributes 
         - Connection
     - Methods
+        - IGetAllMyEventsInfo
+        - ISearchByKeyword 
+        - ISearchByEventName
+        - ISearchByInvitationCode
+        - IGetAllEvents
+        - IRequestJoinEvent
 - Email
     - Attributes 
-        - SenderEmailAddress
         - ReceiverEmailAddress
     - Methods
-
+        - IEventMessageSender
 <!-- TODO for Haoran -->
 - EventController
 - Activity
