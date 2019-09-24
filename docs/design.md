@@ -215,9 +215,25 @@
 
 <!-- TODO for Shuofeng -->
 - Map
+    - Attributes
+    
+    - Methods
+    
 - Notification
+    - Attributes
+    
+    - Methods
+    
 - Message
+    - Attributes
+    
+    - Methods
+    
 - Search
+    - Attributes
+    
+    - Methods
+    
 - ...
 
 
