@@ -19,7 +19,7 @@
 
 - Properties
 	- List of My Events
-	    - IGetAllMyEventsInfo
+		- IGetAllMyEventsInfo
 	- View Event Abstract
 	- Enter My Event
 
@@ -61,15 +61,56 @@
 
 - Properties
 	- List of Friends
+		- IGetfriendList
 	- Search Friends
+		- ISearchID, ISearchName, ISearchEmail, ISearchPhone.
 	- View Friend Profile
+		- IViewProfile
+	- Add Friends
+		- IAddFriends
 
 ### Profile
 
 - Properties
 	- My Profile
 	- Edit Profile
+		- IEditProfile, ISaveProfile, IExitProfile.
 	- Log out
+		- ILogOut, ISwitchAccount
+
+## Server
+
+- User
+	- Attributes
+		- Name
+		- Password
+	- Methods (Implementation of Interfaces)
+		- ...
+- UserView
+	- Attributes
+		- ...
+	- Methods (Implementation of Interfaces)
+		- ICheckExistUser
+		- IProfileView
+		- IPublicView
+		- ...
+- UserController
+- Event
+- EventView
+- EventController
+- Activity
+- ActivityView
+- ActivityController
+- UserRepository
+- EventRepository
+- Email
+- Map
+- Notification
+- Message
+- Search
+- Recommendation
+- ...
+
 
 ## Tools Outside the Toolbox
 
