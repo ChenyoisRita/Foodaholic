@@ -88,9 +88,12 @@
 	- List of Friends
 		- IGetFriendList
 	- Search Friends
-		- ISearchID, ISearchName, ISearchEmail, ISearchPhone.
+		- ISearchID 
+		- ISearchName
+		- ISearchEmail
+		- ISearchPhone
 	- View Friend Profile
-		- IViewProfile
+		- IViewFriendProfile
 	- Add Friends
 		- IAddFriends
 
@@ -98,11 +101,17 @@
 
 - Properties
 	- My Profile
-	    - IGetMyinfo
+	   	- IGetMyinfo
 	- Edit Profile
-		- IEditProfile, ISaveProfile, IExitProfile.
+		- IEditProfile 
+		- ISaveProfile 
+		- IExitProfile
+	- View Profile
+		- IViewProfile
+        	- IPublicView
 	- Log out
-		- ILogOut, ISwitchAccount
+		- ILogOut
+		- ISwitchAccount
 
 ## Server
 
@@ -111,19 +120,45 @@
 	- Attributes
 		- Name
 		- Password
+		- ID
+		- Email
+		- Address
+		- Photo
 	- Methods (Implementation of Interfaces)
-		- ...
+		- GetFriendList
+		- SearchID
+		- SearchName
+		- SearchEmail
+		- SearchPhone
+		- AddFriends
+		- GetMyinfo
+		- EditProfile 
+		- SaveProfile 
+		- ExitProfile
+		- LogOut
+		- SwitchAccount
+			
 - UserView
-    - Attributes
-        - ...
-    - Methods (Implementation of Interfaces)
-        - ICheckExistUser
-        - IProfileView
-        - IPublicView
-        - ...
+	- Attributes
+        	- 
+	- Methods (Implementation of Interfaces)
+        	- CheckExistUser
+        	- ViewProfile
+        	- PublicView
+        	- ...
+		
 - UserController
+	- Attributes
+	- Methods
+	
 - UserRepository
+	- Attributes
+	- Methods
+	
 - Recommendation
+	- Attributes
+	- Methods
+	
 
 <!-- TODO for Mou -->
 
