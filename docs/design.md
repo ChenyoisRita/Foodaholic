@@ -9,7 +9,7 @@
 
 - Properties
     - Sign Up
-        - IEmailSender, ISignUp, IAuthView
+        - ISignUp, IEmailVerification, ICheckExistUser
     - Log In
         - ILogIn
     - Forgot Password?
