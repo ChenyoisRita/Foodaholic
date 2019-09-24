@@ -9,7 +9,7 @@
 
 - Properties
     - Sign Up
-        - IEmailSender, ISignUp, IAuthView
+        - ISignUp, IEmailVerification, ICheckExistUser
     - Log In
         - ILogIn
     - Forgot Password?
@@ -27,12 +27,15 @@
 
 - Properties
     - Event Search
-        - Keyword
-        - Map
+        - I_SearchByKeyword, I_SearchByEventName, I_SearchByInvitationCode
     - List of Event
+        - I_GetAllEvents
     - View Event Abstract
+        - I_GetEventBasicInfo
     - View Event Details
+        - I_GetEventDetailInfo
     - Request to Join in Event
+        - I_RequestJoinEvent
 
 ### In Event
 
@@ -75,13 +78,15 @@
 
 - Categories
 	- Notification
+	    - I_BillNotify, I_InviteNotify, I_UpcomingEventNotify
 	- Event Message
+	    - IEventInfo : It will display an event on the "chats" page
 
 ### Friends
 
 - Properties
 	- List of Friends
-		- IGetfriendList
+		- IGetFriendList
 	- Search Friends
 		- ISearchID, ISearchName, ISearchEmail, ISearchPhone.
 	- View Friend Profile
@@ -93,6 +98,7 @@
 
 - Properties
 	- My Profile
+	    - IGetMyinfo
 	- Edit Profile
 		- IEditProfile, ISaveProfile, IExitProfile.
 	- Log out

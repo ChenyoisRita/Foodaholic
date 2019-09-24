@@ -48,27 +48,29 @@ We are building a a mobile app.
 
 ## Wireframes
 **Events Page**
-
-
-![events_page](/pictures/Events-page.png)
+<div align=center>
+<img src="/pictures/Events-page.png" 
+    width="360" alt="events_page" />
+</div> <br>
+<br>
 
 **Create Events**<br>
 <div align=center>
-<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Events%26Create_Page.png?token=AJEU26FXQJNOTTWLC7DSO225QJH6S" 
+<img src="/pictures/Events%26Create_Page.png" 
     width="1000" alt="create_Events_page" />
 </div> <br>
 <br>
 
 **Chats & Split Bill Page**<br>
 <div align=center>
-<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Chats.png?token=AJEU26HS2RM4GDRSJV3WMH25QJIAC" 
+<img src="/pictures/Chats.png" 
     width="720" alt="chats_split_page" />
 </div> <br>
 <br>
 
 **Friends & Profile Page**<br>
 <div align=center>
-<img src="https://raw.githubusercontent.com/jhu-oose/2019-group-foodaholic/develop/pictures/Friends-Profile.png?token=AJEU26FOY5NAP5O3ZYSA7MC5QJIBI" 
+<img src="/pictures/Friends-Profile.png" 
     width="720" alt="friends_profile_page" />
 </div> <br>
 
