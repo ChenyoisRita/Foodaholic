@@ -63,7 +63,7 @@
 
 - Properties
 	- List of Friends
-		- IGetfriendList
+		- IGetFriendList
 	- Search Friends
 		- ISearchID, ISearchName, ISearchEmail, ISearchPhone.
 	- View Friend Profile
@@ -75,6 +75,7 @@
 
 - Properties
 	- My Profile
+	    - IGetMyinfo
 	- Edit Profile
 		- IEditProfile, ISaveProfile, IExitProfile.
 	- Log out
