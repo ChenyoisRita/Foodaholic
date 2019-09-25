@@ -37,7 +37,7 @@ And OpenLayers makes it easy to put a dynamic map in any web page. It can displa
 
 # Class Diagram
 
-![Class Diagram](\pictures\Class_Diagram.jpg)
+![Class Diagram](/pictures/Class_Diagram.jpg)
 
 
 ## Client
