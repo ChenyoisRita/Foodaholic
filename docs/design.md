@@ -319,7 +319,7 @@
 
 **2. JavaMail API**
 <br>JavaMail is a Java API used to send and receive email via SMTP, POP3 and IMAP. And now it is available for Android. JavaMail API could provide us a platform-independent and protocol-independent framework to build mail and messaging framework. 
-<br>We choose the JavaMail API because the organizer of an event depends on emails to invite his guests in our designed project. Also. JavaMail programming is based on Java programming language, which we are familiar with.
+<br>We choose the JavaMail API because the organizer of an event depends on emails to invite his guests in our designed project. Also, JavaMail programming is based on Java programming language, which we are familiar with.
 <br>In order to get JavaMail API, we can download and install the JavaMail API on its official website.
 <br>We can learn how to use JavaMail API through following the online tutorials and guidance. Then we should combine the knowledge with our project in practice.
 
