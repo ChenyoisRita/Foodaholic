@@ -331,7 +331,10 @@ And OpenLayers makes it easy to put a dynamic map in any web page. It can displa
 <br>We can learn how to use OpenLayers API by following corresponding online tutorials and teaching videos.
 
 **4. Google Calendar API**
-
+The Google Calendar API lets users perform most of the operations a normal Google Calendar user can on the Google Calendar website. Google Calendar allows client applications to view and update calendar events in the form of Google data API, GData, feeds. Google Calendar allows us to manage events, meetings, holidays, and anything else we need to schedule. 
+<br>We choose the Google Calendar API because in our proposal, users could add the upcoming events to their own calendar, which helps them schedule the events. Interacting with Google Calendar is required. Also, Google calendar is one of the most popular calendars in the world, and there are many related open sources we could make use of.
+<br>In order to get Google Calendar API, We must first have a Google Calendar API Key and then include the google-calendar plugin. And then we could start writing code to initialize the calendar in JavaScript.
+<br>We can learn how to get started with the Google Calendar API by following the online guidance and related tutorials.
 
 # Class Diagram
 
