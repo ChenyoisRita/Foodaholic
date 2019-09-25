@@ -4,7 +4,7 @@
 
 <!-- Is this a web application, a mobile application (React Native, iOS, Android?), a desktop application, and so forth? How do the different components (client, server, and so forth) communicate? Don’t simply list tools; tell a story. -->
 
-It will be a mobile app on android, consisting of components including client, server and database. In client, user can join in party by searching events, design their party by coming up with their activities and voting for other activities, communicate with others by chatting in the app, socializing by adding friends, and pay the bill following the bill information. These information are collected by UI, and transmitted to server through request. In server, these request are dealed by methods in the classes like *User*, *Event* and *Activity*. These classes are implementations of frontend interfaces, and they also integrates third party APIs
+It will be a mobile app on android, consisting of components including client, server and database. In client, user can join in party by searching events, design their party by coming up with their activities and voting for other activities, communicate with others by chatting in the app, socializing by adding friends, and pay the bill following the bill information. These information are collected by UI, and transmitted to server through request. In server, these request are dealed by methods in the classes like *User*, *Event* and *Activity*. The methods in these classes are implementations of frontend interfaces, and they also integrates third party APIs. Finally, the server interact with the database through the repository classes like *UserRepository*.
 
 
 ## Tools Outside the Toolbox
@@ -39,6 +39,7 @@ And OpenLayers makes it easy to put a dynamic map in any web page. It can displa
 
 ![Class Diagram](/pictures/Class_Diagram.jpg)
 
+A list of classes an their properties is as below.
 
 ## Client
 
