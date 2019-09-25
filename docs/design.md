@@ -313,17 +313,18 @@
 <!-- For each tool: What is it? Why did you choose it? Where do you get it? How do you learn it? Follow the model of how we presented the tools in the Toolbox. Cute original drawings encouraged. -->
 **1. Android Studio**
 Android studio is the official tool for developing application exclusively for Android platform. It has a strong editor tool for developing creative UI and emulators for different versions to test and simulate sensors without having actual Android devices. 
-We choose the Android Studio because we are going to develop an Android Application. The Android Studio could help a lot in accelerating our application development and building the highest-quality apps for each Android device. Also, it is based on IntelliJ IDEA, which is a familiar tool for us.
-In order to get Android Studio, we just need to launch the Android Studio DMG file, drag and drop Android Studio into the Applications folder, then launch Android Studio.
-To learn Android programming through Android Studio, we can follow the online tutorials or books. And then we should put what we learned into the practice in this project.
+<br>We choose the Android Studio because we are going to develop an Android Application. The Android Studio could help a lot in accelerating our application development and building the highest-quality apps for each Android device. Also, it is based on IntelliJ IDEA, which is a familiar tool for us.
+<br>In order to get Android Studio, we just need to launch the Android Studio DMG file, drag and drop Android Studio into the Applications folder, then launch Android Studio.
+<br>To learn Android programming through Android Studio, we can follow the online tutorials or books. And then we should put what we learned into the practice in this project.
 
 **2. JavaMail API**
 JavaMail is a Java API used to send and receive email via SMTP, POP3 and IMAP.And now it is available for Android.
-We choose the JavaMail API because JavaMail programming is based on Java programming language, which we are familiar with. Also, JavaMail API could provide us a platform-independent and protocol-independent framework to build mail and messaging framework. 
-We can learn how to use JavaMail API through following the online tutorials and guidance. Then we should combine the knowledge with our project in practice.
+<br>We choose the JavaMail API because JavaMail programming is based on Java programming language, which we are familiar with. Also, JavaMail API could provide us a platform-independent and protocol-independent framework to build mail and messaging framework. 
+<br>We can learn how to use JavaMail API through following the online tutorials and guidance. Then we should combine the knowledge with our project in practice.
 
 **3. OpenLayers API**
 OpenLayers is an open-source JavaScript library for displaying map data in web browsers as slippy maps. It provides an API for building rich web-based geographic applications similar to Google Maps and Bing Maps.
+<br>
 
 
 
