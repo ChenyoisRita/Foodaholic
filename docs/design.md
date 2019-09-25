@@ -318,15 +318,19 @@ Android studio is the official tool for developing application exclusively for A
 <br>To learn Android programming through Android Studio, we can follow the online tutorials or books. And then we should put what we learned into the practice in this project.
 
 **2. JavaMail API**
-JavaMail is a Java API used to send and receive email via SMTP, POP3 and IMAP.And now it is available for Android.
-<br>We choose the JavaMail API because JavaMail programming is based on Java programming language, which we are familiar with. Also, JavaMail API could provide us a platform-independent and protocol-independent framework to build mail and messaging framework. 
+JavaMail is a Java API used to send and receive email via SMTP, POP3 and IMAP. And now it is available for Android. JavaMail API could provide us a platform-independent and protocol-independent framework to build mail and messaging framework. 
+<br>We choose the JavaMail API because the organizer of an event depends on emails to invite his guests in our designed project. Also. JavaMail programming is based on Java programming language, which we are familiar with.
+<br>In order to get JavaMail API, we can download and install the JavaMail API on its official website.
 <br>We can learn how to use JavaMail API through following the online tutorials and guidance. Then we should combine the knowledge with our project in practice.
 
 **3. OpenLayers API**
-OpenLayers is an open-source JavaScript library for displaying map data in web browsers as slippy maps. It provides an API for building rich web-based geographic applications similar to Google Maps and Bing Maps.
-<br>
+OpenLayers is an open-source JavaScript library for displaying map data in web browsers as slippy maps. It provides an API for building rich web-based geographic applications similar to Google Maps and Bing Maps. It's similar to Google Maps API.
+<br>We choose the OpenLayers API because users of our application depend on the dynamic maps to get the location of events, meanwhile, the events could be sorted by distance which the maps could display. 
+And OpenLayers makes it easy to put a dynamic map in any web page. It can display map tiles, vector data and markers loaded from any source. It will greatly help us in connecting the dynamic maps with our application. Also, it is free to download and use!
+<br>In order to get the OpenLayers API, we can download OpenLayers API in its official website.
+<br>We can learn how to use OpenLayers API by following corresponding online tutorials and teaching videos.
 
-
+**4. Google Calendar API**
 
 
 # Class Diagram
