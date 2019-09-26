@@ -92,7 +92,10 @@ We are developing an Android application, so we have the hardware.
 
 ## APIs
 
-All of these APIs are widely used, we should have access to them.
+- Integration with Google Calendar API for adding events directly to user's calendar.
+- Integration with Google Map API for displaying the exact location of the events.
+- Integration with JavaMail API for building mails and messaging users of this application, like bill info or event news notifications.<br>
+All those APIs above are free.
 
 ## Tools
 
