@@ -8,7 +8,10 @@ We are building a mobile app where people can join a party, choose places, comin
 
 # Problem
 
-Complexity in planning and joining a party
+- Discussing the location for holding any events, like a party or meeting, might be a nightmare for both organizers and participants. 
+- Discussing the coming activities which fit for most people's taste in an event with all the participants is difficult.
+- Notifying the bill of the event to all the participants one by one is time consuming, organizers need an effective and efficient way to do that.
+- Only telling people the location, like "789 East 66th Street" is not intuitive, organizers might want to display the location directly.
 
 ## Introduction to Domain
 
