@@ -103,7 +103,8 @@ We have access to Android Studio.
 
 ## Proof of Concept
 
-It’s clear that our project is technically viable because beside tools in the toolbox, the APIs and other tools are also available.
+Our project is technically viable. <br>
+For the development of this application in Android, we can use Android Studio to complete the UI design and program for interactive functions and other necessary methods of client in Java. For the backend services of server, we can use SQLite to store users profile related information, events details and might even store the chatting logs, photos or videos of chatting. Payment notification function can be integrated by JavaMail API. As for the location details of an event, it can be implemented by Google Map API and upcoming event notification can be realized via Google Calendar API. All in all, our project is technically viable.
 
 # Difficulty
 
