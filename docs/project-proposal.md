@@ -18,8 +18,10 @@ We are building a mobile app where people can join a party, choose places, comin
 We’re working in a domain that is well understood by a broader audience
 
 # Solution
-
-Organizers will use our app to plan a party online, which will reduce the complexity of preparing for the party. At the mean time, particapants are able to DIY their own experience in the party by voting food and activity online.
+- Our app would serve as a platform on which organizers are able to hold an event with mobile phone.
+- For the organizers, they can decide where and when the event holds, while leaving food and activity to choose by participants.
+- For the participants, they can vote to decide what to eat and what to do during the event.
+- This app will reduce the complexity of preparing for the party for organizers. At the mean time, particapants are able to DIY their own experience in the party by voting food and activity online.
 
 ## Architecture Overview
 
