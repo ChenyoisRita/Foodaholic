@@ -110,7 +110,7 @@ For the development of this application in Android, we can use Android Studio to
 
 # Difficulty
 
-Our project we proposed is at the right difficulty scale because we would build an Android App and integrate the Google Maps API, Google Calendar API, Gmail API and Paypal API with our project. Combining these APIs would be difficult for us because it requires these applications to talk with each other, meanwhile, not conflict with other applications or functions. Also, these features we have proposed should be connected logically and interact with each other.
+To complete this project, we need to build an mobile application running in Android phones. We need to integrated Google Maps API into this project to display the exact location of an event on the main page, so that users or event organizers could have a direct impression of where to go. We need to investigate how to display a specific location on an Android app with this API. And the integration of Google Calendar is also required in order that users can add the upcoming event to their Google calendar and get notifications for that. Investigation of adding a calendar file with specific date, time and location to user's google calendar app is also a challenge. 
 
 # Market Research
 
