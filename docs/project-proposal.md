@@ -101,11 +101,10 @@ All those APIs above are free.
 
 ## Tools
 
-Frontend: Android
-Backend: Java
-Database: SQLite
-API: Google Maps, Google Calender, Gmail, Paypal
-Tools: tools in Toolbox, Android Studio.
+Frontend: Android Studio<br>
+Backend: Java<br>
+Database: SQLite<br>
+Others: tools in Toolbox.
 
 ## Proof of Concept
 
