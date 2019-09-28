@@ -114,7 +114,11 @@ For the development of this application in Android, we can use Android Studio to
 
 # Difficulty
 
-To complete this project, we need to build an mobile application running in Android phones. We need to integrated Google Maps API into this project to display the exact location of an event on the main page, so that users or event organizers could have a direct impression of where to go. We need to investigate how to display a specific location on an Android app with this API. And the integration of Google Calendar is also required in order that users can add the upcoming event to their Google calendar and get notifications for that. Investigation of adding a calendar file with specific date, time and location to user's google calendar app is also a challenge. 
+To complete this project, we need to build an mobile application running in Android phones. We need to integrated Google Maps API into this project to display the exact location of an event on the main page, so that users or event organizers could have a direct impression of where to go. We need to investigate how to display a specific location on an Android app with this API. And the integration of Google Calendar is also required in order that users can add the upcoming event to their Google calendar and get notifications for that. Investigation of adding a calendar file with specific date, time and location to user's google calendar app is also a challenge.<br>
+
+Also, the communication from the front end (mobile app) to the backend (server) will be a challenge for us. Furthermore, using JavaMail API to send emails to participants for informing them with the bill and event details would be challenging as well. Because nobody of our team have integrated this API to Apps before and we think that it would be a little bit complex as the result of involving generating an email and ensuring that it can be sent to the destinations correctly.<br>
+
+Generally speaking, the project we are proposing will be neither hard nor easy and it will be at the right scale.
 
 # Market Research
 
