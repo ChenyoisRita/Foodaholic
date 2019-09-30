@@ -153,7 +153,6 @@ A list of classes an their properties is as below.
 
 ## Server
 
-<!-- TODO for Amanda -->
 - User
     - Attributes
         - Name
@@ -210,7 +209,6 @@ A list of classes an their properties is as below.
         - CancelAccount
         - UpdateProfile
         - UpdateFriendsList
-
 - UserRepository
     - Attributes
         - Name
@@ -238,9 +236,6 @@ A list of classes an their properties is as below.
     - Methods
         - GetFriendsInfo
         - DisplayRecomFriends
-    
-<!-- TODO for Mou -->
-
 - Event
     - Attributes
         - EventName
@@ -291,8 +286,6 @@ A list of classes an their properties is as below.
 - Activity
 - ActivityView
 - ActivityController
-
-<!-- TODO for Shuofeng -->
 - Map
     - Attributes
         - GoogleMap (This depends on the Google Map API)
