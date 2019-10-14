@@ -1,22 +1,13 @@
 package com.jhuoose.foodaholic.ui;
 
-import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,15 +33,24 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button registerButton = findViewById(R.id.registerButton);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            loadingProgressBar.setVisibility(View.VISIBLE);
-            signIn(usernameEditText.getText().toString(),
-                    passwordEditText.getText().toString());
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                signIn(usernameEditText.getText().toString().trim(),
+                        passwordEditText.getText().toString().trim());
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
@@ -72,8 +72,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUiWithUser(currentUser);
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        updateUiWithUser(currentUser);
     }
 
     private void updateUiWithUser(FirebaseUser user) {
