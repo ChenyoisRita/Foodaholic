@@ -18,6 +18,10 @@
             android:label="Register">
         </activity>
         <activity
+            android:name=".ui.RegisterActivity"
+            android:label="Register">
+        </activity>>
+        <activity
             android:name=".ui.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
