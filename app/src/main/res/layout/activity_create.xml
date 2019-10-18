@@ -29,7 +29,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/plan_edit1"
+                android:id="@+id/event_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -59,7 +59,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/plan_edit2"
+                android:id="@+id/event_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -88,7 +88,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/plan_edit3"
+                android:id="@+id/start_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -118,7 +118,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/plan_edit4"
+                android:id="@+id/end_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -149,13 +149,14 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/plan_edit5"
+                android:id="@+id/event_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
+                android:text="Please choose the date of Event"
                 android:padding="10dp"
                 android:textSize="16sp" />
 
@@ -179,7 +180,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/plan_edit6"
+                android:id="@+id/event_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -208,7 +209,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/plan_btn_food_list"
+                android:id="@+id/btn_food_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -220,7 +221,7 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/plan_event_theme"
+                android:id="@+id/event_theme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -284,7 +285,7 @@
         android:layout_gravity="bottom">
 
         <Button
-            android:id="@+id/plan_cancle"
+            android:id="@+id/btn_event_cancle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -299,7 +300,7 @@
 
         <Button
             android:layout_weight="1"
-            android:id="@+id/plan_publish"
+            android:id="@+id/btn_event_publish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -311,19 +312,6 @@
             android:text="√ Publish"
             android:textSize="14sp" />
 
-        <Button
-            android:layout_weight="1"
-            android:id="@+id/btn_save_drafts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@android:color/holo_blue_dark"
-            android:gravity="center"
-            android:text="Save Drafts"
-            android:textSize="14sp" />
     </LinearLayout>
 
     </LinearLayout>

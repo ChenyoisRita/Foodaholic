@@ -15,13 +15,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jhuoose.foodaholic.CurrentUser;
 import com.jhuoose.foodaholic.MainActivity;
 import com.jhuoose.foodaholic.R;
 
 
 public class LoginActivity extends AppCompatActivity {
-
+    public static CurrentUser currentUser;
     private FirebaseAuth mAuth;
+    private String userEmail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userEmail = usernameEditText.getText().toString();
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 signIn(usernameEditText.getText().toString().trim(),
                         passwordEditText.getText().toString().trim());
@@ -62,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUiWithUser(user);
+                            currentUser = new CurrentUser(userEmail);
                         } else {
                             showLoginFailed();
                         }
