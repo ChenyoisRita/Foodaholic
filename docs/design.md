@@ -281,11 +281,35 @@ A list of classes an their properties is as below.
         - ReceiverEmailAddress
     - Methods
         - IEventMessageSender
-<!-- TODO for Haoran -->
-- EventController
 - Activity
-- ActivityView
+    - Attributes
+        - Name
+        - Description
+        - Participants
+        - Vote
+        - Money
+        - Category
+    - Methods
+        - Vote
+        - Boo
 - ActivityController
+    - Attributes
+        - AttributeRepository
+    - Methods
+        - addActivityToEvent
+        - getActivityByEvent
+        - getActivity
+        - editActivity
+        - deleteActivity
+- ActivityRepository
+    - Attributes
+        - database
+    - Methods
+        - addActivityToEvent
+        - getActivityByEvent
+        - getActivity
+        - editActivity
+        - deleteActivity
 - Map
     - Attributes
         - GoogleMap (This depends on the Google Map API)
