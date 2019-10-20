@@ -5,12 +5,15 @@ import java.util.ArrayList;
 public class Event {
     public String start_Time, end_Time, event_Date, event_Title, event_Location, event_notes, selectedEventTheme;
     public ArrayList<Food> foodArrayList;
+    public ArrayList<String> attendeeList;
 
     public Event() {
         // Default constructor required for calls to DataSnapshot.getValue(Event.class)
     }
 
-    public Event(String start_Time, String end_Time, String event_Date, String event_Title, String event_Location, String event_notes, String selectedEventTheme, ArrayList<Food> foodArrayList) {
+    public Event(String start_Time, String end_Time, String event_Date, String event_Title,
+                 String event_Location, String event_notes, String selectedEventTheme,
+                 ArrayList<Food> foodArrayList, ArrayList<String> attendeeList) {
         this.start_Time = start_Time;
         this.end_Time = end_Time;
         this.event_Date = event_Date;
@@ -19,6 +22,7 @@ public class Event {
         this.event_notes = event_notes;
         this.selectedEventTheme = selectedEventTheme;
         this.foodArrayList = foodArrayList;
+        this.attendeeList = attendeeList;
     }
 
     public void setStart_Time(String start_Time) {

@@ -263,12 +263,23 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:text="Add" />
+
+            <EditText
+                android:id="@+id/et_email_address"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="110dp"
+                android:ems="10"
+                android:hint="Email Address" />
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/list_attendee"
+        <LinearLayout
+            android:id="@+id/list_attendee_layout"
             android:layout_width="match_parent"
-            android:layout_height="201dp" />
+            android:layout_height="201dp"
+            android:orientation="vertical"/>
 
         <View
             android:id="@+id/gap"

@@ -67,7 +67,7 @@ public class SetFoodListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(SetFoodListActivity.this);
-                        builder.setTitle("Delete "+foodName+" ?");
+                        builder.setTitle("Delete "+newFood.getText().toString()+" ?");
                         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,16 +33,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+//Todo: before Publish a new event, we should send an invitation email to all the attendees.
+//Todo: This EMail should contain the event's number so that they can search this event and join it.
 public class AddEventActivity extends AppCompatActivity {
     public static ArrayList<Food> foodList = new ArrayList<>();
-    Button cancelBtn, publishEventBtn, foodListBtn, eventThemeBtn;
+    ArrayList<String> attendeeList = new ArrayList<>();
+
+    Button cancelBtn, publishEventBtn, foodListBtn, eventThemeBtn, addAttendeeBtn;
     TextView startTimeTv, endTimeTv, eventDateTv;
-    EditText eventTitleEt, eventLocationEt, eventNotesEt;
+    EditText eventTitleEt, eventLocationEt, eventNotesEt, attendeeEt;
     String startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes;
-    String selectedEventTheme;
+    String selectedEventTheme, newAttendeeEmail;
     Event event;
+    LinearLayout attendeeListLayout;
+    // ListView attendeeListLayout;
     int currentYear,currentMonth, currentDay;
-    private AlertDialog eventThemeDialog;
+    private AlertDialog eventThemeDialog, deleteAttendeeDialog;
     private FirebaseDatabase database;
 
     @Override
@@ -60,6 +69,10 @@ public class AddEventActivity extends AppCompatActivity {
         publishEventBtn = findViewById(R.id.btn_event_publish);
         foodListBtn = findViewById(R.id.btn_food_list);
         eventThemeBtn = findViewById(R.id.btn_event_theme);
+        attendeeEt = findViewById(R.id.et_email_address);
+        addAttendeeBtn = findViewById(R.id.btn_add_attendee);
+        //attendeeListLayout = findViewById(R.id.list_attendee_layout);
+        attendeeListLayout = findViewById(R.id.list_attendee_layout);
 
         startTimeTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +170,61 @@ public class AddEventActivity extends AppCompatActivity {
 
                 eventThemeDialog = builder.create();
                 eventThemeDialog.show();
+            }
+        });
+
+        addAttendeeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newAttendeeEmail = attendeeEt.getText().toString().trim();
+                if (newAttendeeEmail ==null|| newAttendeeEmail.equals("")){
+                    Toast.makeText(AddEventActivity.this, "Invalid Input", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                final TextView newAttendee = new TextView(AddEventActivity.this);
+                newAttendee.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                newAttendee.setText(newAttendeeEmail);
+                newAttendee.setId(attendeeList.size()+1);
+
+                newAttendee.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(AddEventActivity.this);
+                        builder.setTitle("Delte "+newAttendee.getText().toString().trim()+" ?");
+                        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                deleteAttendeeDialog.dismiss();
+                            }
+                        });
+
+                        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                for (int j=0;j<attendeeList.size();j++){
+                                    if (attendeeList.get(j).equals(newAttendeeEmail)){
+                                        attendeeList.remove(j);
+                                        break;
+                                    }
+                                }
+                                attendeeListLayout.removeView(newAttendee);
+                                deleteAttendeeDialog.dismiss();
+                                Toast.makeText(AddEventActivity.this, newAttendeeEmail+" is Deleted",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        deleteAttendeeDialog = builder.create();
+                        deleteAttendeeDialog.show();
+                    }
+                });
+
+                attendeeList.add(newAttendeeEmail);
+                // newAttendee.setBackgroundColor(Color.GRAY);
+                // Log.i("MyLog", newAttendeeEmail+"; "+newAttendee.getText().toString());
+                attendeeListLayout.addView(newAttendee);
+                attendeeEt.setText("");
+
             }
         });
 
@@ -258,7 +326,7 @@ public class AddEventActivity extends AppCompatActivity {
             return false;
         }
 
-        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, foodList);
+        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, foodList, attendeeList);
         return true;
 }
 
