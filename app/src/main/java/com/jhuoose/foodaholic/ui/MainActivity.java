@@ -1,8 +1,9 @@
-package com.jhuoose.foodaholic;
+package com.jhuoose.foodaholic.ui;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jhuoose.foodaholic.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

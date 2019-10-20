@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class StartTimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+public class EndTimePickerDialog extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
     @NonNull
     @Override
@@ -33,7 +33,7 @@ public class StartTimePickerFragment extends DialogFragment implements TimePicke
     public void onTimeSet(TimePicker view, int hourOfDay, int minute){
         //Do something with the user chosen time
         //Get reference of host activity (XML Layout File) TextView widget
-        TextView start_Time_tv = (TextView) getActivity().findViewById(R.id.start_time);
-        start_Time_tv.setText(hourOfDay+":"+minute);
+        TextView end_Time_tv = (TextView) getActivity().findViewById(R.id.end_time);
+        end_Time_tv.setText(hourOfDay+":"+minute);
     }
 }

@@ -15,13 +15,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.jhuoose.foodaholic.CurrentUser;
-import com.jhuoose.foodaholic.MainActivity;
 import com.jhuoose.foodaholic.R;
 
 
 public class LoginActivity extends AppCompatActivity {
-    public static CurrentUser currentUser;
     private FirebaseAuth mAuth;
     private String userEmail;
 
@@ -37,9 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.registerButton);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-
-
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUiWithUser(user);
-                            currentUser = new CurrentUser(userEmail);
                         } else {
                             showLoginFailed();
                         }
@@ -77,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUiWithUser(currentUser);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUiWithUser(currentUser);
     }
 
     private void updateUiWithUser(FirebaseUser user) {

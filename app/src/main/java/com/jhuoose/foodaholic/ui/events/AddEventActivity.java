@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -15,10 +14,9 @@ import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
-import com.jhuoose.foodaholic.CurrentUser;
-import com.jhuoose.foodaholic.MainActivity;
+import com.jhuoose.foodaholic.model.Event;
+import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.R;
-import com.jhuoose.foodaholic.ui.LoginActivity;
 
 import java.util.Calendar;
 
@@ -33,14 +31,15 @@ public class AddEventActivity extends AppCompatActivity {
     String start_Time, end_Time, event_Date, event_Title, event_Location, event_notes;
     Event event;
     int currentYear,currentMonth, currentDay;
-    private DatabaseReference myRef;
     private FirebaseDatabase database;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create);
+        setContentView(R.layout.activity_add_event);
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
+
+        database = FirebaseDatabase.getInstance();
 
         event_Title_et = findViewById(R.id.event_title);
         event_location_et = findViewById(R.id.event_location);
@@ -54,7 +53,7 @@ public class AddEventActivity extends AppCompatActivity {
         start_Time_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment set_StartTime_Frag = new StartTimePickerFragment();
+                DialogFragment set_StartTime_Frag = new StartTimePickerDialog();
                 set_StartTime_Frag.show(getSupportFragmentManager(), "StartTimePicker");
             }
         });
@@ -62,7 +61,7 @@ public class AddEventActivity extends AppCompatActivity {
         end_Time_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment set_EndTime_Frag = new EndTimePickerFragment();
+                DialogFragment set_EndTime_Frag = new EndTimePickerDialog();
                 set_EndTime_Frag.show(getSupportFragmentManager(), "EndTimePicker");
             }
         });
@@ -113,7 +112,7 @@ public class AddEventActivity extends AppCompatActivity {
         pd.setMessage("Uploading...");
         pd.show();
         // URL to Firebase user data json
-        myRef = database.getInstance().getReference();
+        DatabaseReference myRef = database.getReference();
         myRef.child("Events").child(event.getEvent_Title()).setValue(event);
         pd.dismiss();
     }

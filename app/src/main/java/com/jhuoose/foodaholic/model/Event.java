@@ -1,40 +1,66 @@
 package com.jhuoose.foodaholic.model;
 
 public class Event {
-    private int eid;
-    private String displayName;
-    private String time;
-    private String place;
+    public String start_Time, end_Time, event_Date, event_Title, event_Location, event_notes;
 
-    public int getEid() {
-        return eid;
+    public Event() {
+        // Default constructor required for calls to DataSnapshot.getValue(Event.class)
     }
 
-    public void setEid(int eid) {
-        this.eid = eid;
+    public Event(String start_Time, String end_Time, String event_Date, String event_Title, String event_Location, String event_notes) {
+        this.start_Time = start_Time;
+        this.end_Time = end_Time;
+        this.event_Date = event_Date;
+        this.event_Title = event_Title;
+        this.event_Location = event_Location;
+        this.event_notes = event_notes;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public void setStart_Time(String start_Time) {
+        this.start_Time = start_Time;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setEnd_Time(String end_Time) {
+        this.end_Time = end_Time;
     }
 
-    public String getTime() {
-        return time;
+    public void setEvent_Date(String event_Date) {
+        this.event_Date = event_Date;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setEvent_Title(String event_Title) {
+        this.event_Title = event_Title;
     }
 
-    public String getPlace() {
-        return place;
+    public void setEvent_Location(String event_Location) {
+        this.event_Location = event_Location;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setEvent_notes(String event_notes) {
+        this.event_notes = event_notes;
+    }
+
+    public String getStart_Time() {
+        return start_Time;
+    }
+
+    public String getEnd_Time() {
+        return end_Time;
+    }
+
+    public String getEvent_Date() {
+        return event_Date;
+    }
+
+    public String getEvent_Title() {
+        return event_Title;
+    }
+
+    public String getEvent_Location() {
+        return event_Location;
+    }
+
+    public String getEvent_notes() {
+        return event_notes;
     }
 }
