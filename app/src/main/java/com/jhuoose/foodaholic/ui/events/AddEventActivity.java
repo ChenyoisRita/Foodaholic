@@ -1,9 +1,12 @@
 package com.jhuoose.foodaholic.ui.events;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -15,9 +18,12 @@ import android.widget.Toast;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.jhuoose.foodaholic.model.Event;
+import com.jhuoose.foodaholic.model.Food;
 import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import androidx.annotation.Nullable;
@@ -25,12 +31,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 public class AddEventActivity extends AppCompatActivity {
-    Button cancel_btn,publish_Event_btn;
-    TextView start_Time_tv, end_Time_tv,event_Date_tv;
-    EditText event_Title_et, event_location_et, event_notes_et;
-    String start_Time, end_Time, event_Date, event_Title, event_Location, event_notes;
+    public static ArrayList<Food> foodList = new ArrayList<>();
+    Button cancelBtn, publishEventBtn, foodListBtn, eventThemeBtn;
+    TextView startTimeTv, endTimeTv, eventDateTv;
+    EditText eventTitleEt, eventLocationEt, eventNotesEt;
+    String startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes;
+    String selectedEventTheme;
     Event event;
     int currentYear,currentMonth, currentDay;
+    private AlertDialog eventThemeDialog;
     private FirebaseDatabase database;
 
     @Override
@@ -41,16 +50,18 @@ public class AddEventActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
-        event_Title_et = findViewById(R.id.event_title);
-        event_location_et = findViewById(R.id.event_location);
-        event_notes_et = findViewById(R.id.event_note);
-        start_Time_tv = findViewById(R.id.start_time);
-        end_Time_tv = findViewById(R.id.end_time);
-        event_Date_tv = findViewById(R.id.event_date);
-        cancel_btn = findViewById(R.id.btn_event_cancle);
-        publish_Event_btn = findViewById(R.id.btn_event_publish);
+        eventTitleEt = findViewById(R.id.event_title);
+        eventLocationEt = findViewById(R.id.event_location);
+        eventNotesEt = findViewById(R.id.event_note);
+        startTimeTv = findViewById(R.id.start_time);
+        endTimeTv = findViewById(R.id.end_time);
+        eventDateTv = findViewById(R.id.event_date);
+        cancelBtn = findViewById(R.id.btn_event_cancle);
+        publishEventBtn = findViewById(R.id.btn_event_publish);
+        foodListBtn = findViewById(R.id.btn_food_list);
+        eventThemeBtn = findViewById(R.id.btn_event_theme);
 
-        start_Time_tv.setOnClickListener(new View.OnClickListener() {
+        startTimeTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment set_StartTime_Frag = new StartTimePickerDialog();
@@ -58,7 +69,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        end_Time_tv.setOnClickListener(new View.OnClickListener() {
+        endTimeTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment set_EndTime_Frag = new EndTimePickerDialog();
@@ -66,7 +77,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        event_Date_tv.setOnClickListener(new View.OnClickListener() {
+        eventDateTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Get Current Date
@@ -78,7 +89,7 @@ public class AddEventActivity extends AppCompatActivity {
                 DatePickerDialog dataPickerDialog = new DatePickerDialog(AddEventActivity.this, new DatePickerDialog.OnDateSetListener(){
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                        event_Date_tv.setText((monthOfYear+1)+"/"+dayOfMonth+"/"+year);
+                        eventDateTv.setText((monthOfYear+1)+"/"+dayOfMonth+"/"+year);
                     }
                 }, currentYear,currentMonth,currentDay);
 
@@ -87,7 +98,69 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        publish_Event_btn.setOnClickListener(new View.OnClickListener() {
+        foodListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AddEventActivity.this, SetFoodListActivity.class));
+            }
+        });
+
+        eventThemeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(AddEventActivity.this);
+                builder.setTitle("Set the theme of this event");
+                final String[] themeList = new String[]{
+                        "Birthday Party",
+                        "Seminar",
+                        "Retirement Party",
+                        "Bachelor Party",
+                        "Ice Breaking Party"
+                };
+
+                int checkedItem = -2;
+                if (selectedEventTheme==null||selectedEventTheme.equals("")){
+                    checkedItem = -1;
+                }else{
+                    for (int i=0;i<themeList.length;i++){
+                        if (themeList[i].equals(selectedEventTheme)){
+                            checkedItem = i;
+                            break;
+                        }else{
+                            checkedItem = -1;
+                        }
+                    }
+                }
+
+                builder.setSingleChoiceItems(themeList, checkedItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Get the text of the selected item in this Alert Dialog
+                        selectedEventTheme = Arrays.asList(themeList).get(i);
+                    }
+                });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        eventThemeDialog.dismiss();
+                        Toast.makeText(AddEventActivity.this, "Theme: "+selectedEventTheme, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        eventThemeDialog.dismiss();
+                    }
+                });
+
+                eventThemeDialog = builder.create();
+                eventThemeDialog.show();
+            }
+        });
+
+        publishEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
               if (generateEvent()){
@@ -99,7 +172,7 @@ public class AddEventActivity extends AppCompatActivity {
         });
 
 
-        cancel_btn.setOnClickListener(new View.OnClickListener() {
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AddEventActivity.this, MainActivity.class));
@@ -118,34 +191,34 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     public Boolean generateEvent(){
-        start_Time = getText(start_Time_tv);
-        end_Time = getText(end_Time_tv);
-        event_Date = getText(event_Date_tv);
-        event_Title = getText(event_Title_et);
-        event_Location = getText(event_location_et);
-        event_notes = getText(event_notes_et);
+        startTime = getText(startTimeTv);
+        endTime = getText(endTimeTv);
+        eventDate = getText(eventDateTv);
+        eventTitle = getText(eventTitleEt);
+        eventLocation = getText(eventLocationEt);
+        eventNotes = getText(eventNotesEt);
         final Calendar calendar = Calendar.getInstance();
         int nowYear = calendar.get(Calendar.YEAR);
         int nowMonth = calendar.get(Calendar.MONTH);
         nowMonth = nowMonth+1;
         int nowDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        if (start_Time.equals("Please choose time")|| end_Time.equals("Please choose time") || event_Date.equals("Please choose the date of Event")
-                || event_Title == null || event_Location == null || event_notes == null){
+        if (startTime.equals("Please choose time")|| endTime.equals("Please choose time") || eventDate.equals("Please choose the date of Event")
+                || eventTitle == null || eventLocation == null || eventNotes == null){
             Toast.makeText(getApplicationContext(),"Info cannot be null",Toast.LENGTH_LONG).show();
             return false;
         }
 
-        String[] strarray = event_Date.split("\\/");
+        String[] strarray = eventDate.split("\\/");
         int getMonth = Integer.parseInt(strarray[0]);
         int getDay = Integer.parseInt(strarray[1]);
         int getYear = Integer.parseInt(strarray[2]);
 
-        String[] strarray_start = start_Time.split("\\:");
+        String[] strarray_start = startTime.split("\\:");
         int getHour_st = Integer.parseInt(strarray_start[0]);
         int getMinute_st = Integer.parseInt(strarray_start[1]);
 
-        String[] strarray_end = end_Time.split("\\:");
+        String[] strarray_end = endTime.split("\\:");
         int getHour_end = Integer.parseInt(strarray_end[0]);
         int getMinute_end = Integer.parseInt(strarray_end[1]);
 
@@ -175,7 +248,17 @@ public class AddEventActivity extends AppCompatActivity {
             }
         }
 
-        event = new Event(start_Time, end_Time, event_Date, event_Title, event_Location, event_notes);
+        if (selectedEventTheme==null||selectedEventTheme.equals("")){
+            Toast.makeText(getApplicationContext(), "Please set theme", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (foodList.size()==0){
+            Toast.makeText(getApplicationContext(), "Please set food", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, foodList);
         return true;
 }
 
