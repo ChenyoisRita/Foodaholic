@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,15 +19,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.adapter.EventAdapter;
 import com.jhuoose.foodaholic.model.Event;
-import com.jhuoose.foodaholic.ui.MainActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class EventsFragment extends Fragment {
@@ -85,6 +81,15 @@ public class EventsFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                intent.putExtra("eid", eventList.get(position).getEid());
+                startActivity(intent);
             }
         });
 

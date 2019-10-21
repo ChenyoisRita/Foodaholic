@@ -3,7 +3,6 @@ package com.jhuoose.foodaholic.ui.events;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.jhuoose.foodaholic.R;
-import com.jhuoose.foodaholic.model.Food;
+import com.jhuoose.foodaholic.model.Activity;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class SetFoodListActivity extends AppCompatActivity {
     EditText foodNameEt;
     String foodName;
     LinearLayout foodListLayout;
-    ArrayList<Food> foodList = AddEventActivity.foodList;
+    ArrayList<Activity> activityList = AddEventActivity.activityList;
     private AlertDialog deleteFoodDialog;
 
     @Override
@@ -34,10 +33,10 @@ public class SetFoodListActivity extends AppCompatActivity {
         foodNameEt = findViewById(R.id.et_food_name);
         foodListLayout = findViewById(R.id.foodList_Layout);
 
-        for (int i=0;i<foodList.size();i++) {
+        for (int i = 0; i< activityList.size(); i++) {
             Button existedFood = new Button(this);
             existedFood.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            existedFood.setText(foodList.get(i).getFoodName());
+            existedFood.setText(activityList.get(i).getTitle());
             existedFood.setId(i+1);
             foodListLayout.addView(existedFood);
         }
@@ -50,8 +49,8 @@ public class SetFoodListActivity extends AppCompatActivity {
                     Toast.makeText(SetFoodListActivity.this,"Invalid foodName",Toast.LENGTH_SHORT).show();
                     return;
                 }else {
-                    for (int num=0;num<foodList.size();num++){
-                        if (foodList.get(num).getFoodName().equals(foodName)){
+                    for (int num = 0; num< activityList.size(); num++){
+                        if (activityList.get(num).getTitle().equals(foodName)){
                             Toast.makeText(SetFoodListActivity.this,"Do not add the same food",Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -61,7 +60,7 @@ public class SetFoodListActivity extends AppCompatActivity {
                 final Button newFood = new Button(SetFoodListActivity.this);
                 newFood.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 newFood.setText(foodName);
-                newFood.setId(foodList.size()+1);
+                newFood.setId(activityList.size()+1);
 
                 newFood.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -78,9 +77,9 @@ public class SetFoodListActivity extends AppCompatActivity {
                         builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                for (int j=0;j<foodList.size();j++){
-                                    if (foodList.get(j).getFoodName().equals(foodName)){
-                                        foodList.remove(j);
+                                for (int j = 0; j< activityList.size(); j++){
+                                    if (activityList.get(j).getTitle().equals(foodName)){
+                                        activityList.remove(j);
                                         break;
                                     }
                                 }
@@ -95,7 +94,7 @@ public class SetFoodListActivity extends AppCompatActivity {
                     }
                 });
 
-                foodList.add(new Food(foodName));
+                activityList.add(new Activity(foodName));
                 foodListLayout.addView(newFood);
                 foodNameEt.setText("");
             }

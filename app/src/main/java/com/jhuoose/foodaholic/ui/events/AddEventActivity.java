@@ -15,11 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
 import com.jhuoose.foodaholic.controller.EventController;
 import com.jhuoose.foodaholic.model.Event;
-import com.jhuoose.foodaholic.model.Food;
+import com.jhuoose.foodaholic.model.Activity;
 import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.R;
 
@@ -34,7 +32,7 @@ import androidx.fragment.app.DialogFragment;
 //Todo: before Publish a new event, we should send an invitation email to all the attendees.
 //Todo: This EMail should contain the event's number so that they can search this event and join it.
 public class AddEventActivity extends AppCompatActivity {
-    public static ArrayList<Food> foodList = new ArrayList<>();
+    public static ArrayList<Activity> activityList = new ArrayList<>();
     ArrayList<String> attendeeList = new ArrayList<>();
 
     Button cancelBtn, publishEventBtn, foodListBtn, eventThemeBtn, addAttendeeBtn;
@@ -312,12 +310,12 @@ public class AddEventActivity extends AppCompatActivity {
             return false;
         }
 
-        if (foodList.size()==0){
+        if (activityList.size()==0){
             Toast.makeText(getApplicationContext(), "Please set food", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-//        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, foodList, attendeeList);
+//        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, activityList, attendeeList);
         event = new Event();
         event.setTitle(eventTitle);
         event.setLocation(eventLocation);
@@ -325,7 +323,7 @@ public class AddEventActivity extends AppCompatActivity {
         event.setEndTime(endTime);
         event.setDate(eventDate);
         event.setTheme(selectedEventTheme);
-        event.setActivityList(foodList);
+        event.setActivityList(activityList);
         event.setParticipantList(attendeeList);
 
         return true;

@@ -1,6 +1,5 @@
 package com.jhuoose.foodaholic.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
@@ -13,9 +12,9 @@ public class Event {
     private String theme;
     private String organizerUid; //Organizer UID
     private List<String> participantList;
-    private List<Food> activityList;
+    private List<Activity> activityList;
 //    public String start_Time, end_Time, event_Date, event_Title, event_Location, event_notes, selectedEventTheme;
-//    public ArrayList<Food> foodArrayList;
+//    public ArrayList<Activity> foodArrayList;
 //    public ArrayList<String> attendeeList;
 
     public Event() {
@@ -102,11 +101,11 @@ public class Event {
         this.participantList = participantList;
     }
 
-    public List<Food> getActivityList() {
+    public List<Activity> getActivityList() {
         return activityList;
     }
 
-    public void setActivityList(List<Food> activityList) {
+    public void setActivityList(List<Activity> activityList) {
         this.activityList = activityList;
     }
 }

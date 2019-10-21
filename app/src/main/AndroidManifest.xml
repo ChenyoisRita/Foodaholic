@@ -24,6 +24,11 @@
         <activity android:name=".ui.events.AddEventActivity"/>
         <activity android:name=".ui.events.SetFoodListActivity"/>
         <activity
+            android:name=".ui.events.EventDetailActivity"
+            android:label="Event Details"
+            android:parentActivityName=".ui.MainActivity">
+        </activity>
+        <activity
             android:name=".ui.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
