@@ -10,9 +10,6 @@ public class Food {
         this.foodName = foodName;
     }
 
-    public Food() {
-    }
-
     public String getFoodName() {
         return foodName;
     }

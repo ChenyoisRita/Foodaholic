@@ -30,15 +30,15 @@ public class NotificationController {
 
     public Notification GetNotificationFromEvent(Event event) {
         Notification tmp_notification = new Notification();
-        tmp_notification.setStartTime(event.getStart_Time());
-        tmp_notification.setEventTitle(event.getEvent_Title());
-        tmp_notification.setLocation(event.getEvent_Location());
+        tmp_notification.setStartTime(event.getStartTime());
+        tmp_notification.setEventTitle(event.getTitle());
+        tmp_notification.setLocation(event.getLocation());
         return tmp_notification;
     }
 
-    public Notification getDataFromFirebase(String eventTitle){
+    public Notification getDataFromFirebase(String eid){
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference myRef = rootRef.child("Events").child(eventTitle);
+        DatabaseReference myRef = rootRef.child("Events").child(eid);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -46,8 +46,8 @@ public class NotificationController {
                 Event tmp_event = dataSnapshot.getValue(Event.class);
                 public_event = tmp_event;
                 //Log.d("Start Time: ", dataSnapshot.child("start_Time").getValue(String.class));
-                Log.d("Start Time: ", tmp_event.getStart_Time());
-                Log.d("Start Time: ", public_event.getStart_Time());
+                Log.d("Start Time: ", tmp_event.getStartTime());
+                Log.d("Start Time: ", public_event.getStartTime());
 
             }
 
