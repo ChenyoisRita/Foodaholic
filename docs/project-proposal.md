@@ -28,8 +28,8 @@ We’re working in a domain that is well understood by a broader audience
 We are building a a mobile app.
 - Frontend: Android
 - Backend: Java
-- Database: SQLite
-- API: Google Maps, Google Calender, Gmail, Paypal
+- Database: Firebase
+- API: Google Maps, Google Calender, Gmail
 - Tools: tools in Toolbox, Android Studio.
 
 ## Features
@@ -49,7 +49,6 @@ We are building a a mobile app.
 	- Add activity proposals
 	- Vote or boo other's proposals
 	- Chat
-	- Pay the bill
 
 ## Wireframes
 **Events Page**
