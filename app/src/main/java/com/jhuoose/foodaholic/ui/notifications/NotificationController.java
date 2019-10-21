@@ -34,9 +34,10 @@ public class NotificationController {
 
     public Notification GetNotificationFromEvent(Event event) {
         Notification tmp_notification = new Notification();
-        tmp_notification.setStartTime(event.getStart_Time());
-        tmp_notification.setEventTitle(event.getEvent_Title());
-        tmp_notification.setLocation(event.getEvent_Location());
+        tmp_notification.setStartTime(event.getStartTime());
+        tmp_notification.setDate(event.getDate());
+        tmp_notification.setEventTitle(event.getTitle());
+        tmp_notification.setLocation(event.getLocation());
         return tmp_notification;
     }
 
@@ -47,17 +48,19 @@ public class NotificationController {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get user information
-                Log.d("Start Time: ", dataSnapshot.child("").getValue(Event.class).getEvent_Title());
+                //Log.d("Start Time: ", dataSnapshot.child("15da22d").getValue(Event.class).getTitle());
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Event tmp_event = child.getValue(Event.class);
-                    if(tmp_event.getEvent_Date().substring(1,3) == "10" ) {
+                    if(tmp_event.getDate().substring(0,5).equals("10/23") ) {
                         list_public_event.add(child.getValue(Event.class));
                     }
-                    Log.d("Start Time: ", child.getValue(Event.class).getEvent_Title());
+                    Log.d("Start Time: ", tmp_event.getDate().substring(0,5));
+                    Log.d("Start Time: ", child.getValue(Event.class).getTitle());
                 }
                 //Event tmp_event = dataSnapshot.getValue(Event.class);
+                Log.d("Start Time: ", list_public_event.toString());
                 public_event = list_public_event.get(0);
-                Log.d("Start Time: ", public_event.getEvent_Date());
+                Log.d("Start Time: ", public_event.getDate());
 
             }
 

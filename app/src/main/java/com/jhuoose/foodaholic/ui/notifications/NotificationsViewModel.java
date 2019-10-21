@@ -35,6 +35,7 @@ public class NotificationsViewModel extends ViewModel {
         Notification notification = notificationController.getDataFromFirebase(eid);
         MutableLiveData<String> retText = new MutableLiveData<>();
         retText.setValue("An event is approaching.\nEvent Title is " + notification.getEventTitle()
+                            + "\nDate is: " + notification.getDate()
                             + "\nStart Time is: " + notification.getStartTime()
                             +  "\nLocation is:" + notification.getLocation());
         return retText;
