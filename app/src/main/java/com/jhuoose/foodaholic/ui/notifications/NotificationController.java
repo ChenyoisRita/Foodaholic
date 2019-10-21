@@ -20,34 +20,44 @@ import static android.content.ContentValues.TAG;
 
 public class NotificationController {
     static public Event public_event = new Event();
+    static public List<Event> list_public_event = new ArrayList<>();
     private FirebaseDatabase database;
     public final Object lock = new Object();
 
     public NotificationController() {
         //this.database = database;.
+        //public_event.setEvent_Location("Home");
+        //public_event.setStart_Time("");
+        //public_event.setEvent_Title("Mou Test");
 
     }
 
     public Notification GetNotificationFromEvent(Event event) {
         Notification tmp_notification = new Notification();
-        tmp_notification.setStartTime(event.getStartTime());
-        tmp_notification.setEventTitle(event.getTitle());
-        tmp_notification.setLocation(event.getLocation());
+        tmp_notification.setStartTime(event.getStart_Time());
+        tmp_notification.setEventTitle(event.getEvent_Title());
+        tmp_notification.setLocation(event.getEvent_Location());
         return tmp_notification;
     }
 
-    public Notification getDataFromFirebase(String eid){
+    public Notification getDataFromFirebase(String eventTitle){
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference myRef = rootRef.child("Events").child(eid);
+        DatabaseReference myRef = rootRef.child("Events");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get user information
-                Event tmp_event = dataSnapshot.getValue(Event.class);
-                public_event = tmp_event;
-                //Log.d("Start Time: ", dataSnapshot.child("start_Time").getValue(String.class));
-                Log.d("Start Time: ", tmp_event.getStartTime());
-                Log.d("Start Time: ", public_event.getStartTime());
+                Log.d("Start Time: ", dataSnapshot.child("").getValue(Event.class).getEvent_Title());
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    Event tmp_event = child.getValue(Event.class);
+                    if(tmp_event.getEvent_Date().substring(1,3) == "10" ) {
+                        list_public_event.add(child.getValue(Event.class));
+                    }
+                    Log.d("Start Time: ", child.getValue(Event.class).getEvent_Title());
+                }
+                //Event tmp_event = dataSnapshot.getValue(Event.class);
+                public_event = list_public_event.get(0);
+                Log.d("Start Time: ", public_event.getEvent_Date());
 
             }
 
@@ -56,9 +66,6 @@ public class NotificationController {
 
             }
         });
-        //event.setEvent_Location("Home");
-        //event.setStart_Time(startTime);
-        //event.setEvent_Title("Mou Test");
         Event event;
         event = public_event;
         Notification notification = GetNotificationFromEvent(event);
