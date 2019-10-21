@@ -1,8 +1,10 @@
 package com.jhuoose.foodaholic.model;
 
 public class Food {
-    String foodName;
-    int votes;
+    String foodName = null;
+    int votes = 0;
+
+    public Food() {}
 
     public Food(String foodName) {
         this.foodName = foodName;

@@ -296,7 +296,7 @@
         android:layout_gravity="bottom">
 
         <Button
-            android:id="@+id/btn_event_cancle"
+            android:id="@+id/btn_event_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

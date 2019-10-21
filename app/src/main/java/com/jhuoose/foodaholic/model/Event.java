@@ -1,85 +1,112 @@
 package com.jhuoose.foodaholic.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Event {
-    public String start_Time, end_Time, event_Date, event_Title, event_Location, event_notes, selectedEventTheme;
-    public ArrayList<Food> foodArrayList;
-    public ArrayList<String> attendeeList;
+    private String eid;
+    private String title;
+    private String description;
+    private String location;
+    private String startTime, endTime;
+    private String date;
+    private String theme;
+    private String organizerUid; //Organizer UID
+    private List<String> participantList;
+    private List<Food> activityList;
+//    public String start_Time, end_Time, event_Date, event_Title, event_Location, event_notes, selectedEventTheme;
+//    public ArrayList<Food> foodArrayList;
+//    public ArrayList<String> attendeeList;
 
     public Event() {
         // Default constructor required for calls to DataSnapshot.getValue(Event.class)
     }
 
-    public Event(String start_Time, String end_Time, String event_Date, String event_Title,
-                 String event_Location, String event_notes, String selectedEventTheme,
-                 ArrayList<Food> foodArrayList, ArrayList<String> attendeeList) {
-        this.start_Time = start_Time;
-        this.end_Time = end_Time;
-        this.event_Date = event_Date;
-        this.event_Title = event_Title;
-        this.event_Location = event_Location;
-        this.event_notes = event_notes;
-        this.selectedEventTheme = selectedEventTheme;
-        this.foodArrayList = foodArrayList;
-        this.attendeeList = attendeeList;
+    public String getEid() {
+        return eid;
     }
 
-    public void setStart_Time(String start_Time) {
-        this.start_Time = start_Time;
+    public void setEid(String eid) {
+        this.eid = eid;
     }
 
-    public void setEnd_Time(String end_Time) {
-        this.end_Time = end_Time;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEvent_Date(String event_Date) {
-        this.event_Date = event_Date;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setEvent_Title(String event_Title) {
-        this.event_Title = event_Title;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEvent_Location(String event_Location) {
-        this.event_Location = event_Location;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setEvent_notes(String event_notes) {
-        this.event_notes = event_notes;
+    public String getLocation() {
+        return location;
     }
 
-    public String getStart_Time() {
-        return start_Time;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getEnd_Time() {
-        return end_Time;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public String getEvent_Date() {
-        return event_Date;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getEvent_Title() {
-        return event_Title;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public String getEvent_Location() {
-        return event_Location;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
-    public String getEvent_notes() {
-        return event_notes;
+    public String getDate() {
+        return date;
     }
 
-
-    public ArrayList<Food> getFoodArrayList() {
-        return foodArrayList;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setFoodArrayList(ArrayList<Food> foodArrayList) {
-        this.foodArrayList = foodArrayList;
+    public String getTheme() {
+        return theme;
     }
 
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getOrganizerUid() {
+        return organizerUid;
+    }
+
+    public void setOrganizerUid(String organizerUid) {
+        this.organizerUid = organizerUid;
+    }
+
+    public List<String> getParticipantList() {
+        return participantList;
+    }
+
+    public void setParticipantList(List<String> participantList) {
+        this.participantList = participantList;
+    }
+
+    public List<Food> getActivityList() {
+        return activityList;
+    }
+
+    public void setActivityList(List<Food> activityList) {
+        this.activityList = activityList;
+    }
 }

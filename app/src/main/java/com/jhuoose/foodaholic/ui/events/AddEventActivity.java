@@ -5,21 +5,19 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
+import com.jhuoose.foodaholic.controller.EventController;
 import com.jhuoose.foodaholic.model.Event;
 import com.jhuoose.foodaholic.model.Food;
 import com.jhuoose.foodaholic.ui.MainActivity;
@@ -44,12 +42,13 @@ public class AddEventActivity extends AppCompatActivity {
     EditText eventTitleEt, eventLocationEt, eventNotesEt, attendeeEt;
     String startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes;
     String selectedEventTheme, newAttendeeEmail;
-    Event event;
     LinearLayout attendeeListLayout;
     // ListView attendeeListLayout;
     int currentYear,currentMonth, currentDay;
     private AlertDialog eventThemeDialog, deleteAttendeeDialog;
-    private FirebaseDatabase database;
+
+    Event event;
+    EventController eventController;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,15 +56,13 @@ public class AddEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_event);
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
 
-        database = FirebaseDatabase.getInstance();
-
         eventTitleEt = findViewById(R.id.event_title);
         eventLocationEt = findViewById(R.id.event_location);
         eventNotesEt = findViewById(R.id.event_note);
         startTimeTv = findViewById(R.id.start_time);
         endTimeTv = findViewById(R.id.end_time);
         eventDateTv = findViewById(R.id.event_date);
-        cancelBtn = findViewById(R.id.btn_event_cancle);
+        cancelBtn = findViewById(R.id.btn_event_cancel);
         publishEventBtn = findViewById(R.id.btn_event_publish);
         foodListBtn = findViewById(R.id.btn_food_list);
         eventThemeBtn = findViewById(R.id.btn_event_theme);
@@ -73,6 +70,8 @@ public class AddEventActivity extends AppCompatActivity {
         addAttendeeBtn = findViewById(R.id.btn_add_attendee);
         //attendeeListLayout = findViewById(R.id.list_attendee_layout);
         attendeeListLayout = findViewById(R.id.list_attendee_layout);
+
+        eventController = EventController.getInstance();
 
         startTimeTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,11 +123,9 @@ public class AddEventActivity extends AppCompatActivity {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddEventActivity.this);
                 builder.setTitle("Set the theme of this event");
                 final String[] themeList = new String[]{
-                        "Birthday Party",
-                        "Seminar",
-                        "Retirement Party",
-                        "Bachelor Party",
-                        "Ice Breaking Party"
+                        "Home Party",
+                        "Picnic",
+                        "Seminar"
                 };
 
                 int checkedItem = -2;
@@ -232,7 +229,11 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
               if (generateEvent()){
-                  storeEventIntoFirebase();
+                  final ProgressDialog pd = new ProgressDialog(AddEventActivity.this);
+                  pd.setMessage("Uploading...");
+                  pd.show();
+                  eventController.createEvent(event);
+                  pd.dismiss();
                   Toast.makeText(AddEventActivity.this, "Publish Successful!", Toast.LENGTH_LONG).show();
                   startActivity(new Intent(AddEventActivity.this, MainActivity.class));
               }
@@ -248,17 +249,7 @@ public class AddEventActivity extends AppCompatActivity {
         });
     }
 
-    public void storeEventIntoFirebase(){
-        final ProgressDialog pd = new ProgressDialog(AddEventActivity.this);
-        pd.setMessage("Uploading...");
-        pd.show();
-        // URL to Firebase user data json
-        DatabaseReference myRef = database.getReference();
-        myRef.child("Events").child(event.getEvent_Title()).setValue(event);
-        pd.dismiss();
-    }
-
-    public Boolean generateEvent(){
+    private Boolean generateEvent(){
         startTime = getText(startTimeTv);
         endTime = getText(endTimeTv);
         eventDate = getText(eventDateTv);
@@ -326,15 +317,25 @@ public class AddEventActivity extends AppCompatActivity {
             return false;
         }
 
-        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, foodList, attendeeList);
-        return true;
-}
+//        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, foodList, attendeeList);
+        event = new Event();
+        event.setTitle(eventTitle);
+        event.setLocation(eventLocation);
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
+        event.setDate(eventDate);
+        event.setTheme(selectedEventTheme);
+        event.setActivityList(foodList);
+        event.setParticipantList(attendeeList);
 
-    public String getText(TextView tv){
+        return true;
+    }
+
+    private String getText(TextView tv){
         return tv.getText().toString();
     }
 
-    public String getText(EditText et){
+    private String getText(EditText et){
         return et.getText().toString();
     }
 

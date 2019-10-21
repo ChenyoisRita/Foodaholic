@@ -9,7 +9,7 @@
         android:id="@+id/navigation_events"
         android:name="com.jhuoose.foodaholic.ui.events.EventsFragment"
         android:label="Events"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_events" />
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -21,7 +21,7 @@
         android:id="@+id/navigation_friends"
         android:name="com.jhuoose.foodaholic.ui.friends.FriendsFragment"
         android:label="Friends"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_friends" />
 
     <fragment
         android:id="@+id/navigation_home"
