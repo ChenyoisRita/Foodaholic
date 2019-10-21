@@ -31,8 +31,8 @@ public class NotificationsViewModel extends ViewModel {
         return retText;
     }
 
-    public LiveData<String> getEventText(){
-        Notification notification= notificationController.getDataFromFirebase();
+    public LiveData<String> getEventText(String eventTitle){
+        Notification notification = notificationController.getDataFromFirebase(eventTitle);
         MutableLiveData<String> retText = new MutableLiveData<>();
         retText.setValue("An event is approaching.\nEvent Title is " + notification.getEventTitle()
                             + "\nStart Time is: " + notification.getStartTime()
