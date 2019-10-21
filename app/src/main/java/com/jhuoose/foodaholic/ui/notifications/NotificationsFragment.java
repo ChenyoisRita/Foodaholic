@@ -28,10 +28,17 @@ public class NotificationsFragment extends Fragment {
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView textView = root.findViewById(R.id.text_notification1);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+        notificationsViewModel.getEventText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+        final TextView textView2 = root.findViewById(R.id.text_notification2);
+        notificationsViewModel.getText().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                textView2.setText(s);
             }
         });
         return root;
