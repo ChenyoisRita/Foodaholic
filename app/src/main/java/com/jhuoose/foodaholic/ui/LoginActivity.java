@@ -21,6 +21,7 @@ import com.jhuoose.foodaholic.R;
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String userEmail;
+    public static int flag=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,8 +71,13 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUiWithUser(currentUser);
+        if (getFlag()==0){
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            updateUiWithUser(currentUser);
+        } else {
+            setFlag(0);
+        }
+
     }
 
     private void updateUiWithUser(FirebaseUser user) {
@@ -85,5 +91,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed() {
         Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 }
