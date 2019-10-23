@@ -25,7 +25,7 @@ We’re working in a domain that is well understood by a broader audience
 
 ## Architecture Overview
 
-We are building a a mobile app.
+We are building a mobile app.
 - Frontend: Android
 - Backend: Java
 - Database: Firebase
