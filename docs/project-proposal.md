@@ -30,7 +30,7 @@ We are building a mobile app.
 - Backend: Java
 - Database: Firebase
 - API: Google Maps, Google Calender, Gmail
-- Tools: tools in Toolbox, Android Studio.
+- Tools: Android Studio.
 
 ## Features
 
