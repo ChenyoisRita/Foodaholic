@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString().trim());
             }
         });
-
+        
         registerButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
