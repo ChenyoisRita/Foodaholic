@@ -4,7 +4,7 @@ A party planner, or a general event planner.
 
 # Elevator Pitch
 
-We are building a mobile app where people can join a party, choose places, coming up with their favorite dishes, vote (or boo) other's ideas, chat with others, and finally split the bill.
+We are building a mobile Android app where people can join an event such as a session, a party and a picnic, choose appropriate places, coming up with their favorite food, vote (or boo) other's choices or ideas, chat with others, and finally split the bill.
 
 # Problem
 
@@ -89,7 +89,7 @@ As a user, I want to join a party of my friends. By viewing Foodaholic, I can br
 
 ## Hardware
 
-We are developing an Android application, so we have the hardware.
+We are developing an Android application, so we don't have the hardware.
 
 ## APIs
 
