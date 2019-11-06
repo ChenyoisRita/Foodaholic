@@ -7,7 +7,7 @@ public class User{
     private String email;
     private String photoURL;
     private String phone;
-    private List<String> friendList;
+    private List<Friend> friendList;
     private List<String> eidlist; //Event ID List;
 
     private static User currentUser;
@@ -47,11 +47,11 @@ public class User{
         this.phone = phone;
     }
 
-    public List<String> getFriendList() {
+    public List<Friend> getFriendList() {
         return friendList;
     }
 
-    public void setFriendList(List<String> friendList) {
+    public void setFriendList(List<Friend> friendList) {
         this.friendList = friendList;
     }
 

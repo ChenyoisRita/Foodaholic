@@ -7,6 +7,7 @@ public class Friend {
     private String email;
     private String photoURL;
     private String phone;
+    private String name;
 
     public String getUid() {
         return uid;
@@ -38,5 +39,13 @@ public class Friend {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

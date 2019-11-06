@@ -7,7 +7,6 @@ public class Notification {
     private String date;
 
     public Notification(){
-
     }
 
     public Notification(String eventTitle, String startTime, String location, String date) {
