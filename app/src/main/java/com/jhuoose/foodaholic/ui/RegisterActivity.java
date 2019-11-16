@@ -13,11 +13,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jhuoose.foodaholic.R;
+import com.jhuoose.foodaholic.api.HerokuAPI;
+import com.jhuoose.foodaholic.api.HerokuService;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
+    private HerokuAPI heroku;
     Button btnRegister,btnCancel;
     EditText emailTxt,password,password_confirm;
 
@@ -26,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
+        heroku = HerokuService.getAPI();
         btnRegister = findViewById(R.id.ConfirmRegister);
         btnCancel = (Button) findViewById(R.id.cancelRegister);
         emailTxt = (EditText) findViewById(R.id.register_email);
@@ -56,19 +65,37 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>(){
-                            @Override
-                            public void onComplete(Task<AuthResult> task) {
-                                Toast.makeText(RegisterActivity.this, "Create User Successful? "+task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                if (!task.isSuccessful()){
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
-                                }else{
-                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                    finish();
-                                }
-                            }
-                        });
+                Call<ResponseBody> call = heroku.createUser(userEmail, userPassword);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (!response.isSuccessful()){
+                            Toast.makeText(RegisterActivity.this, "Authentication failed." + response.errorBody(), Toast.LENGTH_SHORT).show();
+                        }else{
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+
+//                mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
+//                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>(){
+//                            @Override
+//                            public void onComplete(Task<AuthResult> task) {
+//                                Toast.makeText(RegisterActivity.this, "Create User Successful? "+task.isSuccessful(), Toast.LENGTH_SHORT).show();
+//                                if (!task.isSuccessful()){
+//                                    Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+//                                }else{
+//                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+//                                    finish();
+//                                }
+//                            }
+//                        });
 
 
             }
