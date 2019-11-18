@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public void signIn(final String email, String password) {
+//        Log.i("MyLog", "username: "+email+"; pwd "+password);
         Call<ResponseBody> call = heroku.login(email, password);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
