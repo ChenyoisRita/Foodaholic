@@ -5,6 +5,8 @@ public class Notification {
     private String startTime;
     private String location;
     private String date;
+    private String notificationTitle;
+    private String notificationContent;
 
     public Notification(){
     }
@@ -46,5 +48,20 @@ public class Notification {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getNotificationTitle(){
+        return notificationTitle;
+    }
+    public void setNotificationTitle(String notificationTitle){
+        this.notificationTitle = notificationTitle;
+    }
+
+    public String getNotificationContent(){
+        return notificationContent;
+    }
+
+    public void setNotificationContent(String notificationContent){
+        this.notificationContent = notificationContent;
     }
 }

@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".ui.events.AddEventActivity"/>
         <activity android:name=".ui.events.SetFoodListActivity"/>
+        <activity android:name=".ui.notifications.NotificationDetailActivity"/>
         <activity android:name=".ui.friends.FriendDetailActivity"/>
         <activity android:name=".ui.friends.AddFriendActivity"/>
         <activity
