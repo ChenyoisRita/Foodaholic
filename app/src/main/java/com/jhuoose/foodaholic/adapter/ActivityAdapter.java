@@ -17,6 +17,7 @@ public class ActivityAdapter extends BaseAdapter {
     private List<Activity> mData;
     private Context mContext;
     TextView activityTitle;
+    TextView itemPrice;
     Button voteButton;
     TextView activityVote;
     Button booButton;
@@ -41,15 +42,19 @@ public class ActivityAdapter extends BaseAdapter {
         return position;
     }
 
+    //public long getPrice(int position) {return position};
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_activity,parent,false);
+        itemPrice = (TextView) convertView.findViewById(R.id.et_set_price);
         activityTitle = (TextView) convertView.findViewById(R.id.acticity_title);
         voteButton = (Button) convertView.findViewById(R.id.vote_button);
         activityVote = (TextView) convertView.findViewById(R.id.activity_vote);
         booButton = (Button) convertView.findViewById(R.id.boo_button);
         activityTitle.setText(mData.get(position).getTitle());
         activityVote.setText(Integer.toString(mData.get(position).getVotes()));
+        itemPrice.setText(mData.get(position).getPrice());
         voteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
