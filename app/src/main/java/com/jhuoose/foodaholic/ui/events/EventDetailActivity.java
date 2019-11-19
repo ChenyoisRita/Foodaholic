@@ -2,6 +2,7 @@ package com.jhuoose.foodaholic.ui.events;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,9 +29,9 @@ public class EventDetailActivity extends AppCompatActivity {
     private Event event;
     private List<Activity> activityList;
 
-    private TextView eventTitle;
-    private Button addActivityButton;
+    private TextView eventTitle, totalPrice_tv;
     private ListView activityListView;
+    private Button addActivity_btn;
 
     private ActivityAdapter activityAdapter;
 
@@ -41,8 +42,10 @@ public class EventDetailActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
-        eventTitle = (TextView) this.findViewById(R.id.event_view_title);
-        activityListView = (ListView) this.findViewById(R.id.activity_list);
+        eventTitle = this.findViewById(R.id.event_view_title);
+        activityListView = this.findViewById(R.id.activity_list);
+        addActivity_btn = this.findViewById(R.id.add_activity_button);
+        totalPrice_tv = this.findViewById(R.id.totalPrice_tx);
 
         event = new Event();
         activityList = new ArrayList<>();
@@ -65,9 +68,14 @@ public class EventDetailActivity extends AppCompatActivity {
             }
         });
 
-//        Activity testActivity = new Activity("test");
-//        activityList.add(testActivity);
-//        activityAdapter = new ActivityAdapter(activityList, EventDetailActivity.this);
-//        activityListView.setAdapter(activityAdapter);
+        addActivity_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Todo: after clicking this button, You can add an activity to current event.
+            }
+        });
+
+        // Todo: set the total Price for totalPrice_tv.
+        // totalPrice_tv.setText();
     }
 }

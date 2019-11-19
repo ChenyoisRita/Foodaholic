@@ -16,11 +16,6 @@ import java.util.List;
 public class ActivityAdapter extends BaseAdapter {
     private List<Activity> mData;
     private Context mContext;
-    TextView activityTitle;
-    TextView itemPrice;
-    Button voteButton;
-    TextView activityVote;
-    Button booButton;
 
     public ActivityAdapter(List<Activity> mData, Context mContext) {
         this.mData = mData;
@@ -46,37 +41,65 @@ public class ActivityAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_activity,parent,false);
-        itemPrice = (TextView) convertView.findViewById(R.id.et_set_price);
-        activityTitle = (TextView) convertView.findViewById(R.id.acticity_title);
-        voteButton = (Button) convertView.findViewById(R.id.vote_button);
-        activityVote = (TextView) convertView.findViewById(R.id.activity_vote);
-        booButton = (Button) convertView.findViewById(R.id.boo_button);
-        activityTitle.setText(mData.get(position).getTitle());
-        activityVote.setText(Integer.toString(mData.get(position).getVotes()));
-        itemPrice.setText(mData.get(position).getPrice());
-        voteButton.setOnClickListener(new View.OnClickListener(){
+        final ViewHolder holder;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_activity,null,true);
+
+            holder.itemPrice = (TextView) convertView.findViewById(R.id.et_set_price);
+            holder.activityTitle = (TextView) convertView.findViewById(R.id.acticity_title);
+            holder.voteButton = (Button) convertView.findViewById(R.id.vote_button);
+            holder.activityVote = (TextView) convertView.findViewById(R.id.activity_vote);
+            holder.booButton = (Button) convertView.findViewById(R.id.boo_button);
+
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+//        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_activity,parent,false);
+        final Activity currentActivity = mData.get(position);
+
+        holder.activityTitle.setText(currentActivity.getTitle());
+        holder.activityVote.setText(Integer.toString(currentActivity.getVotes()));
+
+        // Todo: this "price" is in String format for displaying properly. It should be changed to Int format.
+        holder.itemPrice.setText(currentActivity.getPrice());
+
+
+        holder.voteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //TODO: Call a method in ActivityController to add vote
 //                mData.get(position).setVotes(mData.get(position).getVotes() + 1);
-                activityVote.setText(Integer.toString(mData.get(position).getVotes() + 1));
-                voteButton.setText("Voted");
-                voteButton.setEnabled(false);
-                booButton.setEnabled(false);
+                currentActivity.setVotes(currentActivity.getVotes()+1);
+                holder.activityVote.setText(Integer.toString(currentActivity.getVotes()));
+                holder.voteButton.setText("Voted");
+                holder.voteButton.setEnabled(false);
+                holder.booButton.setEnabled(false);
+                notifyDataSetChanged();
             }
         });
-        booButton.setOnClickListener(new View.OnClickListener(){
+        holder.booButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 //TODO: Call a method in ActivityController to decrease vote
 //                mData.get(position).setVotes(mData.get(position).getVotes() - 1);
-                activityVote.setText(Integer.toString(mData.get(position).getVotes() - 1));
-                booButton.setText("Booed");
-                voteButton.setEnabled(false);
-                booButton.setEnabled(false);
+                currentActivity.setVotes(currentActivity.getVotes()-1);
+                holder.activityVote.setText(Integer.toString(currentActivity.getVotes()));
+                holder.booButton.setText("Booed");
+                holder.voteButton.setEnabled(false);
+                holder.booButton.setEnabled(false);
+                notifyDataSetChanged();
             }
         });
         return convertView;
+    }
+
+    class ViewHolder {
+        TextView activityTitle;
+        TextView itemPrice;
+        Button voteButton;
+        TextView activityVote;
+        Button booButton;
     }
 }

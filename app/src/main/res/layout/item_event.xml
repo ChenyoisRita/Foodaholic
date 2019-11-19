@@ -7,17 +7,27 @@
         android:id="@+id/event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"/>
+        android:hint="Event Name"
+        android:padding="5dp"
+        android:textColor="#000000"
+        android:textSize="19dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/event_time"
+        android:hint="Event Time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:padding="5dp"
         android:textColor="#404040"/>
 
     <TextView
         android:id="@+id/event_place"
+        android:hint="event place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:padding="5dp"
         android:textColor="#404040"/>
 </LinearLayout>
