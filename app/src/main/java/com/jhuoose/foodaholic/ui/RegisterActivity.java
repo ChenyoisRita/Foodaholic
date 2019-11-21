@@ -8,10 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
@@ -24,7 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
-//    private FirebaseAuth mAuth;
     private HerokuAPI heroku;
     Button btnRegister,btnCancel;
     EditText emailTxt,password,password_confirm;
@@ -34,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-//        mAuth = FirebaseAuth.getInstance();
         heroku = HerokuService.getAPI();
         btnRegister = findViewById(R.id.ConfirmRegister);
         btnCancel = (Button) findViewById(R.id.cancelRegister);
@@ -79,25 +73,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        t.printStackTrace();
+                        Toast.makeText(RegisterActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-//                mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-//                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>(){
-//                            @Override
-//                            public void onComplete(Task<AuthResult> task) {
-//                                Toast.makeText(RegisterActivity.this, "Create User Successful? "+task.isSuccessful(), Toast.LENGTH_SHORT).show();
-//                                if (!task.isSuccessful()){
-//                                    Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
-//                                }else{
-//                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-//                                    finish();
-//                                }
-//                            }
-//                        });
-
-
             }
         });
 

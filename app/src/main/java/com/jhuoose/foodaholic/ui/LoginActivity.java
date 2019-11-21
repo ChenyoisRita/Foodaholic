@@ -11,11 +11,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
@@ -28,7 +23,6 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private HerokuAPI heroku;
-//    private FirebaseAuth mAuth;
     private String userEmail;
     public static int flag=0;
 
@@ -37,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        mAuth = FirebaseAuth.getInstance();
         heroku = HerokuService.getAPI();
 
         final EditText usernameEditText = findViewById(R.id.username);
@@ -63,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     public void signIn(final String email, String password) {
 //        Log.i("MyLog", "username: "+email+"; pwd "+password);
         Call<ResponseBody> call = heroku.login(email, password);
@@ -81,22 +75,10 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                t.printStackTrace();
+                Toast.makeText(LoginActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-//        mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUiWithUser(user);
-//                        } else {
-//                            showLoginFailed();
-//                        }
-//                    }
-//                });
     }
 
 //    public void onStart() {

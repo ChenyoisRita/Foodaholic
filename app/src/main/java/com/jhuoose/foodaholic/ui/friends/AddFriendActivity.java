@@ -86,8 +86,8 @@ public class AddFriendActivity extends AppCompatActivity {
 
     public Friend getFriend(String email){
         /** Todo: Fetch user by the email from Server's database.
-         *  Todo: If this user exists, the server should return it in the Friend format.
-         *  Todo: If that user does not exist, return null.
+         *   If this user exists, the server should return it in the Friend format.
+         *   If that user does not exist, return null.
         */
         return null;
     }
