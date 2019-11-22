@@ -53,7 +53,7 @@ public interface HerokuAPI {
 
     @FormUrlEncoded
     @PUT("users/current/profile")
-    Call<UserProfile> getCurrentUserProfile(@FieldMap Map<String, Object> map);
+    Call<UserProfile> updateCurrentUserProfile(@FieldMap Map<String, Object> map);
 
 
     @POST("events")
