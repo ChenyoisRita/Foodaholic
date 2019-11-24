@@ -26,6 +26,7 @@
         <activity android:name=".ui.notifications.NotificationDetailActivity"/>
         <activity android:name=".ui.friends.FriendDetailActivity"/>
         <activity android:name=".ui.friends.AddFriendActivity"/>
+        <activity android:name=".ui.home.EditProfileActivity"/>
         <activity
             android:name=".ui.events.EventDetailActivity"
             android:label="Event Details"
