@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
+import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.viewmodel.UserProfile;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class EditProfileActivity extends AppCompatActivity {
     ImageView profilePic;
     EditText userName, userPhone;
     Button confirmBtn,cancelBtn;
-    UserProfile profile = new UserProfile();
+    UserProfile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(EditProfileActivity.this, "Update Profile Successfully", Toast.LENGTH_SHORT).show();
+                                MainActivity.setCurrentUserProfile(profile);
                                 finish();
                             } else {
                                 Toast.makeText(EditProfileActivity.this, "Response Error: "+response.code(), Toast.LENGTH_SHORT).show();
@@ -78,7 +80,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void initializeFields() {
 //      Todo: update User profile image
-        profile = HomeFragment.currentUserProfile;
+        profile = MainActivity.getCurrentUserProfile();
         userName.setText(profile.getUserName());
         userPhone.setText(profile.getPhone());
     }
