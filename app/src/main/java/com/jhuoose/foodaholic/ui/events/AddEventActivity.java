@@ -262,7 +262,7 @@ public class AddEventActivity extends AppCompatActivity {
                               Toast.makeText(AddEventActivity.this, "Add event failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
                           }
                           else{
-                              startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
+//                              startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
                               finish();
                           }
 
