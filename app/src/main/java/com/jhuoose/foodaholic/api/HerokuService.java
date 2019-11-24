@@ -1,6 +1,7 @@
 package com.jhuoose.foodaholic.api;
 
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HerokuService {
     private static final HerokuService ourInstance = new HerokuService();
@@ -19,6 +20,7 @@ public class HerokuService {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://foodaholic-server.herokuapp.com/")
 //                .baseUrl("http://10.0.2.2:4000/") // for local test on android virtual machine
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         this.api = retrofit.create(HerokuAPI.class);
