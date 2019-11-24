@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jhuoose.foodaholic.api.HerokuAPI;
+import java.util.Map;
+import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.controller.EventController;
 import com.jhuoose.foodaholic.model.Event;
 import com.jhuoose.foodaholic.model.Activity;
@@ -24,16 +27,25 @@ import com.jhuoose.foodaholic.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 //Todo: before Publish a new event, we should send an invitation email to all the attendees.
 //Todo: This EMail should contain the event's number so that they can search this event and join it.
 public class AddEventActivity extends AppCompatActivity {
+    private HerokuAPI heroku;
     public static ArrayList<Activity> activityList = new ArrayList<>();
     ArrayList<String> attendeeList = new ArrayList<>();
+
 
     Button cancelBtn, publishEventBtn, foodListBtn, eventThemeBtn, addAttendeeBtn;
     TextView startTimeTv, endTimeTv, eventDateTv;
@@ -48,12 +60,14 @@ public class AddEventActivity extends AppCompatActivity {
     Event event;
     EventController eventController;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         AlphaAnimation fadein = new AlphaAnimation(0.0f,1.0f);
 
+        heroku = HerokuService.getAPI();
         eventTitleEt = findViewById(R.id.event_title);
         eventLocationEt = findViewById(R.id.event_location);
         eventNotesEt = findViewById(R.id.event_note);
@@ -186,7 +200,7 @@ public class AddEventActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(AddEventActivity.this);
-                        builder.setTitle("Delte "+newAttendee.getText().toString().trim()+" ?");
+                        builder.setTitle("Delete "+newAttendee.getText().toString().trim()+" ?");
                         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -224,16 +238,43 @@ public class AddEventActivity extends AppCompatActivity {
         });
 
         publishEventBtn.setOnClickListener(new View.OnClickListener() {
+
+            Map<String, Object> map = new HashMap<>();
+
             @Override
             public void onClick(View view) {
               if (generateEvent()){
                   final ProgressDialog pd = new ProgressDialog(AddEventActivity.this);
                   pd.setMessage("Uploading...");
                   pd.show();
-                  eventController.createEvent(event);
+//                  eventController.createEvent(event);
+
                   pd.dismiss();
                   Toast.makeText(AddEventActivity.this, "Publish Successful!", Toast.LENGTH_LONG).show();
                   startActivity(new Intent(AddEventActivity.this, MainActivity.class));
+                  map.put(eventTitle, event);
+                  Call<ResponseBody> call = heroku.createEvent(map);
+
+                  call.enqueue(new Callback<ResponseBody>() {
+                      @Override
+                      public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                          if(!response.isSuccessful()){
+                              Toast.makeText(AddEventActivity.this, "Add event failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
+                          }
+                          else{
+                              startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
+                              finish();
+                          }
+
+
+                      }
+
+                      @Override
+                      public void onFailure(Call<ResponseBody> call, Throwable t) {
+                          t.printStackTrace();
+                          Toast.makeText(AddEventActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
+                      }
+                  });
               }
             }
         });

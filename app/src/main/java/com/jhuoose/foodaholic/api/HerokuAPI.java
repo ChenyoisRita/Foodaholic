@@ -55,7 +55,7 @@ public interface HerokuAPI {
     @PUT("users/current/profile")
     Call<UserProfile> getCurrentUserProfile(@FieldMap Map<String, Object> map);
 
-
+    @FormUrlEncoded
     @POST("events")
     Call<ResponseBody> createEvent(@FieldMap Map<String, Object> map);
 
