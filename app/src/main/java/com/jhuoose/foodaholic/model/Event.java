@@ -1,8 +1,9 @@
 package com.jhuoose.foodaholic.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Event {
+public class Event implements Serializable {
     private String eid;
     private String title;
     private String description;

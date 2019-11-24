@@ -14,6 +14,10 @@ public class Activity {
     public Activity() {
     }
 
+    public Activity(String activityName) {
+        this.activityName = activityName;
+    }
+
     public int getId() {
         return id;
     }

@@ -4,6 +4,8 @@ public class Activity {
     String title = null;
     int votes = 0;
     String price = null;
+    String category = null;
+  //  String name = null;
 
     public Activity() {}
 
@@ -30,4 +32,14 @@ public class Activity {
     public String getPrice() { return price;}
 
     public void setPrice(String price) {this.price = price;}
+
+    public String getCategory() {return category;}
+
+    public void serCategory(String category) {this.category = category;}
+
+  //  public String getName () {return name;}
+
+   // public void setName (String name) {this.name = name;}
+
+
 }

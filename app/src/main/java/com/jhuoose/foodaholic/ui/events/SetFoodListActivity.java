@@ -10,7 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.jhuoose.foodaholic.R;
-import com.jhuoose.foodaholic.model.Activity;
+import com.jhuoose.foodaholic.viewmodel.Activity;
+import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class SetFoodListActivity extends AppCompatActivity {
     EditText foodNameEt;
     String foodName;
     LinearLayout foodListLayout;
-    ArrayList<Activity> activityList = AddEventActivity.activityList;
+    ArrayList<ActivityProfile> activityList = AddEventActivity.activityList;
     private AlertDialog deleteFoodDialog;
 
     @Override
@@ -36,7 +37,7 @@ public class SetFoodListActivity extends AppCompatActivity {
         for (int i = 0; i< activityList.size(); i++) {
             Button existedFood = new Button(this);
             existedFood.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            existedFood.setText(activityList.get(i).getTitle());
+            existedFood.setText(activityList.get(i).getActivityName());
             existedFood.setId(i+1);
             foodListLayout.addView(existedFood);
         }
@@ -50,7 +51,7 @@ public class SetFoodListActivity extends AppCompatActivity {
                     return;
                 }else {
                     for (int num = 0; num< activityList.size(); num++){
-                        if (activityList.get(num).getTitle().equals(foodName)){
+                        if (activityList.get(num).getActivityName().equals(foodName)){
                             Toast.makeText(SetFoodListActivity.this,"Do not add the same food",Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -78,7 +79,7 @@ public class SetFoodListActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 for (int j = 0; j< activityList.size(); j++){
-                                    if (activityList.get(j).getTitle().equals(foodName)){
+                                    if (activityList.get(j).getActivityName().equals(foodName)){
                                         activityList.remove(j);
                                         break;
                                     }
@@ -94,7 +95,7 @@ public class SetFoodListActivity extends AppCompatActivity {
                     }
                 });
 
-                activityList.add(new Activity(foodName));
+                activityList.add(new ActivityProfile(foodName));
                 foodListLayout.addView(newFood);
                 foodNameEt.setText("");
             }

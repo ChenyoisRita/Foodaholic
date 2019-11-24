@@ -71,6 +71,7 @@ public interface HerokuAPI {
     @GET("events/{eventId}/activities")
     Call<List<ActivityProfile>> getActivityList(@Path("eventId") int eventId);
 
+    @FormUrlEncoded
     @POST("events/{eventId}/activities")
     Call<ResponseBody> createActivity(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
 

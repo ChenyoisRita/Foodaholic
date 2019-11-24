@@ -11,6 +11,10 @@ public class ActivityProfile {
     public ActivityProfile() {
     }
 
+    public ActivityProfile(String activityName) {
+        this.activityName = activityName;
+    }
+
     public int getId() {
         return id;
     }

@@ -9,15 +9,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jhuoose.foodaholic.R;
-import com.jhuoose.foodaholic.model.Activity;
+import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 public class ActivityAdapter extends BaseAdapter {
-    private List<Activity> mData;
+    private List<ActivityProfile> mData;
     private Context mContext;
 
-    public ActivityAdapter(List<Activity> mData, Context mContext) {
+    public ActivityAdapter(List<ActivityProfile> mData, Context mContext) {
         this.mData = mData;
         this.mContext = mContext;
     }
@@ -57,13 +59,14 @@ public class ActivityAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 //        convertView = LayoutInflater.from(mContext).inflate(R.layout.item_activity,parent,false);
-        final Activity currentActivity = mData.get(position);
+        final ActivityProfile currentActivity = mData.get(position);
 
-        holder.activityTitle.setText(currentActivity.getTitle());
-        holder.activityVote.setText(Integer.toString(currentActivity.getVotes()));
+        holder.activityTitle.setText(currentActivity.getActivityName());
+        holder.activityVote.setText(Integer.toString(currentActivity.getVote()));
 
         // Todo: this "price" is in String format for displaying properly. It should be changed to Int format.
-        holder.itemPrice.setText(currentActivity.getPrice());
+        NumberFormat formatter = new DecimalFormat("0.00");
+        holder.itemPrice.setText(formatter.format(currentActivity.getMoney()));
 
 
         holder.voteButton.setOnClickListener(new View.OnClickListener(){
@@ -71,8 +74,8 @@ public class ActivityAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //TODO: Call a method in ActivityController to add vote
 //                mData.get(position).setVotes(mData.get(position).getVotes() + 1);
-                currentActivity.setVotes(currentActivity.getVotes()+1);
-                holder.activityVote.setText(Integer.toString(currentActivity.getVotes()));
+                currentActivity.setVote(currentActivity.getVote()+1);
+                holder.activityVote.setText(Integer.toString(currentActivity.getVote()));
                 holder.voteButton.setText("Voted");
                 holder.voteButton.setEnabled(false);
                 holder.booButton.setEnabled(false);
@@ -84,8 +87,8 @@ public class ActivityAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //TODO: Call a method in ActivityController to decrease vote
 //                mData.get(position).setVotes(mData.get(position).getVotes() - 1);
-                currentActivity.setVotes(currentActivity.getVotes()-1);
-                holder.activityVote.setText(Integer.toString(currentActivity.getVotes()));
+                currentActivity.setVote(currentActivity.getVote()-1);
+                holder.activityVote.setText(Integer.toString(currentActivity.getVote()));
                 holder.booButton.setText("Booed");
                 holder.voteButton.setEnabled(false);
                 holder.booButton.setEnabled(false);

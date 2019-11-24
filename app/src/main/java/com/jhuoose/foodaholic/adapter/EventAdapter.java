@@ -8,15 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.jhuoose.foodaholic.R;
-import com.jhuoose.foodaholic.model.Event;
+import com.jhuoose.foodaholic.viewmodel.EventProfile;
 
 import java.util.List;
 
 public class EventAdapter extends BaseAdapter {
-    private List<Event> mData;
+    private List<EventProfile> mData;
     private Context mContext;
 
-    public EventAdapter(List<Event> mData, Context mContext) {
+    public EventAdapter(List<EventProfile> mData, Context mContext) {
         this.mData = mData;
         this.mContext = mContext;
     }
@@ -42,9 +42,8 @@ public class EventAdapter extends BaseAdapter {
         TextView eventName = (TextView) convertView.findViewById(R.id.event_name);
         TextView eventTime = (TextView) convertView.findViewById(R.id.event_time);
         TextView eventPlace = (TextView) convertView.findViewById(R.id.event_place);
-        eventName.setText(mData.get(position).getTitle());
-        eventTime.setText(mData.get(position).getDate() + "  "
-                            + mData.get(position).getStartTime() + " - "
+        eventName.setText(mData.get(position).getEventName());
+        eventTime.setText(mData.get(position).getStartTime() + " - "
                             + mData.get(position).getEndTime());
         eventPlace.setText(mData.get(position).getLocation());
         return convertView;

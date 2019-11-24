@@ -19,16 +19,19 @@ import com.jhuoose.foodaholic.api.HerokuAPI;
 import java.util.Map;
 import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.controller.EventController;
-import com.jhuoose.foodaholic.model.Event;
-import com.jhuoose.foodaholic.model.Activity;
+import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
+import com.jhuoose.foodaholic.viewmodel.Event;
+import com.jhuoose.foodaholic.viewmodel.Activity;
 import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.R;
+import com.jhuoose.foodaholic.viewmodel.UserProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,8 +46,8 @@ import retrofit2.Response;
 //Todo: This EMail should contain the event's number so that they can search this event and join it.
 public class AddEventActivity extends AppCompatActivity {
     private HerokuAPI heroku;
-    public static ArrayList<Activity> activityList = new ArrayList<>();
-    ArrayList<String> attendeeList = new ArrayList<>();
+    public static ArrayList<ActivityProfile> activityList = new ArrayList<>();
+    ArrayList<UserProfile> attendeeList = new ArrayList<>();
 
 
     Button cancelBtn, publishEventBtn, foodListBtn, eventThemeBtn, addAttendeeBtn;
@@ -228,7 +231,8 @@ public class AddEventActivity extends AppCompatActivity {
                     }
                 });
 
-                attendeeList.add(newAttendeeEmail);
+//                Todo: judge wheter this email address is valid. if valid, get its user profile and add to the attendeeList.
+//                attendeeList.add(newAttendeeEmail);
                 // newAttendee.setBackgroundColor(Color.GRAY);
                 // Log.i("MyLog", newAttendeeEmail+"; "+newAttendee.getText().toString());
                 attendeeListLayout.addView(newAttendee);
@@ -254,7 +258,6 @@ public class AddEventActivity extends AppCompatActivity {
                   startActivity(new Intent(AddEventActivity.this, MainActivity.class));
                   map.put(eventTitle, event);
                   Call<ResponseBody> call = heroku.createEvent(map);
-
                   call.enqueue(new Callback<ResponseBody>() {
                       @Override
                       public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -262,11 +265,9 @@ public class AddEventActivity extends AppCompatActivity {
                               Toast.makeText(AddEventActivity.this, "Add event failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
                           }
                           else{
-//                              startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
-                              finish();
+  //                         startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
+                            finish();
                           }
-
-
                       }
 
                       @Override
@@ -358,14 +359,17 @@ public class AddEventActivity extends AppCompatActivity {
 
 //        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, activityList, attendeeList);
         event = new Event();
-        event.setTitle(eventTitle);
+        Random r = new Random();
+        event.setId(r.nextInt(10000));
+        event.setEventName(eventTitle);
         event.setLocation(eventLocation);
         event.setStartTime(startTime);
         event.setEndTime(endTime);
-        event.setDate(eventDate);
+//        event.setDate(eventDate);
         event.setTheme(selectedEventTheme);
         event.setActivityList(activityList);
         event.setParticipantList(attendeeList);
+        event.setOrganizer(MainActivity.getCurrentUserProfile());
 
         return true;
     }
