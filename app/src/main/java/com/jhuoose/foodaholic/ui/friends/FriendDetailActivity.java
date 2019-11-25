@@ -15,7 +15,6 @@ public class FriendDetailActivity extends AppCompatActivity {
 
     // friendEmail is used as FriendID.
     String friendEmail, friendName, friendPhone;
-    Friend friend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

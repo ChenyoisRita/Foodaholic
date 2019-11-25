@@ -366,7 +366,6 @@ public class AddEventActivity extends AppCompatActivity {
             return false;
         }
 
-//        event = new Event(startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes, selectedEventTheme, activityList, attendeeList);
         event = new Event();
         Random r = new Random();
         event.setId(r.nextInt(10000));

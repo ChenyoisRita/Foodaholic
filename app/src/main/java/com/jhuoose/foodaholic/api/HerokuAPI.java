@@ -55,6 +55,7 @@ public interface HerokuAPI {
     @PUT("users/current/profile")
     Call<UserProfile> updateCurrentUserProfile(@FieldMap Map<String, Object> map);
 
+
     @FormUrlEncoded
     @POST("events")
     Call<ResponseBody> createEvent(@FieldMap Map<String, Object> map);
@@ -65,6 +66,7 @@ public interface HerokuAPI {
     @DELETE("events/{eventId}")
     Call<ResponseBody> deleteEvent(@Path("eventId") int eventId);
 
+    @FormUrlEncoded
     @PUT("events/{eventId}")
     Call<ResponseBody> updateEvent(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
 
