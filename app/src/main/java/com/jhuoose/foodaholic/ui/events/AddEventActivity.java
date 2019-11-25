@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.jhuoose.foodaholic.viewmodel.Event;
 import com.jhuoose.foodaholic.viewmodel.Activity;
 import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.R;
+import com.jhuoose.foodaholic.viewmodel.EventProfile;
 import com.jhuoose.foodaholic.viewmodel.UserProfile;
 
 import java.util.ArrayList;
@@ -260,6 +262,11 @@ public class AddEventActivity extends AppCompatActivity {
                               Toast.makeText(AddEventActivity.this, "Add event failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
                           }
                           else{
+                              EventProfile eProfile = new EventProfile();
+                              getEventProfileFromEvent(eProfile);
+                              Log.i("EventNumBug", "before publish num: "+EventsFragment.getParticipantingEventProfileList().size());
+                              EventsFragment.getParticipantingEventProfileList().add(eProfile);
+                              Log.i("EventNumBug", "after publish num: "+EventsFragment.getParticipantingEventProfileList().size());
   //                         startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
                             finish();
                           }
@@ -279,9 +286,20 @@ public class AddEventActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddEventActivity.this, MainActivity.class));
+//                startActivity(new Intent(AddEventActivity.this, MainActivity.class));
+                finish();
             }
         });
+    }
+
+    private void getEventProfileFromEvent(EventProfile eProfile) {
+        eProfile.setDescription(event.getDescription());
+        eProfile.setEndTime(event.getEndTime());
+        eProfile.setId(event.getId());
+        eProfile.setLocation(event.getLocation());
+        eProfile.setTheme(event.getTheme());
+        eProfile.setStartTime(event.getStartTime());
+        eProfile.setEventName(event.getEventName());
     }
 
     private Boolean generateEvent(){

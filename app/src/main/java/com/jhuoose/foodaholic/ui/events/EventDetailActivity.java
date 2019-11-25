@@ -140,6 +140,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //                              startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
                             Toast.makeText(EventDetailActivity.this, "Add activity Successfully", Toast.LENGTH_SHORT).show();
                             initializeaActivityList();
+
                         }
                     }
 

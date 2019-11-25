@@ -2,12 +2,17 @@ package com.jhuoose.foodaholic.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
+import com.jhuoose.foodaholic.viewmodel.EventProfile;
 import com.jhuoose.foodaholic.viewmodel.UserProfile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -23,14 +28,16 @@ public class MainActivity extends AppCompatActivity {
     HerokuAPI herokuAPI = HerokuService.getAPI();
     public static UserProfile currentUserProfile;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Call<UserProfile> call = herokuAPI.getCurrentUserProfile();
+        // Get Current User Profile from Backend
+        Call<UserProfile> callCurrentUserProfile = herokuAPI.getCurrentUserProfile();
         Log.i("HomeLog", "Seem get User Profile");
-        call.enqueue(new Callback<UserProfile>() {
+        callCurrentUserProfile.enqueue(new Callback<UserProfile>() {
 
             @Override
             public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("MainLog", "Connection Fail");
             }
         });
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
