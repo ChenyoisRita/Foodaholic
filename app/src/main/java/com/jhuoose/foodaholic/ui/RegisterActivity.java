@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (!response.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "Authentication failed." + response.errorBody(), Toast.LENGTH_SHORT).show();
                         }else{
-                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+//                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                             finish();
                         }
                     }

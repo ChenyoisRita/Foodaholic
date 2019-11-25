@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import java.util.Map;
 import com.jhuoose.foodaholic.api.HerokuService;
-import com.jhuoose.foodaholic.controller.EventController;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 import com.jhuoose.foodaholic.viewmodel.Event;
 import com.jhuoose.foodaholic.viewmodel.Activity;
@@ -61,8 +60,6 @@ public class AddEventActivity extends AppCompatActivity {
     private AlertDialog eventThemeDialog, deleteAttendeeDialog;
 
     Event event;
-    EventController eventController;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,8 +82,6 @@ public class AddEventActivity extends AppCompatActivity {
         addAttendeeBtn = findViewById(R.id.btn_add_attendee);
         //attendeeListLayout = findViewById(R.id.list_attendee_layout);
         attendeeListLayout = findViewById(R.id.list_attendee_layout);
-
-        eventController = EventController.getInstance();
 
         startTimeTv.setOnClickListener(new View.OnClickListener() {
             @Override
