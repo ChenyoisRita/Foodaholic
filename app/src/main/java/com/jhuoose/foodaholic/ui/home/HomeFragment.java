@@ -19,8 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 public class HomeFragment extends Fragment {
-
-    private boolean shouldRefreshOnResume = false;
     Button ChangePassword, logoutButton;
     ImageView profilePicture, editBioImage;
     TextView profileName;
@@ -69,16 +67,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Check should we need to refresh the fragment
-        if(shouldRefreshOnResume){
-            // refresh fragment
-            profileName.setText(MainActivity.getCurrentUserProfile().getUserName());
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        shouldRefreshOnResume = true;
+        profileName.setText(MainActivity.getCurrentUserProfile().getUserName());
     }
 }

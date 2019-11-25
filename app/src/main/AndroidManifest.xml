@@ -13,31 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/title_activity_main">
-        </activity>
-        <activity
-            android:name=".ui.RegisterActivity"
-            android:label="Register">
-        </activity>
-        <activity android:name=".ui.events.AddEventActivity"/>
+        <activity android:name=".ui.MainActivity"
+            android:label="@string/title_activity_main"/>
+        <activity android:name=".ui.RegisterActivity"
+            android:label="Register"/>
+        <activity android:name=".ui.events.AddEventActivity"
+            android:label="Add Event"
+            android:parentActivityName=".ui.MainActivity"/>
         <activity android:name=".ui.events.SetFoodListActivity"/>
-        <activity android:name=".ui.notifications.NotificationDetailActivity"/>
+        <activity android:name=".ui.notifications.NotificationDetailActivity"
+            android:label="Add Event"
+            android:parentActivityName=".ui.MainActivity"/>
         <activity android:name=".ui.friends.FriendDetailActivity"/>
         <activity android:name=".ui.friends.AddFriendActivity"/>
         <activity android:name=".ui.home.EditProfileActivity"/>
-        <activity
-            android:name=".ui.events.EventDetailActivity"
+        <activity android:name=".ui.events.EventDetailActivity"
             android:label="Event Details"
-            android:parentActivityName=".ui.MainActivity">
-        </activity>
+            android:parentActivityName=".ui.MainActivity"/>
         <activity
             android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="Foodaholic">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

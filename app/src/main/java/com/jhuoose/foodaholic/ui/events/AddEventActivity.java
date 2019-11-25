@@ -264,11 +264,7 @@ public class AddEventActivity extends AppCompatActivity {
                           else{
                               EventProfile eProfile = new EventProfile();
                               getEventProfileFromEvent(eProfile);
-                              Log.i("EventNumBug", "before publish num: "+EventsFragment.getParticipantingEventProfileList().size());
-                              EventsFragment.getParticipantingEventProfileList().add(eProfile);
-                              Log.i("EventNumBug", "after publish num: "+EventsFragment.getParticipantingEventProfileList().size());
-  //                         startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
-                            finish();
+                              finish();
                           }
                       }
 

@@ -66,7 +66,7 @@ public class EventDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         eid = intent.getIntExtra("eventId",-1);
 
-        initializeaActivityList();
+        updateActivityList();
 
         addActivity_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +81,7 @@ public class EventDetailActivity extends AppCompatActivity {
         // totalPrice_tv.setText();
     }
 
-    private void initializeaActivityList() {
+    private void updateActivityList() {
         Call<Event> call_get = heroku.getEvent(eid);
         call_get.enqueue(new Callback<Event>() {
             @Override
@@ -90,7 +90,6 @@ public class EventDetailActivity extends AppCompatActivity {
                     Toast.makeText(EventDetailActivity.this, "Add event failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
                 }
                 else{
-//                    startActivity(new Intent(EventDetailActivity.this, EventsFragment.class));
                     event = response.body();
                     eventTitle.setText(event.getEventName());
                     activityAdapter = new ActivityAdapter(event.getActivityList(),EventDetailActivity.this);
@@ -137,10 +136,8 @@ public class EventDetailActivity extends AppCompatActivity {
                             Toast.makeText(EventDetailActivity.this, "Add activity failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
                         }
                         else{
-//                              startActivity(new Intent(AddEventActivity.this, EventsFragment.class));
                             Toast.makeText(EventDetailActivity.this, "Add activity Successfully", Toast.LENGTH_SHORT).show();
-                            initializeaActivityList();
-
+                            updateActivityList();
                         }
                     }
 
@@ -155,10 +152,4 @@ public class EventDetailActivity extends AppCompatActivity {
         });
         ad1.show();// Display Dialog;
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        initializeaActivityList();
-//    }
 }
