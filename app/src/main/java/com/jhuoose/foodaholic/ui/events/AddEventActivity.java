@@ -368,7 +368,6 @@ public class AddEventActivity extends AppCompatActivity {
 
         event = new Event();
         Random r = new Random();
-        event.setId(r.nextInt(10000));
         event.setEventName(eventTitle);
         event.setLocation(eventLocation);
         event.setStartTime(startTime);
@@ -377,7 +376,6 @@ public class AddEventActivity extends AppCompatActivity {
         event.setTheme(selectedEventTheme);
         event.setActivityList(activityList);
         event.setParticipantList(attendeeList);
-        event.setOrganizer(MainActivity.getCurrentUserProfile());
 
         return true;
     }

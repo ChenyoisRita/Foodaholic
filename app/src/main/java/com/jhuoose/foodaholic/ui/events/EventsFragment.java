@@ -58,7 +58,6 @@ public class EventsFragment extends Fragment {
                 Log.i("mylog", eventList.get(position).getEventName());
                 intent.putExtra("eventId",eventList.get(position).getId());
                 startActivity(intent);
-                onStop();
             }
         });
 

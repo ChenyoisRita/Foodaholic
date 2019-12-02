@@ -24,38 +24,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
-    HerokuAPI herokuAPI = HerokuService.getAPI();
-    public static UserProfile currentUserProfile;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Get Current User Profile from Backend
-        Call<UserProfile> callCurrentUserProfile = herokuAPI.getCurrentUserProfile();
-        Log.i("HomeLog", "Seem get User Profile");
-        callCurrentUserProfile.enqueue(new Callback<UserProfile>() {
-
-            @Override
-            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
-                if (response.isSuccessful()) {
-                    MainActivity.setCurrentUserProfile(response.body());
-                    Log.i("MainLog", "Get CurUser Successful");
-                }else{
-                    Log.i("MainLog", "Get CurUser Unsuccessful");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserProfile> call, Throwable t) {
-                t.printStackTrace();
-                Log.i("MainLog", "Connection Fail");
-            }
-        });
-
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -68,13 +40,4 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
-
-    public static UserProfile getCurrentUserProfile() {
-        return currentUserProfile;
-    }
-
-    public static void setCurrentUserProfile(UserProfile currentUserProfile) {
-        MainActivity.currentUserProfile = currentUserProfile;
-    }
-
 }

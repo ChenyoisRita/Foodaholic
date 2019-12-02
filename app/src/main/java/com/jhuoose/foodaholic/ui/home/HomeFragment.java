@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jhuoose.foodaholic.R;
+import com.jhuoose.foodaholic.api.HerokuAPI;
+import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.ui.LoginActivity;
 import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.viewmodel.UserProfile;
@@ -18,10 +21,16 @@ import com.jhuoose.foodaholic.viewmodel.UserProfile;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
+    private HerokuAPI heroku;
     Button ChangePassword, logoutButton;
     ImageView profilePicture, editBioImage;
     TextView profileName;
+    public UserProfile profile = new UserProfile();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -32,6 +41,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        heroku = HerokuService.getAPI();
 
         ChangePassword = root.findViewById(R.id.btn_changepw);
         logoutButton = root.findViewById(R.id.btn_logout);
@@ -39,13 +49,10 @@ public class HomeFragment extends Fragment {
         editBioImage = root.findViewById(R.id.Edit_imageView);
         profileName = root.findViewById(R.id.profileName_tv);
 
-        profileName.setText(MainActivity.getCurrentUserProfile().getUserName());
-
         editBioImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), EditProfileActivity.class));
-                onStop();
             }
         });
 
@@ -63,10 +70,31 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
-        profileName.setText(MainActivity.getCurrentUserProfile().getUserName());
+        updateUI();
+    }
+
+    public void updateUI() {
+        Call<UserProfile> callCurrentUserProfile = heroku.getCurrentUserProfile();
+        callCurrentUserProfile.enqueue(new Callback<UserProfile>() {
+
+            @Override
+            public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                if (response.isSuccessful()) {
+                    profile = response.body();
+                    profileName.setText(response.body().getUserName());
+                } else {
+                    Toast.makeText(getContext(), "Fetch profile error: " + response.errorBody(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserProfile> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getContext(), "Connection failed.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -26,7 +26,7 @@ public class EditProfileActivity extends AppCompatActivity {
     ImageView profilePic;
     EditText userName, userPhone;
     Button confirmBtn,cancelBtn;
-    UserProfile profile;
+    UserProfile profile = new UserProfile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,6 @@ public class EditProfileActivity extends AppCompatActivity {
                         public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(EditProfileActivity.this, "Update Profile Successfully", Toast.LENGTH_SHORT).show();
-                                MainActivity.setCurrentUserProfile(profile);
                                 finish();
                             } else {
                                 Toast.makeText(EditProfileActivity.this, "Response Error: "+response.code(), Toast.LENGTH_SHORT).show();
@@ -79,10 +78,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     public void initializeFields() {
-//      Todo: update User profile image
-        profile = MainActivity.getCurrentUserProfile();
-        userName.setText(profile.getUserName());
-        userPhone.setText(profile.getPhone());
+//      Todo: Get profile from Home fragment; update User profile image
+
+//        userName.setText(profile.getUserName());
+//        userPhone.setText(profile.getPhone());
     }
 
     public boolean canCreateProfile() {
