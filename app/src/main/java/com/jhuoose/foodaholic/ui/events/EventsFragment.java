@@ -50,6 +50,7 @@ public class EventsFragment extends Fragment {
         eventList = new ArrayList<>();
         eventAdapter = new EventAdapter(eventList, getActivity());
         eventListView.setAdapter(eventAdapter);
+        updateEventListUI();
 
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +20,7 @@ import com.jhuoose.foodaholic.adapter.ActivityAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.model.Activity;
+import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 import com.jhuoose.foodaholic.viewmodel.Event;
 
 
@@ -38,7 +38,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private HerokuAPI heroku;
     int eid;
     private Event event;
-    private List<Activity> activityList;
+    private List<ActivityProfile> activityList;
     Activity activity;
 
     private TextView eventTitle, totalPrice_tv;
@@ -62,6 +62,8 @@ public class EventDetailActivity extends AppCompatActivity {
         totalPrice_tv = this.findViewById(R.id.totalPrice_tx);
 
         activityList = new ArrayList<>();
+        activityAdapter = new ActivityAdapter(activityList, EventDetailActivity.this);
+        activityListView.setAdapter(activityAdapter);
 
         Intent intent = getIntent();
         eid = intent.getIntExtra("eventId",-1);
@@ -73,7 +75,6 @@ public class EventDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Todo: after clicking this button, You can add an activity to current event.
             showAddDialog();
-//            event.getActivityList().add(activity);
             }
         });
 
@@ -81,27 +82,31 @@ public class EventDetailActivity extends AppCompatActivity {
         // totalPrice_tv.setText();
     }
 
-    private void updateActivityList() {
-        Call<Event> call_get = heroku.getEvent(eid);
-        call_get.enqueue(new Callback<Event>() {
-            @Override
-            public void onResponse(Call<Event> call, Response<Event> response) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(EventDetailActivity.this, "Add event failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    event = response.body();
-                    eventTitle.setText(event.getEventName());
-                    activityAdapter = new ActivityAdapter(event.getActivityList(),EventDetailActivity.this);
-                    activityListView.setAdapter(activityAdapter);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateActivityList();
+    }
 
+    private void updateActivityList() {
+        Call<List<ActivityProfile>> call_getActivityList = heroku.getActivityList(eid);
+        call_getActivityList.enqueue(new Callback<List<ActivityProfile>>() {
+            @Override
+            public void onResponse(Call<List<ActivityProfile>> call, Response<List<ActivityProfile>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(EventDetailActivity.this, "Fetch ActivityList error: " + response.errorBody(), Toast.LENGTH_SHORT).show();
+                } else {
+                    activityList.clear();
+                    for (ActivityProfile activityProfile: response.body()) {
+                        activityList.add(activityProfile);
+                    }
+                    activityAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
-            public void onFailure(Call<Event> call, Throwable t) {
-                t.printStackTrace();
-                Toast.makeText(EventDetailActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<ActivityProfile>> call, Throwable t) {
+                Toast.makeText(EventDetailActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -122,13 +127,14 @@ public class EventDetailActivity extends AppCompatActivity {
         });
         ad1.setNegativeButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int i) {
-                Map<String, Object> map = new HashMap<>();
-                activity = new Activity();
-                activity.serCategory(editCategory.getText().toString());
-                activityTitle = editName.getText().toString();
-                activity.setTitle(activityTitle);
-                map.put(activityTitle, activity);
-                Call<ResponseBody> call = heroku.createActivity(eid, map);
+                String activityName = editName.getText().toString();
+                String description = " ";
+                int vote = 0;
+                float money = 0;
+                String category = editCategory.getText().toString();
+
+                Call<ResponseBody> call = heroku.createActivity(eid, activityName, description, vote,
+                        money, category);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

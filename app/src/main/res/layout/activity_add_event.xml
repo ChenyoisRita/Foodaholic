@@ -201,24 +201,12 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:text="Activity Plan:"
+                android:text="Theme:"
                 android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/btn_food_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@android:color/holo_green_light"
-                android:gravity="center"
-                android:text="Food List"
-                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btn_event_theme"

@@ -51,7 +51,7 @@ public class AddEventActivity extends AppCompatActivity {
     ArrayList<UserProfile> attendeeList = new ArrayList<>();
 
 
-    Button cancelBtn, publishEventBtn, foodListBtn, eventThemeBtn, addAttendeeBtn;
+    Button cancelBtn, publishEventBtn, eventThemeBtn, addAttendeeBtn;
     TextView startTimeTv, endTimeTv, eventDateTv;
     EditText eventTitleEt, eventLocationEt, eventNotesEt, attendeeEt;
     String startTime, endTime, eventDate, eventTitle, eventLocation, eventNotes;
@@ -78,7 +78,6 @@ public class AddEventActivity extends AppCompatActivity {
         eventDateTv = findViewById(R.id.event_date);
         cancelBtn = findViewById(R.id.btn_event_cancel);
         publishEventBtn = findViewById(R.id.btn_event_publish);
-        foodListBtn = findViewById(R.id.btn_food_list);
         eventThemeBtn = findViewById(R.id.btn_event_theme);
         attendeeEt = findViewById(R.id.et_email_address);
         addAttendeeBtn = findViewById(R.id.btn_add_attendee);
@@ -122,12 +121,12 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        foodListBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AddEventActivity.this, SetFoodListActivity.class));
-            }
-        });
+//        foodListBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(AddEventActivity.this, SetFoodListActivity.class));
+//            }
+//        });
 
         eventThemeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,8 +239,6 @@ public class AddEventActivity extends AppCompatActivity {
 
         publishEventBtn.setOnClickListener(new View.OnClickListener() {
 
-            Map<String, Object> map = new HashMap<>();
-
             @Override
             public void onClick(View view) {
               if (generateEvent()){
@@ -253,8 +250,11 @@ public class AddEventActivity extends AppCompatActivity {
                   pd.dismiss();
                   Toast.makeText(AddEventActivity.this, "Publish Successful!", Toast.LENGTH_LONG).show();
                   startActivity(new Intent(AddEventActivity.this, MainActivity.class));
-                  map.put(eventTitle, event);
-                  Call<ResponseBody> call = heroku.createEvent(map);
+
+//                  Map<String, String> eventMap;
+//                  eventMap = getEventMap(event);
+                  Call<ResponseBody> call = heroku.createEvent(event.getEventName(),event.getDescription(),
+                          event.getLocation(), event.getStartTime(), event.getEndTime(), event.getTheme());
                   call.enqueue(new Callback<ResponseBody>() {
                       @Override
                       public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -274,6 +274,7 @@ public class AddEventActivity extends AppCompatActivity {
                           Toast.makeText(AddEventActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
                       }
                   });
+
               }
             }
         });

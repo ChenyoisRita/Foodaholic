@@ -58,7 +58,10 @@ public interface HerokuAPI {
 
     @FormUrlEncoded
     @POST("events")
-    Call<ResponseBody> createEvent(@FieldMap Map<String, Object> map);
+//    Call<ResponseBody> createEvent(@FieldMap Map<String, String> map);
+    Call<ResponseBody> createEvent(@Field("eventName") String eventName, @Field("description") String description,
+                                   @Field("location") String location, @Field("startTime") String startTime,
+                                   @Field("endTime") String endTime, @Field("theme") String theme);
 
     @GET("events/{eventId}")
     Call<Event> getEvent(@Path("eventId") int eventId);
@@ -75,7 +78,10 @@ public interface HerokuAPI {
 
     @FormUrlEncoded
     @POST("events/{eventId}/activities")
-    Call<ResponseBody> createActivity(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
+//    Call<ResponseBody> createActivity(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
+    Call<ResponseBody> createActivity(@Path("eventId") int eventId, @Field("activityName") String activityName,
+                                      @Field("description") String description, @Field("vote") int vote,
+                                      @Field("money") float money, @Field("category") String category);
 
     @POST("events/{eventId}/activities/{activityId}")
     Call<ResponseBody> deleteActivity(@Path("eventId") int eventId, @Path("activityId") int activityId, @FieldMap Map<String, Object> map);
