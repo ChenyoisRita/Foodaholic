@@ -2,7 +2,6 @@ package com.jhuoose.foodaholic.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +14,11 @@ import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.ui.LoginActivity;
-import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.viewmodel.UserProfile;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,14 +54,30 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        Log.i("HomeLog", "Call back over");
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // if LoginActivity.flag==0, u can login without input username and password.
                 // if LoginActivity.flag == 1, u need to input your username and password to login.
-                LoginActivity.flag = 1;
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                Call<ResponseBody> call_logout = heroku.logout();
+                call_logout.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(getContext(), "Logout Fail:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(getContext(), LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+//                            getActivity().getSupportFragmentManager().popBackStack();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 

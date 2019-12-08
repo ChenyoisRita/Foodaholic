@@ -8,19 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.jhuoose.foodaholic.R;
-import com.jhuoose.foodaholic.model.Friend;
+import com.jhuoose.foodaholic.viewmodel.UserProfile;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class FriendAdapter extends ArrayAdapter<Friend> {
+public class FriendAdapter extends ArrayAdapter<UserProfile> {
     private int resourceId;
-    List<Friend> friendList;
+    List<UserProfile> friendList;
     Context mContext;
 
-    public FriendAdapter(Context context, int textViewResourceId, List<Friend> objects){
+    public FriendAdapter(Context context, int textViewResourceId, List<UserProfile> objects){
         super(context,textViewResourceId,objects);
         resourceId = textViewResourceId;
     }
@@ -49,10 +49,10 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Friend friend = getItem(position);
+        UserProfile friend = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceId, parent,false);
         TextView friendItemView = view.findViewById(R.id.friend_Name);
-        friendItemView.setText(friend.getName());
+        friendItemView.setText(friend.getUserName());
 //        return super.getView(position, convertView, parent);
         return view;
     }

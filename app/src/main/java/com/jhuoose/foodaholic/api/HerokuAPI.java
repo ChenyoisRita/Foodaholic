@@ -40,7 +40,7 @@ public interface HerokuAPI {
     //Call<List<NotificationProfile>> getNotificationList();
 
     @GET("users/current/friends")
-    Call<List<EventProfile>> getFriendList();
+    Call<List<UserProfile>> getFriendList();
 
     @POST("users/current/friends/{friendId}")
     Call<ResponseBody> addFriend(@Path("friendId") int friendId);
@@ -53,7 +53,9 @@ public interface HerokuAPI {
 
     @FormUrlEncoded
     @PUT("users/current/profile")
-    Call<UserProfile> updateCurrentUserProfile(@FieldMap Map<String, Object> map);
+//    Call<UserProfile> updateCurrentUserProfile(@FieldMap Map<String, Object> map);
+    Call<ResponseBody> updateCurrentUserProfile(@Field("userName") String userName, @Field("phone") String phone,
+                                               @Field("email") String email);
 
 
     @FormUrlEncoded

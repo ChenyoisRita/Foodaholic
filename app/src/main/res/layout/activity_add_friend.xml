@@ -7,26 +7,26 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/addByemail_tv"
+        android:id="@+id/addByID_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="Add by Email: "
-        android:textSize="20dp"
+        android:layout_marginTop="36dp"
+        android:text="Add by ID: "
+        android:textSize="19dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/addByemail_real"
+        android:id="@+id/addByID_real"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
         android:layout_marginTop="28dp"
         android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName"
-        android:textSize="20dp"
+        android:hint="Friend ID"
+        android:inputType="number"
+        android:textSize="19dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

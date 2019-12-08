@@ -5,18 +5,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
-import com.jhuoose.foodaholic.ui.MainActivity;
-import com.jhuoose.foodaholic.viewmodel.UserProfile;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.jhuoose.foodaholic.viewmodel.User;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,9 +22,10 @@ import retrofit2.Response;
 public class EditProfileActivity extends AppCompatActivity {
     private HerokuAPI heroku;
     ImageView profilePic;
-    EditText userName, userPhone;
+    TextView userID;
+    EditText userName, userPhone, userEmail;
     Button confirmBtn,cancelBtn;
-    UserProfile profile = new UserProfile();
+    User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +34,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
         heroku = HerokuService.getAPI();
         profilePic = findViewById(R.id.editProfilePic_im);
+        userID = findViewById(R.id.userID_et);
         userName = findViewById(R.id.userName_et);
         userPhone = findViewById(R.id.userPhone_et);
+        userEmail = findViewById(R.id.userEmail_et);
         confirmBtn = findViewById(R.id.editProfile_OK_btn);
         cancelBtn = findViewById(R.id.editProfile_cancel_btn);
+
 
         initializeFields();
 
@@ -46,23 +48,22 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (canCreateProfile()) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put(String.valueOf(profile.getId()), profile);
-                    Call<UserProfile> call = heroku.updateCurrentUserProfile(map);
-                    call.enqueue(new Callback<UserProfile>() {
+                    Call<ResponseBody> call_updateCurrentUserProfile = heroku.updateCurrentUserProfile(currentUser.getUserName(),
+                            currentUser.getPhone(),currentUser.getEmail());
+                    call_updateCurrentUserProfile.enqueue(new Callback<ResponseBody>() {
                         @Override
-                        public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
-                            if (response.isSuccessful()) {
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(EditProfileActivity.this, "Update Profile Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                            } else {
                                 Toast.makeText(EditProfileActivity.this, "Update Profile Successfully", Toast.LENGTH_SHORT).show();
                                 finish();
-                            } else {
-                                Toast.makeText(EditProfileActivity.this, "Response Error: "+response.code(), Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<UserProfile> call, Throwable t) {
-                            Toast.makeText(EditProfileActivity.this, "Connection Failed", Toast.LENGTH_SHORT).show();
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(EditProfileActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -78,27 +79,48 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     public void initializeFields() {
-//      Todo: Get profile from Home fragment; update User profile image
+//      Todo: Update User profile image
+        Call<User> call_getCurrentUser = heroku.getCurrentUser();
+        call_getCurrentUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (!response.isSuccessful()){
+                    Toast.makeText(EditProfileActivity.this, "Fetch User Data Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                } else {
+                    currentUser = response.body();
+                    userID.setText(String.valueOf(currentUser.getId()));
+                    userName.setText(currentUser.getUserName());
+                    userPhone.setText(currentUser.getPhone());
+                    userEmail.setText(currentUser.getEmail());
+                }
+            }
 
-//        userName.setText(profile.getUserName());
-//        userPhone.setText(profile.getPhone());
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(EditProfileActivity.this, "Conneciton Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public boolean canCreateProfile() {
         if (userName.getText().equals("") || userName.getText()==null) {
             Toast.makeText(EditProfileActivity.this, "Invalid Name", Toast.LENGTH_SHORT).show();
             return false;
-        } else {
-            profile.setUserName(userName.getText().toString().trim());
         }
 
         if (userPhone.getText().equals("") || userPhone.getText()==null) {
             Toast.makeText( EditProfileActivity.this, "Invalid Phone Type", Toast.LENGTH_SHORT).show();
             return false;
-        } else {
-            profile.setPhone(userPhone.getText().toString().trim());
         }
 
+        if (userEmail.getText().equals("") || userEmail.getText()==null) {
+            Toast.makeText( EditProfileActivity.this, "Invalid Email Type", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        currentUser.setUserName(userName.getText().toString().trim());
+        currentUser.setPhone(userPhone.getText().toString().trim());
+        currentUser.setEmail(userEmail.getText().toString().trim());
         return true;
     }
 }

@@ -2,9 +2,6 @@ package com.jhuoose.foodaholic.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +12,7 @@ import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
 
+import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +22,6 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     private HerokuAPI heroku;
     private String userEmail;
-    public static int flag=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void signIn(final String email, String password) {
-//        Log.i("MyLog", "username: "+email+"; pwd "+password);
         Call<ResponseBody> call = heroku.login(email, password);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -69,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 } else {
-                    showLoginFailed();
+                    Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -102,7 +98,4 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void showLoginFailed() {
-        Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-    }
 }
