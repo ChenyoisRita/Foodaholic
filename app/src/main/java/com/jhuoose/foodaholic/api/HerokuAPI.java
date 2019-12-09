@@ -93,7 +93,9 @@ public interface HerokuAPI {
     Call<ResponseBody> getActivity(@Path("activityId") int activityId);
 
     @PUT("activities/{activityId}")
-    Call<ResponseBody> updateActivity(@Path("activityId") int activityId);
+    Call<ResponseBody> updateActivity(@Path("activityId") int activityId, @Field("activityName") String activityName,
+                                      @Field("money") float money, @Field("category") String category,
+                                      @Field("description") String description);
 
     @PUT("activities/{activityId}/vote")
     Call<ResponseBody> vote(@Path("activityId") int activityId);
