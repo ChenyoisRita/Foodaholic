@@ -10,10 +10,11 @@
         android:id="@+id/addByID_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="36dp"
         android:text="Add by ID: "
         android:textSize="19dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +48,14 @@
         android:layout_marginStart="284dp"
         android:layout_marginTop="120dp"
         android:text="Add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="63dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/addfriend"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
