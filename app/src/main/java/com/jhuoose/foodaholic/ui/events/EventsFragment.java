@@ -12,31 +12,27 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.adapter.EventAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
-import com.jhuoose.foodaholic.viewmodel.Event;
 import com.jhuoose.foodaholic.viewmodel.EventProfile;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EventsFragment extends Fragment {
-    private boolean shouldRefreshOnResume = false;
     private HerokuAPI heroku;
     private ListView eventListView;
     private Button addEventButton;
     private EventAdapter eventAdapter = null;
     public List<EventProfile> eventList;
-//    public static List<EventProfile> participantingEventProfileList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +54,7 @@ public class EventsFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), EventDetailActivity.class);
                 Log.i("mylog", eventList.get(position).getEventName());
                 intent.putExtra("eventId",eventList.get(position).getId());
+                intent.putExtra("eventName", eventList.get(position).getEventName());
                 startActivity(intent);
             }
         });

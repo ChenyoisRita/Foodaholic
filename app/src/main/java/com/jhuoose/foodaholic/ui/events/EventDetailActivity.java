@@ -12,9 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.adapter.ActivityAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
@@ -23,12 +20,10 @@ import com.jhuoose.foodaholic.model.Activity;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 import com.jhuoose.foodaholic.viewmodel.Event;
 
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,10 +38,10 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private TextView eventTitle, totalPrice_tv;
     private ListView activityListView;
-    private Button addActivity_btn;
+    private Button addActivity_btn, leaveEvent_btn;
 
     private ActivityAdapter activityAdapter;
-    String activityTitle;
+    String activityTitle, eventName;
 
 
     @Override
@@ -60,6 +55,7 @@ public class EventDetailActivity extends AppCompatActivity {
         activityListView = this.findViewById(R.id.activity_list);
         addActivity_btn = this.findViewById(R.id.add_activity_button);
         totalPrice_tv = this.findViewById(R.id.totalPrice_tx);
+        leaveEvent_btn = this.findViewById(R.id.leaveEvent_button);
 
         activityList = new ArrayList<>();
         activityAdapter = new ActivityAdapter(activityList, EventDetailActivity.this);
@@ -67,14 +63,54 @@ public class EventDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         eid = intent.getIntExtra("eventId",-1);
+        eventName = intent.getStringExtra("eventName");
 
         updateActivityList();
 
         addActivity_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo: after clicking this button, You can add an activity to current event.
             showAddDialog();
+            }
+        });
+
+        leaveEvent_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailActivity.this);
+                builder.setMessage("Confirm to Leave Event: "+eventName+" ?")
+                        .setTitle("⚠️"+"Confirmation")
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Call<ResponseBody> call_leaveEvent = heroku.leaveEvent(eid);
+                                call_leaveEvent.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        if (!response.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), "Leave Event Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Leave Event"+eventName+" Successfully",Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                // Create Dialog Box
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
