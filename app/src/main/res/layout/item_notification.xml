@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/notification_title"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
+        android:layout_width="211dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
         android:hint="Notification Name"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="22dp" />
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/notification_content"
+        app:layout_constraintStart_toEndOf="@+id/notification_sign"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/notification_sign"
+        android:layout_width="116dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="304dp"
+        android:src="@drawable/notification_sign"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.509"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/notification_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="16dp"
         android:hint="Notification Content"
         android:textColor="#000000"
-        android:textSize="19dp" />
-</LinearLayout>
+        android:textSize="19dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.761"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
