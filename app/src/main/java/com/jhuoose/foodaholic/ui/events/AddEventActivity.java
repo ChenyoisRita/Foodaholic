@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -16,27 +15,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
+import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
-import java.util.Map;
 import com.jhuoose.foodaholic.api.HerokuService;
+import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 import com.jhuoose.foodaholic.viewmodel.Event;
-import com.jhuoose.foodaholic.viewmodel.Activity;
-import com.jhuoose.foodaholic.ui.MainActivity;
-import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.viewmodel.EventProfile;
 import com.jhuoose.foodaholic.viewmodel.UserProfile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Random;
-
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -362,10 +357,6 @@ public class AddEventActivity extends AppCompatActivity {
             return false;
         }
 
-        if (activityList.size()==0){
-            Toast.makeText(getApplicationContext(), "Please set food", Toast.LENGTH_SHORT).show();
-            return false;
-        }
 
         event = new Event();
         Random r = new Random();
