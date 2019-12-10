@@ -15,7 +15,9 @@
         android:id="@+id/add_activity_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Activity" />
+        android:background="@drawable/gradient"
+        android:text="Add Activity"
+        android:textSize="16dp" />
 
     <ListView
         android:id="@+id/activity_list"
@@ -36,6 +38,7 @@
         android:id="@+id/leaveEvent_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Leave Event" />
+        android:text="Leave Event"
+        android:background="@drawable/gradient"/>
 
 </LinearLayout>

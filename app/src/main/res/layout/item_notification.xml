@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/notification_sign"
-        android:layout_width="116dp"
-        android:layout_height="63dp"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="304dp"
         android:src="@drawable/notification_sign"
         app:layout_constraintBottom_toBottomOf="parent"
