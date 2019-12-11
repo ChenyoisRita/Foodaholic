@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.jhuoose.foodaholic.R;
-import com.jhuoose.foodaholic.viewmodel.Activity;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 
 import java.util.ArrayList;

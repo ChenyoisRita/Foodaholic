@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
     }
