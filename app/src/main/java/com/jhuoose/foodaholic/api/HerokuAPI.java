@@ -30,8 +30,9 @@ public interface HerokuAPI {
     @GET("users/current/events")
     Call<List<EventProfile>> getParticipatingEventList();
 
-    @POST("users/current/events/{eventId}")
-    Call<ResponseBody> joinEvent(@Path("eventId") int eventId);
+    @FormUrlEncoded
+    @POST("users/current/events")
+    Call<ResponseBody> joinEvent(@Field("entryCode") String entryCode);
 
     @DELETE("users/current/events/{eventId}")
     Call<ResponseBody> leaveEvent(@Path("eventId") int eventId);
@@ -74,6 +75,9 @@ public interface HerokuAPI {
     @FormUrlEncoded
     @PUT("events/{eventId}")
     Call<ResponseBody> updateEvent(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
+
+    @GET("events/{eventId}/entryCode")
+    Call<String> getEntryCode(@Path("eventId") int eventId); //Only available for event organizer, else 403 Forbidden
 
     @GET("events/{eventId}/activities")
     Call<List<ActivityProfile>> getActivityList(@Path("eventId") int eventId);
