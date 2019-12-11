@@ -38,10 +38,11 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private TextView eventTitle, totalPrice_tv;
     private ListView activityListView;
-    private Button addActivity_btn, leaveEvent_btn;
+    private Button addActivity_btn, leaveEvent_btn, moreInfo_btn;
 
     private ActivityAdapter activityAdapter;
     String activityTitle, eventName;
+    public Event eventInfo;
 
 
     @Override
@@ -51,11 +52,12 @@ public class EventDetailActivity extends AppCompatActivity {
 
         heroku = HerokuService.getAPI();
 
-        eventTitle = this.findViewById(R.id.event_view_title);
+//        eventTitle = this.findViewById(R.id.event_view_title);
         activityListView = this.findViewById(R.id.activity_list);
         addActivity_btn = this.findViewById(R.id.add_activity_button);
         totalPrice_tv = this.findViewById(R.id.totalPrice_tx);
         leaveEvent_btn = this.findViewById(R.id.leaveEvent_button);
+        moreInfo_btn = this.findViewById(R.id.moreInfo_button);
 
         activityList = new ArrayList<>();
         activityAdapter = new ActivityAdapter(activityList, EventDetailActivity.this);
@@ -66,6 +68,32 @@ public class EventDetailActivity extends AppCompatActivity {
         eventName = intent.getStringExtra("eventName");
 
         updateActivityList();
+
+        getEventInfo();
+
+        moreInfo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailActivity.this);
+                builder.setTitle("Details of "+eventName)
+                        .setMessage("ID: "+eventInfo.getId()+"\n"+
+                                    "Name: "+eventName+"\n"+
+                                    "Description: "+eventInfo.getDescription()+"\n"+
+                                    "Location: "+eventInfo.getLocation()+"\n"+
+                                    "Begin: "+eventInfo.getStartTime()+"\n"+
+                                    "End: "+eventInfo.getEndTime()+"\n"+
+                                    "Theme: "+eventInfo.getTheme())
+                        .setPositiveButton("👌", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                // Create Dialog Box
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         addActivity_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +171,25 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<ActivityProfile>> call, Throwable t) {
                 Toast.makeText(EventDetailActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getEventInfo() {
+        Call<Event> call_getEvent = heroku.getEvent(eid);
+        call_getEvent.enqueue(new Callback<Event>() {
+            @Override
+            public void onResponse(Call<Event> call, Response<Event> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Get Event Info Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                } else {
+                    eventInfo = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Event> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

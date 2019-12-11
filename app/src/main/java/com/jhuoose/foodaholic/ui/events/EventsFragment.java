@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class EventsFragment extends Fragment {
     private HerokuAPI heroku;
     private ListView eventListView;
-    private Button addEventButton;
+    private Button addEventButton, joinEventBtn;
     private EventAdapter eventAdapter = null;
     public List<EventProfile> eventList;
 
@@ -42,6 +42,7 @@ public class EventsFragment extends Fragment {
 
         eventListView = root.findViewById(R.id.event_list);
         addEventButton = root.findViewById(R.id.btn_add_event);
+        joinEventBtn = root.findViewById(R.id.btn_join_event);
 
         eventList = new ArrayList<>();
         eventAdapter = new EventAdapter(eventList, getActivity());
@@ -63,6 +64,13 @@ public class EventsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(),AddEventActivity.class));
+            }
+        });
+
+        joinEventBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), JoinEventActivity.class));
             }
         });
 

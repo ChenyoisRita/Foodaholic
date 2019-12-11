@@ -15,10 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
@@ -33,13 +29,16 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 //Todo: before Publish a new event, we should send an invitation email to all the attendees.
-//Todo: This EMail should contain the event's number so that they can search this event and join it.
+//Todo: This EMail should contain the event's ID so that they can search this event and join it.
 public class AddEventActivity extends AppCompatActivity {
     private HerokuAPI heroku;
     public static ArrayList<ActivityProfile> activityList = new ArrayList<>();
@@ -115,13 +114,6 @@ public class AddEventActivity extends AppCompatActivity {
 
             }
         });
-
-//        foodListBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(AddEventActivity.this, SetFoodListActivity.class));
-//            }
-//        });
 
         eventThemeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,10 +214,8 @@ public class AddEventActivity extends AppCompatActivity {
                     }
                 });
 
-//                Todo: judge wheter this email address is valid. if valid, get its user profile and add to the attendeeList.
-//                attendeeList.add(newAttendeeEmail);
-                // newAttendee.setBackgroundColor(Color.GRAY);
-                // Log.i("MyLog", newAttendeeEmail+"; "+newAttendee.getText().toString());
+//                Todo: judge whether this email address is valid. if valid, get its user profile and add to the attendeeList.
+
                 attendeeListLayout.addView(newAttendee);
                 attendeeEt.setText("");
 
@@ -240,14 +230,11 @@ public class AddEventActivity extends AppCompatActivity {
                   final ProgressDialog pd = new ProgressDialog(AddEventActivity.this);
                   pd.setMessage("Uploading...");
                   pd.show();
-//                  eventController.createEvent(event);
 
                   pd.dismiss();
                   Toast.makeText(AddEventActivity.this, "Publish Successful!", Toast.LENGTH_LONG).show();
                   startActivity(new Intent(AddEventActivity.this, MainActivity.class));
 
-//                  Map<String, String> eventMap;
-//                  eventMap = getEventMap(event);
                   Call<ResponseBody> call = heroku.createEvent(event.getEventName(),event.getDescription(),
                           event.getLocation(), event.getStartTime(), event.getEndTime(), event.getTheme());
                   call.enqueue(new Callback<ResponseBody>() {
@@ -278,7 +265,6 @@ public class AddEventActivity extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(AddEventActivity.this, MainActivity.class));
                 finish();
             }
         });
