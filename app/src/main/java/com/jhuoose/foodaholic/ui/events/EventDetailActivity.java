@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +44,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private ActivityAdapter activityAdapter;
     String activityTitle, eventName;
     public Event eventInfo;
+    public String entryCode;
 
 
     @Override
@@ -71,6 +73,8 @@ public class EventDetailActivity extends AppCompatActivity {
 
         getEventInfo();
 
+        getEntryCode();
+
         moreInfo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +86,8 @@ public class EventDetailActivity extends AppCompatActivity {
                                     "Location: "+eventInfo.getLocation()+"\n"+
                                     "Begin: "+eventInfo.getStartTime()+"\n"+
                                     "End: "+eventInfo.getEndTime()+"\n"+
-                                    "Theme: "+eventInfo.getTheme())
+                                    "Theme: "+eventInfo.getTheme()+"\n"+
+                                    "EntryCode: "+entryCode)
                         .setPositiveButton("👌", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -190,6 +195,30 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Event> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getEntryCode() {
+        Call<ResponseBody> call_getEntryCode = heroku.getEntryCode(eid);
+        call_getEntryCode.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Get EntryCode Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        entryCode = response.body().string();
+                        Log.i("EntryCode", entryCode);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Convert Response Error:"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "EntryCode: Connection Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

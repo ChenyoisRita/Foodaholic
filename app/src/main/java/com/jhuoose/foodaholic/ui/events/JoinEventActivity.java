@@ -24,6 +24,7 @@ public class JoinEventActivity extends AppCompatActivity {
     Button joinEventBtn;
     EditText eventID_et;
     int eid;
+    String entryCode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,46 +41,58 @@ public class JoinEventActivity extends AppCompatActivity {
         joinEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getInput();
-                Call<ResponseBody> call_joinEvent = heroku.joinEvent(eid);
-                call_joinEvent.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (!response.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Event Not Found:"+response.errorBody(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            AlertDialog alertDialog = new AlertDialog.Builder(JoinEventActivity.this).create();
-                            alertDialog.setTitle("Result");
-                            alertDialog.setMessage("Join Event Successfully");
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                    finish();
-                                }
-                            });
-                            alertDialog.show();
+                if (getValidEntryCode()) {
+                    Call<ResponseBody> call_joinEvent = heroku.joinEvent(entryCode);
+                    call_joinEvent.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (!response.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "Event Not Found:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                AlertDialog alertDialog = new AlertDialog.Builder(JoinEventActivity.this).create();
+                                alertDialog.setTitle("Result");
+                                alertDialog.setMessage("Join Event Successfully");
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                        finish();
+                                    }
+                                });
+                                alertDialog.show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
     }
 
-    public void getInput(){
-        String eventID = eventID_et.getText().toString().trim();
-        if (eventID!=null && !eventID.equals("") && !eventID.equals(" ") && eventID.length()>0) {
-            eid = Integer.parseInt(eventID);
+//    public void getInput(){
+//        String eventID = eventID_et.getText().toString().trim();
+//        if (eventID!=null && !eventID.equals("") && !eventID.equals(" ") && eventID.length()>0) {
+//            eid = Integer.parseInt(eventID);
+//        } else {
+//            Toast.makeText(getApplicationContext(), "Invalid Input", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//    }
+
+    public boolean getValidEntryCode() {
+        String code = eventID_et.getText().toString().trim();
+        if (code!=null && !code.equals("") && !code.equals(" ") && code.length()>0) {
+            entryCode = code;
         } else {
             Toast.makeText(getApplicationContext(), "Invalid Input", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
+        return true;
     }
 
 }
