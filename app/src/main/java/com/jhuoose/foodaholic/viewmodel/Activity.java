@@ -7,7 +7,7 @@ public class Activity {
     private String activityName;
     private String description;
     private int vote;
-    private float money;
+    private double money;
     private String category;
     private EventProfile event;
     private ArrayList<UserProfile> voteList = new ArrayList<>();
@@ -69,11 +69,11 @@ public class Activity {
         this.vote = vote;
     }
 
-    public float getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(float money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 
