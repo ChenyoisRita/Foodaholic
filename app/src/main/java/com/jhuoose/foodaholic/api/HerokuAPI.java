@@ -77,7 +77,11 @@ public interface HerokuAPI {
     Call<ResponseBody> updateEvent(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
 
     @GET("events/{eventId}/entryCode")
-    Call<String> getEntryCode(@Path("eventId") int eventId); //Only available for event organizer, else 403 Forbidden
+    Call<ResponseBody> getEntryCode(@Path("eventId") int eventId); //Only available for event organizer, else 403 Forbidden
+
+    @FormUrlEncoded
+    @POST("events/{eventId}/entryCode")
+    Call<ResponseBody> sendEntryCodeTo(@Field("guestEmail") String guestEmail, @Path("eventId") int eventId);
 
     @GET("events/{eventId}/activities")
     Call<List<ActivityProfile>> getActivityList(@Path("eventId") int eventId);
