@@ -7,15 +7,34 @@ public class Activity {
     private String activityName;
     private String description;
     private int vote;
-    private float money;
+    private double money;
     private String category;
+    private EventProfile event;
+    private ArrayList<UserProfile> voteList = new ArrayList<>();
+    private ArrayList<UserProfile> booList = new ArrayList<>();
     private ArrayList<UserProfile> participantList = new ArrayList<>();
+    private UserProfile payer;
 
     public Activity() {
     }
 
-    public Activity(String activityName) {
-        this.activityName = activityName;
+    public Activity(Activity activity,
+                            EventProfile event,
+                            ArrayList<UserProfile> voteList,
+                            ArrayList<UserProfile> booList,
+                            ArrayList<UserProfile> participantList,
+                            UserProfile payer) {
+        this.id = activity.getId();
+        this.activityName = activity.getActivityName();
+        this.description = activity.getDescription();
+        this.vote = activity.getVote();
+        this.money = activity.getMoney();
+        this.category = activity.getCategory();
+        this.event = event;
+        this.voteList = voteList;
+        this.booList = booList;
+        this.participantList = participantList;
+        this.payer = payer;
     }
 
     public int getId() {
@@ -50,11 +69,11 @@ public class Activity {
         this.vote = vote;
     }
 
-    public float getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(float money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 
@@ -72,5 +91,37 @@ public class Activity {
 
     public void setParticipantList(ArrayList<UserProfile> participantList) {
         this.participantList = participantList;
+    }
+
+    public EventProfile getEvent() {
+        return event;
+    }
+
+    public void setEvent(EventProfile event) {
+        this.event = event;
+    }
+
+    public ArrayList<UserProfile> getVoteList() {
+        return voteList;
+    }
+
+    public void setVoteList(ArrayList<UserProfile> voteList) {
+        this.voteList = voteList;
+    }
+
+    public ArrayList<UserProfile> getBooList() {
+        return booList;
+    }
+
+    public void setBooList(ArrayList<UserProfile> booList) {
+        this.booList = booList;
+    }
+
+    public UserProfile getPayer() {
+        return payer;
+    }
+
+    public void setPayer(UserProfile payer) {
+        this.payer = payer;
     }
 }

@@ -37,8 +37,11 @@ public interface HerokuAPI {
     @DELETE("users/current/events/{eventId}")
     Call<ResponseBody> leaveEvent(@Path("eventId") int eventId);
 
-    //@GET("users/current/notifications")
-    //Call<List<NotificationProfile>> getNotificationList();
+    @GET("users/current/notifications")
+    Call<List<Notification>> getNotificationList();
+
+    @DELETE("users/current/notifications/{notificationId}")
+    Call<ResponseBody> removeNotification(@Path("notificationId") int notificationId);
 
     @GET("users/current/friends")
     Call<List<UserProfile>> getFriendList();
@@ -83,6 +86,9 @@ public interface HerokuAPI {
     @POST("events/{eventId}/entryCode")
     Call<ResponseBody> sendEntryCodeTo(@Field("guestEmail") String guestEmail, @Path("eventId") int eventId);
 
+    @GET("events/{eventId}/organizer")
+    Call<List<ActivityProfile>> getOrganizer(@Path("eventId") int eventId);
+
     @GET("events/{eventId}/activities")
     Call<List<ActivityProfile>> getActivityList(@Path("eventId") int eventId);
 
@@ -96,6 +102,8 @@ public interface HerokuAPI {
     @POST("events/{eventId}/activities/{activityId}")
     Call<ResponseBody> deleteActivity(@Path("eventId") int eventId, @Path("activityId") int activityId, @FieldMap Map<String, Object> map);
 
+    @GET("events/{eventId}/split")
+    Call<List<ActivityProfile>> splitBill(@Path("eventId") int eventId);
 
     @GET("activities/{activityId}")
     Call<ResponseBody> getActivity(@Path("activityId") int activityId);
