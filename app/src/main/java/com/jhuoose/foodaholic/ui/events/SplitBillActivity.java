@@ -19,7 +19,7 @@ import retrofit2.Response;
 
 public class SplitBillActivity extends AppCompatActivity {
     private HerokuAPI heroku;
-    int eid;
+    private int eid;
 
     private Button splitBill_btn;
     @Override
@@ -45,7 +45,7 @@ public class SplitBillActivity extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(getApplicationContext(), "The bill information has been sent Successfully",Toast.LENGTH_SHORT).show();
-                            //finish();
+                            finish();
                         }
                     }
 
