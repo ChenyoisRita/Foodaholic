@@ -103,7 +103,7 @@ public interface HerokuAPI {
     Call<ResponseBody> deleteActivity(@Path("eventId") int eventId, @Path("activityId") int activityId, @FieldMap Map<String, Object> map);
 
     @GET("events/{eventId}/split")
-    Call<List<ActivityProfile>> splitBill(@Path("eventId") int eventId);
+    Call<ResponseBody> splitBill(@Path("eventId") int eventId);
 
     @GET("activities/{activityId}")
     Call<ResponseBody> getActivity(@Path("activityId") int activityId);

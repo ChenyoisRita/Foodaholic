@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.adapter.ActivityAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
@@ -24,7 +26,6 @@ import com.jhuoose.foodaholic.viewmodel.Event;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +40,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private TextView eventTitle, totalPrice_tv;
     private ListView activityListView;
-    private Button addActivity_btn, leaveEvent_btn, moreInfo_btn;
+    private Button addActivity_btn, leaveEvent_btn, moreInfo_btn, splitBill_btn, inviteFriends_btn;
 
     private ActivityAdapter activityAdapter;
     String activityTitle, eventName;
@@ -60,6 +61,8 @@ public class EventDetailActivity extends AppCompatActivity {
         totalPrice_tv = this.findViewById(R.id.totalPrice_tx);
         leaveEvent_btn = this.findViewById(R.id.leaveEvent_button);
         moreInfo_btn = this.findViewById(R.id.moreInfo_button);
+        splitBill_btn = this.findViewById(R.id.splitBill_button);
+        inviteFriends_btn = this.findViewById(R.id.inviteFriends_button);
 
         activityList = new ArrayList<>();
         activityAdapter = new ActivityAdapter(activityList, EventDetailActivity.this);
@@ -146,6 +149,22 @@ public class EventDetailActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        splitBill_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EventDetailActivity.this,SplitBillActivity.class));
+            }
+        });
+
+        inviteFriends_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    showInviteDiaglog();
+            }
+
+        });
+
+
 
         // Todo: set the total Price for totalPrice_tv.
         // totalPrice_tv.setText();
@@ -269,5 +288,55 @@ public class EventDetailActivity extends AppCompatActivity {
             }
         });
         ad1.show();// Display Dialog;
+
     }
+    protected final void showInviteDiaglog(){
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View textEntryView = factory.inflate(R.layout.activity_invite_friends, null);
+        final EditText editEmail = (EditText) textEntryView.findViewById(R.id.edit_Email);
+        AlertDialog.Builder ad1 = new AlertDialog.Builder(EventDetailActivity.this);
+        ad1.setTitle("Please invite a friend:");
+        ad1.setIcon(android.R.drawable.ic_dialog_info);
+        ad1.setView(textEntryView);
+        ad1.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        });
+
+        ad1.setNegativeButton("Send", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int i) {
+                String description = " ";
+                int vote = 0;
+                float money = 0;
+                String email = editEmail.getText().toString();
+
+                Call<ResponseBody> call_invite = heroku.sendEntryCodeTo(email, eid);
+                        call_invite.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(!response.isSuccessful()){
+                            Toast.makeText(EventDetailActivity.this, "Invite Friends failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(EventDetailActivity.this, "Invite Friends Successfully", Toast.LENGTH_SHORT).show();
+                            updateActivityList();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                        Toast.makeText(EventDetailActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+        ad1.show();
+
+
+    }
+
+
 }
