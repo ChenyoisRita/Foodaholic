@@ -40,6 +40,7 @@ public class NotificationsFragment extends Fragment {
         notificationListView = root.findViewById(R.id.notificationListView);
 
         initNotificationList();
+        //updateEventListUI();
 
         notificationAdapter = new NotificationAdapter(this.getActivity(), R.layout.item_notification, notificationList);
         notificationListView.setAdapter(notificationAdapter);
@@ -47,9 +48,9 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(getActivity(), NotificationDetailActivity.class);
-                intent.putExtra("eventTitle", notificationList.get(position).getEventTitle());
-                intent.putExtra("notificationTitle", notificationList.get(position).getNotificationTitle());
-                intent.putExtra("notificationContent", notificationList.get(position).getNotificationContent());
+                intent.putExtra("eventTitle", notificationList.get(position).getTitle());
+                intent.putExtra("notificationTitle", notificationList.get(position).getCategory());
+                intent.putExtra("notificationContent", notificationList.get(position).getContent());
                 startActivity(intent);
             }
         });
@@ -78,20 +79,20 @@ public class NotificationsFragment extends Fragment {
         Call<List<Notification>> CallNotification = heroku.getNotificationList();
         CallNotification.enqueue(new Callback<List<Notification>>() {
             @Override
-            public void onResponse(Call<List<EventProfile>> call, Response<List<EventProfile>> response) {
+            public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
                 if(!response.isSuccessful()) {
                     Toast.makeText(getContext(), "Fetch event error: " + response.errorBody(), Toast.LENGTH_SHORT).show();
                 } else {
-                    eventList.clear();
-                    for (EventProfile eventProfile: response.body()) {
-                        eventList.add(eventProfile);
+                    notificationList.clear();
+                    for (Notification notification: response.body()) {
+                        notificationList.add(notification);
                     }
-                    eventAdapter.notifyDataSetChanged();
+                    notificationAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<EventProfile>> call, Throwable t) {
+            public void onFailure(Call<List<Notification>> call, Throwable t) {
                 Toast.makeText(getContext(), "Connection with EventList error", Toast.LENGTH_SHORT).show();
             }
         });

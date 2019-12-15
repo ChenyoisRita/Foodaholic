@@ -58,7 +58,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
         notificationTitle_display.setText(notificationTitle);
         notificationContent_display.setText(notificationContent);
 
-        acceptInvitationBtn..setOnClickListener(new View.OnClickListener() {
+        acceptInvitationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (getValidEntryCode()) {
@@ -69,7 +69,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
                             if (!response.isSuccessful()) {
                                 Toast.makeText(getApplicationContext(), "Event Not Found:"+response.errorBody(), Toast.LENGTH_SHORT).show();
                             } else {
-                                AlertDialog alertDialog = new AlertDialog.Builder(JoinEventActivity.this).create();
+                                AlertDialog alertDialog = new AlertDialog.Builder(NotificationDetailActivity.this).create();
                                 alertDialog.setTitle("Result");
                                 alertDialog.setMessage("Join Event Successfully");
                                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
@@ -97,8 +97,8 @@ public class NotificationDetailActivity extends AppCompatActivity {
     public boolean getValidEntryCode(){
         //String code = eventID_et.getText().toString().trim();
         //String preInvitationCode = "Invitation code is ";
-        String splitContent = notificationContent.split();
-        String code = splitContent[splitContent.length() - 1];
+        String[] splitContent = notificationContent.split(" ");
+        String code = splitContent[splitContent.length - 1];
         //String code = notificationContent.indexOf(preInvitationCode) + preInvitationCode.length()
         if (code!=null && !code.equals("") && !code.equals(" ") && code.length()>0) {
             entryCode = code;
