@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.jhuoose.foodaholic.adapter.ActivityAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.model.Activity;
+import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 import com.jhuoose.foodaholic.viewmodel.Event;
 
@@ -33,8 +35,10 @@ import retrofit2.Response;
 
 public class EventDetailActivity extends AppCompatActivity {
     private HerokuAPI heroku;
-    int eid;
+    public static int eid;
     private Event event;
+    private int flag=-1;
+    private int payerID = -1;
     private List<ActivityProfile> activityList;
     Activity activity;
 
@@ -159,7 +163,7 @@ public class EventDetailActivity extends AppCompatActivity {
         inviteFriends_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    showInviteDiaglog();
+                    showInviteDialog();
             }
 
         });
@@ -245,8 +249,25 @@ public class EventDetailActivity extends AppCompatActivity {
     protected final void showAddDialog(){
         LayoutInflater factory = LayoutInflater.from(this);
         final View textEntryView = factory.inflate(R.layout.activity_add_activity, null);
-        final EditText editCategory = (EditText) textEntryView.findViewById(R.id.edit_Category);
-        final EditText editName = (EditText)textEntryView.findViewById(R.id.edit_Name);
+        final EditText editCategory = textEntryView.findViewById(R.id.edit_Category);
+        final EditText editName = textEntryView.findViewById(R.id.edit_Name);
+        final RadioGroup rg = textEntryView.findViewById(R.id.rg_choosePayer);
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+
+                switch (checkedId) {
+                    case R.id.rb_myself:
+                        payerID = MainActivity.currentUserID;
+                        break;
+                    case R.id.rb_organizer:
+                        payerID = eventInfo.getOrganizer().getId();
+                        break;
+                }
+            }
+        });
+
         AlertDialog.Builder ad1 = new AlertDialog.Builder(EventDetailActivity.this);
         ad1.setTitle("Add a new activity:");
         ad1.setIcon(android.R.drawable.ic_dialog_info);
@@ -258,42 +279,48 @@ public class EventDetailActivity extends AppCompatActivity {
         });
         ad1.setNegativeButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int i) {
-                String activityName = editName.getText().toString();
+                String activityName = editName.getText().toString().trim();
                 String description = " ";
                 int vote = 0;
                 float money = 0;
-                String category = editCategory.getText().toString();
+                String category = editCategory.getText().toString().trim();
 
-                Call<ResponseBody> call = heroku.createActivity(eid, activityName, description, vote,
-                        money, category);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(!response.isSuccessful()){
-                            Toast.makeText(EventDetailActivity.this, "Add activity failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
+                Log.i("AddActivity", "aName:"+activityName+"; cate:"+category+"; payer:"+payerID);
+                if (payerID==-1 || activityName==null || category==null || activityName.equals("") || category.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Missing Input; Create Activity Failed", Toast.LENGTH_LONG).show();
+                } else {
+                    Call<ResponseBody> call = heroku.createActivity(eid, activityName, description, vote,
+                            money, category, payerID);
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if(!response.isSuccessful()){
+                                Toast.makeText(EventDetailActivity.this, "Add activity failed" + response.errorBody(), Toast.LENGTH_SHORT).show();
+                                Log.i("AddActivityLog", "Response Unsuccessful: "+response.errorBody());
+                            }
+                            else{
+                                Toast.makeText(EventDetailActivity.this, "Add activity Successfully", Toast.LENGTH_SHORT).show();
+                                updateActivityList();
+                            }
                         }
-                        else{
-                            Toast.makeText(EventDetailActivity.this, "Add activity Successfully", Toast.LENGTH_SHORT).show();
-                            updateActivityList();
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        t.printStackTrace();
-                        Toast.makeText(EventDetailActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            t.printStackTrace();
+                            Toast.makeText(EventDetailActivity.this, "Connection failed." +t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
 
             }
         });
         ad1.show();// Display Dialog;
 
     }
-    protected final void showInviteDiaglog(){
+    protected final void showInviteDialog(){
         LayoutInflater factory = LayoutInflater.from(this);
         final View textEntryView = factory.inflate(R.layout.activity_invite_friends, null);
-        final EditText editEmail = (EditText) textEntryView.findViewById(R.id.edit_Email);
+        final EditText editEmail = textEntryView.findViewById(R.id.edit_Email);
         AlertDialog.Builder ad1 = new AlertDialog.Builder(EventDetailActivity.this);
         ad1.setTitle("Please invite a friend:");
         ad1.setIcon(android.R.drawable.ic_dialog_info);
