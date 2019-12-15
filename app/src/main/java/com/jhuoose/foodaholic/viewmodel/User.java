@@ -10,7 +10,7 @@ public class User {
     private String phone;
     private ArrayList<UserProfile> friendList = new ArrayList<>();
     private ArrayList<EventProfile> participatingEventList = new ArrayList<>();
-    private ArrayList<Integer> notificationList = new ArrayList<>(); //TODO: to be changed to NotificationProfileView
+    private ArrayList<Notification> notificationList = new ArrayList<>(); 
 
     public User() {
     }
@@ -71,11 +71,11 @@ public class User {
         this.participatingEventList = participatingEventList;
     }
 
-    public ArrayList<Integer> getNotificationList() {
+    public ArrayList<Notification> getNotificationList() {
         return notificationList;
     }
 
-    public void setNotificationList(ArrayList<Integer> notificationList) {
+    public void setNotificationList(ArrayList<Notification> notificationList) {
         this.notificationList = notificationList;
     }
 }

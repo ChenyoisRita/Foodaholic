@@ -1,20 +1,22 @@
 package com.jhuoose.foodaholic.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
+import com.jhuoose.foodaholic.ui.events.EventDetailActivity;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 
 import java.text.DecimalFormat;
@@ -58,11 +60,11 @@ public class ActivityAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_activity,null,true);
 
-            holder.itemPrice = (TextView) convertView.findViewById(R.id.et_set_price);
-            holder.activityTitle = (TextView) convertView.findViewById(R.id.acticity_title);
-            holder.voteButton = (Button) convertView.findViewById(R.id.vote_button);
-            holder.activityVote = (TextView) convertView.findViewById(R.id.activity_vote);
-            holder.booButton = (Button) convertView.findViewById(R.id.boo_button);
+            holder.itemPrice = convertView.findViewById(R.id.et_set_price);
+            holder.activityTitle = convertView.findViewById(R.id.acticity_title);
+            holder.voteButton = convertView.findViewById(R.id.vote_button);
+            holder.activityVote = convertView.findViewById(R.id.activity_vote);
+            holder.booButton = convertView.findViewById(R.id.boo_button);
 
             convertView.setTag(holder);
         } else {
@@ -73,22 +75,93 @@ public class ActivityAdapter extends BaseAdapter {
 
         holder.activityTitle.setText(currentActivity.getActivityName());
         holder.activityVote.setText(Integer.toString(currentActivity.getVote()));
+        holder.itemPrice.setText(String.format("%.2f", currentActivity.getMoney()));
 
-//        Todo: Set the price and Upload it to the server
+//        Todo: [HerokuAPI: Delete Activity Error]
+        holder.activityTitle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(final View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("⚠️Delete Warning")
+                        .setMessage("Confirm to Delete "+holder.activityTitle.getText().toString()+" ?")
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Call<ResponseBody> call_deleteActivity = herokuAPI.deleteActivity(EventDetailActivity.eid, currentActivity.getId());
+                                call_deleteActivity.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        if (!response.isSuccessful()) {
+                                            Log.i("DeleteActivity", "Delete Error:"+response.errorBody()+" ; eid:"+EventDetailActivity.eid);
+                                            Toast.makeText(view.getContext(), "Delete Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(view.getContext(), "Delete Successfully", Toast.LENGTH_SHORT).show();
+                                            notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Toast.makeText(view.getContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                // If return true, LongClick will not lead to the single click event.
+                return true;
+            }
+        });
+
         NumberFormat formatter = new DecimalFormat("0.00");
         holder.itemPrice.setText(formatter.format(currentActivity.getMoney()));
-        holder.itemPrice.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        holder.itemPrice.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                switch (actionId) {
-                    case EditorInfo.IME_ACTION_DONE:
-                    case EditorInfo.IME_ACTION_NEXT:
-                    case EditorInfo.IME_ACTION_PREVIOUS:
-                        updateActivityPrice(currentActivity.getId(), Float.parseFloat(holder.itemPrice.getText().toString().trim()));
-                        Log.i("ActivityAdapter:Price", currentActivity.getActivityName()+" Price: "+holder.itemPrice.getText().toString());
-                        return true;
-                }
-                return false;
+            public void onClick(final View view) {
+                Log.i("SetPrice", "CLick");
+                final EditText inputPrice_et = new EditText(view.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Set Price💰").setView(inputPrice_et)
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                final float price = Float.valueOf(inputPrice_et.getText().toString().trim());
+                                Log.i("SetPrice", "Price: "+price);
+                                Call<ResponseBody> call_updateActivity = herokuAPI.updateActivityPrice(currentActivity.getId(), price);
+                                call_updateActivity.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        if (!response.isSuccessful()){
+                                            Toast.makeText(view.getContext(), "Setup Price Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            currentActivity.setMoney(price);
+                                            holder.itemPrice.setText(String.valueOf(price));
+                                            notifyDataSetChanged();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        Toast.makeText(view.getContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        });
+                builder.show();
             }
         });
 
@@ -149,11 +222,6 @@ public class ActivityAdapter extends BaseAdapter {
             }
         });
         return convertView;
-    }
-
-//    Todo: Upload the activity price to the server.
-    public void updateActivityPrice(int activityId, float price){
-
     }
 
     class ViewHolder {

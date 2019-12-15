@@ -40,6 +40,9 @@ public interface HerokuAPI {
     @GET("users/current/notifications")
     Call<List<Notification>> getNotificationList();
 
+    @DELETE("users/current/notifications/{notificationId}")
+    Call<ResponseBody> removeNotification(@Path("notificationId") int notificationId);
+
     @GET("users/current/friends")
     Call<List<UserProfile>> getFriendList();
 
@@ -83,6 +86,9 @@ public interface HerokuAPI {
     @POST("events/{eventId}/entryCode")
     Call<ResponseBody> sendEntryCodeTo(@Field("guestEmail") String guestEmail, @Path("eventId") int eventId);
 
+    @GET("events/{eventId}/organizer")
+    Call<List<ActivityProfile>> getOrganizer(@Path("eventId") int eventId);
+
     @GET("events/{eventId}/activities")
     Call<List<ActivityProfile>> getActivityList(@Path("eventId") int eventId);
 
@@ -91,19 +97,30 @@ public interface HerokuAPI {
 //    Call<ResponseBody> createActivity(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
     Call<ResponseBody> createActivity(@Path("eventId") int eventId, @Field("activityName") String activityName,
                                       @Field("description") String description, @Field("vote") int vote,
-                                      @Field("money") float money, @Field("category") String category);
+                                      @Field("money") float money, @Field("category") String category,
+                                      @Field("payerId") int payerId);
 
     @POST("events/{eventId}/activities/{activityId}")
     Call<ResponseBody> deleteActivity(@Path("eventId") int eventId, @Path("activityId") int activityId, @FieldMap Map<String, Object> map);
 
+    @POST("events/{eventId}/activities/{activityId}")
+    Call<ResponseBody> deleteActivity(@Path("eventId") int eventId, @Path("activityId") int activityId);
+
+    @GET("events/{eventId}/split")
+    Call<ResponseBody> splitBill(@Path("eventId") int eventId);
 
     @GET("activities/{activityId}")
     Call<ResponseBody> getActivity(@Path("activityId") int activityId);
 
+    @FormUrlEncoded
     @PUT("activities/{activityId}")
     Call<ResponseBody> updateActivity(@Path("activityId") int activityId, @Field("activityName") String activityName,
                                       @Field("money") float money, @Field("category") String category,
                                       @Field("description") String description);
+
+    @FormUrlEncoded
+    @PUT("activities/{activityId}")
+    Call<ResponseBody> updateActivityPrice(@Path("activityId") int activityId, @Field("money") float money);
 
     @PUT("activities/{activityId}/vote")
     Call<ResponseBody> vote(@Path("activityId") int activityId);

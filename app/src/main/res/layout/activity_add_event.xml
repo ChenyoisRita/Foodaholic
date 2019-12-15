@@ -26,6 +26,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="Event Title"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <EditText
@@ -38,6 +39,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text=""
+                android:background="@drawable/edit_for_line"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -56,6 +58,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="Location"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <EditText
@@ -67,6 +70,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:padding="10dp"
+                android:background="@drawable/edit_for_line"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -85,6 +89,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="Start Time"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <TextView
@@ -115,6 +120,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="End Time"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <TextView
@@ -146,6 +152,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="Event Date"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <TextView
@@ -177,6 +184,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="Notes"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <EditText
@@ -188,7 +196,8 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:padding="10dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:background="@drawable/edit_for_line"/>
         </LinearLayout>
 
         <LinearLayout
@@ -206,6 +215,7 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="Theme:"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <Button
@@ -241,6 +251,7 @@
                 android:layout_marginTop="5dp"
                 android:padding="10dp"
                 android:text="Invite:"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
             <Button
@@ -250,6 +261,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
+                android:background = "@drawable/btn_click"
                 android:text="Add" />
 
             <EditText
@@ -260,6 +272,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="110dp"
                 android:ems="10"
+                android:background="@drawable/edit_for_line"
                 android:hint="Email Address" />
         </RelativeLayout>
 
@@ -292,7 +305,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_red_light"
+            android:background="@drawable/btn_click_res"
             android:gravity="center"
             android:text="× Cancel"
             android:textSize="14sp" />
@@ -306,9 +319,10 @@
             android:layout_gravity="center_vertical"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@android:color/holo_green_light"
+            android:background = "@drawable/btn_click"
             android:gravity="center"
             android:text="√ Publish"
+
             android:textSize="14sp" />
 
     </LinearLayout>
