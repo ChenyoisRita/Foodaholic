@@ -95,7 +95,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                     "End: "+eventInfo.getEndTime()+"\n"+
                                     "Theme: "+eventInfo.getTheme()+"\n"+
                                     "EntryCode: "+entryCode)
-                        .setPositiveButton("👌", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("OK👌", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
