@@ -107,8 +107,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="248dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="608dp"
         android:background="@drawable/gradient"
         android:text="Accept"
         android:textSize="16dp"
@@ -120,10 +120,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="248dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="608dp"
         android:background="@drawable/gradient"
-        android:text="Refuse"
+        android:text="Decline"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

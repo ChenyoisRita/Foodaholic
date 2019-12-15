@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.adapter.NotificationAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
+import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.viewmodel.EventProfile;
 import com.jhuoose.foodaholic.viewmodel.Notification;
 
@@ -30,17 +31,21 @@ public class NotificationsFragment extends Fragment {
     private ListView notificationListView;
     private NotificationAdapter notificationAdapter = null;
 
-    public List<Notification> notificationList = new ArrayList<>();
+    public List<Notification> notificationList;
     Notification tmpNotification;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        heroku = HerokuService.getAPI();
+
         notificationListView = root.findViewById(R.id.notificationListView);
 
-        initNotificationList();
-        //updateEventListUI();
+        notificationList = new ArrayList<>();
+
+        //initNotificationList();
+        updateNotificationList();
 
         notificationAdapter = new NotificationAdapter(this.getActivity(), R.layout.item_notification, notificationList);
         notificationListView.setAdapter(notificationAdapter);
@@ -75,8 +80,8 @@ public class NotificationsFragment extends Fragment {
     }
     public List<Notification> getNotificationList() { return notificationList; }
 
-    public void updateEventListUI() {
-        Call<List<Notification>> CallNotification = heroku.getNotificationList();
+    public void updateNotificationList() {System.out.println("test0");
+        Call<List<Notification>> CallNotification = heroku.getNotificationList();System.out.println("test1");
         CallNotification.enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
@@ -87,6 +92,7 @@ public class NotificationsFragment extends Fragment {
                     for (Notification notification: response.body()) {
                         notificationList.add(notification);
                     }
+                    System.out.println("test2");
                     notificationAdapter.notifyDataSetChanged();
                 }
             }
