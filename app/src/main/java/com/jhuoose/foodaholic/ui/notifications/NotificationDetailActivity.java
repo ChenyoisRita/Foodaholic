@@ -14,12 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
-import com.jhuoose.foodaholic.model.Notification;
+import com.jhuoose.foodaholic.viewmodel.Notification;
 
-import com.jhuoose.foodaholic.model.Notification;
 import com.jhuoose.foodaholic.ui.events.JoinEventActivity;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

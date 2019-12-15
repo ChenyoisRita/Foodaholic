@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.adapter.NotificationAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
-import com.jhuoose.foodaholic.model.Notification;
 import com.jhuoose.foodaholic.viewmodel.EventProfile;
+import com.jhuoose.foodaholic.viewmodel.Notification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,23 +60,23 @@ public class NotificationsFragment extends Fragment {
     public void initNotificationList(){
         for(int i=1; i<=2; i++){
             Notification temp = new Notification();
-            temp.setNotificationTitle("Bill");
-            temp.setNotificationContent("you should pay for" + i + "dollars");
-            temp.setEventTitle("event" + i);
+            temp.setCategory("Bill");
+            temp.setContent("you should pay for" + i + "dollars");
+            temp.setTitle("event" + i);
             notificationList.add(temp);
         }
         Notification temp = new Notification();
-        temp.setNotificationTitle("invitation");
-        temp.setNotificationContent("Your friend Bill Gates has sent you an invitation. \n Invitation code is HEWHYE");
-        temp.setEventTitle("event invitation");
+        temp.setCategory("invitation");
+        temp.setContent("Your friend Bill Gates has sent you an invitation. \n Invitation code is HEWHYE");
+        temp.setTitle("event invitation");
         notificationList.add(temp);
 
     }
     public List<Notification> getNotificationList() { return notificationList; }
 
     public void updateEventListUI() {
-        Call<List<EventProfile>> callEventProfile = heroku.getParticipatingEventList();
-        callEventProfile.enqueue(new Callback<List<EventProfile>>() {
+        Call<List<Notification>> CallNotification = heroku.getNotificationList();
+        CallNotification.enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<EventProfile>> call, Response<List<EventProfile>> response) {
                 if(!response.isSuccessful()) {

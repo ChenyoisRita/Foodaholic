@@ -4,10 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.jhuoose.foodaholic.model.Notification;
-
-import org.w3c.dom.Text;
-
 public class NotificationsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
