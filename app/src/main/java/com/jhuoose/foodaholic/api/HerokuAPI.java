@@ -100,13 +100,10 @@ public interface HerokuAPI {
                                       @Field("money") float money, @Field("category") String category,
                                       @Field("payerId") int payerId);
 
-    @POST("events/{eventId}/activities/{activityId}")
-    Call<ResponseBody> deleteActivity(@Path("eventId") int eventId, @Path("activityId") int activityId, @FieldMap Map<String, Object> map);
-
-    @POST("events/{eventId}/activities/{activityId}")
+    @DELETE("events/{eventId}/activities/{activityId}")
     Call<ResponseBody> deleteActivity(@Path("eventId") int eventId, @Path("activityId") int activityId);
 
-    @GET("events/{eventId}/split")
+    @POST("events/{eventId}/split")
     Call<ResponseBody> splitBill(@Path("eventId") int eventId);
 
     @GET("activities/{activityId}")
