@@ -2,6 +2,7 @@ package com.jhuoose.foodaholic.ui.events;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class SplitBillActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         eid = intent.getIntExtra("eventId", -1);
+        Log.i("wsffffff", "eid:" +eid);
 
         splitBill_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

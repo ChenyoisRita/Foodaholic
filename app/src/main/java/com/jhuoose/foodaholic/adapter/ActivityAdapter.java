@@ -3,6 +3,7 @@ package com.jhuoose.foodaholic.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
+import com.jhuoose.foodaholic.ui.events.ActivityDetailActivity;
 import com.jhuoose.foodaholic.ui.events.EventDetailActivity;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 
@@ -121,6 +123,15 @@ public class ActivityAdapter extends BaseAdapter {
             }
         });
 
+
+        holder.activityTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(view.getContext(), ActivityDetailActivity.class);
+                view.getContext().startActivity(intent1);
+            }
+        });
+
         NumberFormat formatter = new DecimalFormat("0.00");
         holder.itemPrice.setText(formatter.format(currentActivity.getMoney()));
         holder.itemPrice.setOnClickListener(new View.OnClickListener() {
@@ -223,6 +234,8 @@ public class ActivityAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
+
 
     class ViewHolder {
         TextView activityTitle;

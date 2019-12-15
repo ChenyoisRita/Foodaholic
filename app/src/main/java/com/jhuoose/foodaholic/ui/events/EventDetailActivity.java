@@ -156,7 +156,9 @@ public class EventDetailActivity extends AppCompatActivity {
         splitBill_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EventDetailActivity.this,SplitBillActivity.class));
+                Intent intent1 = new Intent(EventDetailActivity.this, SplitBillActivity.class);
+                intent1.putExtra("eventId",eid);
+                startActivity(intent1);
             }
         });
 
