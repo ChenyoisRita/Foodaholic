@@ -37,8 +37,8 @@ public interface HerokuAPI {
     @DELETE("users/current/events/{eventId}")
     Call<ResponseBody> leaveEvent(@Path("eventId") int eventId);
 
-    //@GET("users/current/notifications")
-    //Call<List<NotificationProfile>> getNotificationList();
+    @GET("users/current/notifications")
+    Call<List<Notification>> getNotificationList();
 
     @GET("users/current/friends")
     Call<List<UserProfile>> getFriendList();

@@ -6,9 +6,18 @@ public class Notification {
     private int id;
     private Date time;
     private String category;
+    private String title;
     private String content;
 
     public Notification() {
+    }
+
+    public Notification(int id, Date time, String category, String title, String content) {
+        this.id = id;
+        this.time = time;
+        this.category = category;
+        this.title = title;
+        this.content = content;
     }
 
     public int getId() {
@@ -41,5 +50,13 @@ public class Notification {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
