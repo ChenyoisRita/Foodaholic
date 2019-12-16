@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,20 +15,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.jhuoose.foodaholic.R;
 import com.jhuoose.foodaholic.adapter.ActivityAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
-import com.jhuoose.foodaholic.model.Activity;
-import com.jhuoose.foodaholic.ui.MainActivity;
 import com.jhuoose.foodaholic.viewmodel.ActivityProfile;
 import com.jhuoose.foodaholic.viewmodel.Event;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,18 +36,15 @@ import retrofit2.Response;
 public class EventDetailActivity extends AppCompatActivity {
     private HerokuAPI heroku;
     public static int eid;
-    private Event event;
-    private int flag=-1;
     private int payerID = -1;
     private List<ActivityProfile> activityList;
-    Activity activity;
 
-    private TextView eventTitle, totalPrice_tv;
+    private TextView totalPrice_tv;
     private ListView activityListView;
     private Button addActivity_btn, leaveEvent_btn, moreInfo_btn, splitBill_btn, inviteFriends_btn;
 
     private ActivityAdapter activityAdapter;
-    String activityTitle, eventName;
+    String eventName;
     public Event eventInfo;
     public String entryCode;
 
@@ -59,7 +56,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
         heroku = HerokuService.getAPI();
 
-//        eventTitle = this.findViewById(R.id.event_view_title);
         activityListView = this.findViewById(R.id.activity_list);
         addActivity_btn = this.findViewById(R.id.add_activity_button);
         totalPrice_tv = this.findViewById(R.id.totalPrice_tx);
@@ -71,6 +67,17 @@ public class EventDetailActivity extends AppCompatActivity {
         activityList = new ArrayList<>();
         activityAdapter = new ActivityAdapter(activityList, EventDetailActivity.this);
         activityListView.setAdapter(activityAdapter);
+
+        activityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.i("EventDetailActivity", "Click: "+position);
+                Intent activityDetailIntent = new Intent(view.getContext(), ActivityDetailActivity.class);
+                activityDetailIntent.putExtra("eventID", eid);
+                activityDetailIntent.putExtra("activityID", activityList.get(position).getId());
+                startActivity(activityDetailIntent);
+            }
+        });
 
         Intent intent = getIntent();
         eid = intent.getIntExtra("eventId",-1);
@@ -85,9 +92,12 @@ public class EventDetailActivity extends AppCompatActivity {
         moreInfo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailActivity.this);
-                builder.setTitle("Details of "+eventName)
-                        .setMessage("ID: "+eventInfo.getId()+"\n"+
+
+                // If current User is the Organizer of this event, he can delete this event
+                if (eventInfo.getOrganizer().getId()==EventsFragment.currentUserID){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailActivity.this);
+                    builder.setTitle("Details of "+eventName)
+                            .setMessage("ID: "+eventInfo.getId()+"\n"+
                                     "Name: "+eventName+"\n"+
                                     "Description: "+eventInfo.getDescription()+"\n"+
                                     "Location: "+eventInfo.getLocation()+"\n"+
@@ -95,15 +105,60 @@ public class EventDetailActivity extends AppCompatActivity {
                                     "End: "+eventInfo.getEndTime()+"\n"+
                                     "Theme: "+eventInfo.getTheme()+"\n"+
                                     "EntryCode: "+entryCode)
-                        .setPositiveButton("OK👌", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                // Create Dialog Box
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                            .setPositiveButton("👌", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .setNegativeButton("Delete Event", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Call<ResponseBody> call_deleteEvent = heroku.deleteEvent(eid);
+                                    call_deleteEvent.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            if (!response.isSuccessful()) {
+                                                Toast.makeText(getApplicationContext(), "Delete Error: "+response.errorBody(), Toast.LENGTH_SHORT).show();
+                                            } else {
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                        }
+                                    });
+                                }
+                            })
+                    ;
+                    // Create Dialog Box
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    // CurrentUser does not have the permission to delete this event
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EventDetailActivity.this);
+                    builder.setTitle("Details of "+eventName)
+                            .setMessage("ID: "+eventInfo.getId()+"\n"+
+                                    "Name: "+eventName+"\n"+
+                                    "Description: "+eventInfo.getDescription()+"\n"+
+                                    "Location: "+eventInfo.getLocation()+"\n"+
+                                    "Begin: "+eventInfo.getStartTime()+"\n"+
+                                    "End: "+eventInfo.getEndTime()+"\n"+
+                                    "Theme: "+eventInfo.getTheme()+"\n"+
+                                    "EntryCode: "+entryCode)
+                            .setPositiveButton("👌", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                    // Create Dialog Box
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+
             }
         });
 
@@ -170,16 +225,14 @@ public class EventDetailActivity extends AppCompatActivity {
 
         });
 
-
-
-        // Todo: set the total Price for totalPrice_tv.
-        // totalPrice_tv.setText();
+        updateTotalPrice();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         updateActivityList();
+        updateTotalPrice();
     }
 
     private void updateActivityList() {
@@ -195,6 +248,7 @@ public class EventDetailActivity extends AppCompatActivity {
                         activityList.add(activityProfile);
                     }
                     activityAdapter.notifyDataSetChanged();
+                    updateTotalPrice();
                 }
             }
 
@@ -261,7 +315,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
                 switch (checkedId) {
                     case R.id.rb_myself:
-                        payerID = MainActivity.currentUserID;
+                        payerID = EventsFragment.currentUserID;
                         break;
                     case R.id.rb_organizer:
                         payerID = eventInfo.getOrganizer().getId();
@@ -316,7 +370,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
             }
         });
-        ad1.show();// Display Dialog;
+        ad1.show();
 
     }
     protected final void showInviteDialog(){
@@ -367,5 +421,16 @@ public class EventDetailActivity extends AppCompatActivity {
 
     }
 
+    public void updateTotalPrice() {
+        double sum = 0;
+
+        for (ActivityProfile ap: activityList) {
+            sum += ap.getMoney();
+        }
+
+        NumberFormat formatter = new DecimalFormat("0.00");
+        totalPrice_tv.setText("Total: "+formatter.format(sum));
+        Log.i("UpdateTotalPRice", "Price: "+sum+"; AListLength: "+activityList.size());
+    }
 
 }

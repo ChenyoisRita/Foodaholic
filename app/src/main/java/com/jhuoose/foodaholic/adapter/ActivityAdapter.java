@@ -79,7 +79,19 @@ public class ActivityAdapter extends BaseAdapter {
         holder.activityVote.setText(Integer.toString(currentActivity.getVote()));
         holder.itemPrice.setText(String.format("%.2f", currentActivity.getMoney()));
 
-//        Todo: [HerokuAPI: Delete Activity Error]
+        holder.activityTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.i("ActivityAdapter", "activityID: "+currentActivity.getId());
+                Intent activityDetailIntent = new Intent(view.getContext(), ActivityDetailActivity.class);
+                activityDetailIntent.putExtra("eventID", EventDetailActivity.eid);
+                activityDetailIntent.putExtra("activityID", currentActivity.getId());
+                view.getContext().startActivity(activityDetailIntent);
+            }
+        });
+
+        // Long Press an item to delete
         holder.activityTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(final View view) {
@@ -98,6 +110,7 @@ public class ActivityAdapter extends BaseAdapter {
                                             Toast.makeText(view.getContext(), "Delete Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(view.getContext(), "Delete Successfully", Toast.LENGTH_SHORT).show();
+                                            mData.remove(currentActivity);
                                             notifyDataSetChanged();
                                         }
                                     }
@@ -123,15 +136,6 @@ public class ActivityAdapter extends BaseAdapter {
             }
         });
 
-
-        holder.activityTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(view.getContext(), ActivityDetailActivity.class);
-                view.getContext().startActivity(intent1);
-            }
-        });
-
         NumberFormat formatter = new DecimalFormat("0.00");
         holder.itemPrice.setText(formatter.format(currentActivity.getMoney()));
         holder.itemPrice.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +155,6 @@ public class ActivityAdapter extends BaseAdapter {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 final float price = Float.valueOf(inputPrice_et.getText().toString().trim());
-                                Log.i("SetPrice", "Price: "+price);
                                 Call<ResponseBody> call_updateActivity = herokuAPI.updateActivityPrice(currentActivity.getId(), price);
                                 call_updateActivity.enqueue(new Callback<ResponseBody>() {
                                     @Override

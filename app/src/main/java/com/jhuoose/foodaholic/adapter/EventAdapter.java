@@ -39,9 +39,9 @@ public class EventAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_event,parent,false);
-        TextView eventName = (TextView) convertView.findViewById(R.id.event_name);
-        TextView eventTime = (TextView) convertView.findViewById(R.id.event_time);
-        TextView eventPlace = (TextView) convertView.findViewById(R.id.event_place);
+        TextView eventName = convertView.findViewById(R.id.event_name);
+        TextView eventTime = convertView.findViewById(R.id.event_time);
+        TextView eventPlace = convertView.findViewById(R.id.event_place);
         eventName.setText(mData.get(position).getEventName());
         eventTime.setText(mData.get(position).getStartTime() + " - "
                             + mData.get(position).getEndTime());

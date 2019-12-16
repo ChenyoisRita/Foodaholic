@@ -17,6 +17,7 @@ import com.jhuoose.foodaholic.adapter.EventAdapter;
 import com.jhuoose.foodaholic.api.HerokuAPI;
 import com.jhuoose.foodaholic.api.HerokuService;
 import com.jhuoose.foodaholic.viewmodel.EventProfile;
+import com.jhuoose.foodaholic.viewmodel.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class EventsFragment extends Fragment {
     private Button addEventButton, joinEventBtn;
     private EventAdapter eventAdapter = null;
     public List<EventProfile> eventList;
+    public static int currentUserID;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class EventsFragment extends Fragment {
         eventAdapter = new EventAdapter(eventList, getActivity());
         eventListView.setAdapter(eventAdapter);
         updateEventListUI();
+        getCurrentUserID();
 
         eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,6 +105,27 @@ public class EventsFragment extends Fragment {
             @Override
             public void onFailure(Call<List<EventProfile>> call, Throwable t) {
                 Toast.makeText(getContext(), "Connection with EventList error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void getCurrentUserID(){
+        Call<User> call_getCurrentUser = heroku.getCurrentUser();
+        call_getCurrentUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Get Current UID Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                } else {
+                    currentUserID = response.body().getId();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.i("GetCurrentUser", "Failure: Msg: "+t.getMessage()+";\n Cause: "+t.getCause()
+                        +";\n TackTrace: "+t.getStackTrace());
+                Toast.makeText(getContext(), "Get CurrentUser Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
