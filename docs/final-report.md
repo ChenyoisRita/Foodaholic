@@ -46,7 +46,8 @@ Update the project board with tasks for a hypothetical Iteration 7.
 -->
 
 I would recommend our application to my friends who like socialization and always participate in events like party and session. In order to make my application even more awesome, I would add features: chat with friends who particpate in the same events and create chat group of the same events.</br>
-First, I should design the UI of chatting window, and then implement the function of sending my messages to Heroku and getting friend's message data from heroku.
+First, I should design the UI of chatting window, and then implement the function of sending my messages to Heroku and getting friend's message data from heroku. </br>
+Second, in server side, I should implement the class of group chat, design the attributes and methods of it.</br>
 
 # A Final Message to Your Advisor
 
