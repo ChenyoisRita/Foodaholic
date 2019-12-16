@@ -32,7 +32,7 @@ Which tools did you learn to dislike? Why? And what other tools would you have r
 -->
 I like Android Studio because its code prompts and search are very powerful and really smart. For example, a custom layout has a name called btn_click_grey.xml. If you're in eclipse, you have to type in the beginning of this name(i.e. btn) to prompt for the following. But in Android Studio, you only need to type any substring, for example, grey, and it will prompt you. Also, Android Studio will intelligently predict and give you the best hints/prompts. Instead of giving you the same result every time, it will give you the results you may want to use the most.
 
-I dislike the 
+There is no tools I dislike so far.
 
 # Iteration 7 & Beyond
 
@@ -41,6 +41,9 @@ Where would you take your project from here? What features would you add to make
 
 Update the project board with tasks for a hypothetical Iteration 7.
 -->
+
+I would recommend our application to my friends who like socialization and always participate in events like party and session. In order to make my application even more awesome, I would add features: chat with friends who particpate in the same events and create chat group of the same events.
+First, I should design the UI of chatting window, and then implement the function of sending my messages to Heroku and getting friend's message data from heroku.
 
 # A Final Message to Your Advisor
 
@@ -51,3 +54,4 @@ What do you think they need to improve?
 
 And anything else you’d like to say.
 -->
+Thanks for your help. Every time we ask questions, you can always explain it in detail and give useful suggestions. We really appreciate it. 
