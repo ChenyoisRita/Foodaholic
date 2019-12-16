@@ -25,8 +25,8 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="Event ID"
         android:gravity="center"
+        android:hint="Entry Code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

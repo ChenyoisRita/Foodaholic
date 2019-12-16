@@ -2,6 +2,7 @@ package com.jhuoose.foodaholic.ui.notifications;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class NotificationsFragment extends Fragment {
     Notification tmpNotification;
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         heroku = HerokuService.getAPI();
@@ -53,35 +54,47 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent(getActivity(), NotificationDetailActivity.class);
+                intent.putExtra("eventId", notificationList.get(position).getId());
+                System.out.println("notificationList.get(position).getId())"+notificationList.get(position).getId());
                 intent.putExtra("eventTitle", notificationList.get(position).getTitle());
                 intent.putExtra("notificationTitle", notificationList.get(position).getCategory());
                 intent.putExtra("notificationContent", notificationList.get(position).getContent());
                 startActivity(intent);
+                //updateNotificationList();
             }
         });
 
 
         return root;
     }
+
+
+    public void onResume() {
+        super.onResume();
+        updateNotificationList();
+    }
+
     public void initNotificationList(){
         for(int i=1; i<=2; i++){
             Notification temp = new Notification();
+            temp.setId(i);
             temp.setCategory("Bill");
             temp.setContent("you should pay for" + i + "dollars");
             temp.setTitle("event" + i);
             notificationList.add(temp);
         }
         Notification temp = new Notification();
+        temp.setId(3);
         temp.setCategory("invitation");
-        temp.setContent("Your friend Bill Gates has sent you an invitation. \n Invitation code is HEWHYE");
+        temp.setContent("Your friend Bill Gates has sent you an invitation. Invitation code is HEWHYE");
         temp.setTitle("event invitation");
         notificationList.add(temp);
 
     }
     public List<Notification> getNotificationList() { return notificationList; }
 
-    public void updateNotificationList() {System.out.println("test0");
-        Call<List<Notification>> CallNotification = heroku.getNotificationList();System.out.println("test1");
+    public void updateNotificationList() {
+        Call<List<Notification>> CallNotification = heroku.getNotificationList();
         CallNotification.enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
@@ -92,14 +105,16 @@ public class NotificationsFragment extends Fragment {
                     for (Notification notification: response.body()) {
                         notificationList.add(notification);
                     }
-                    System.out.println("test2");
                     notificationAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Notification>> call, Throwable t) {
-                Toast.makeText(getContext(), "Connection with EventList error", Toast.LENGTH_SHORT).show();
+                Log.i("GetCurrentUser", "Failure: Msg: "+t.getMessage()+";\n Cause"+t.getCause()
+                        +";\n TackTrace: "+t.getStackTrace());
+
+                Toast.makeText(getContext(), "Connection with NotificationList error", Toast.LENGTH_SHORT).show();
             }
         });
     }

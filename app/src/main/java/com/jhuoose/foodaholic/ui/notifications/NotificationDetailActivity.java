@@ -27,7 +27,8 @@ public class NotificationDetailActivity extends AppCompatActivity {
     private HerokuAPI heroku;
     String eventTitle, notificationTitle, notificationContent, entryCode;
     TextView eventTitle_display, notificationTitle_display, notificationContent_display;
-    Button acceptInvitationBtn, declineInvitationBtn;
+    Button acceptInvitationBtn, removeInvitationBtn;
+    int notificationId;
     Notification notification;
 
 //    @override
@@ -42,14 +43,15 @@ public class NotificationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification_detail);
 
         heroku = HerokuService.getAPI();
-        acceptInvitationBtn = findViewById(R.id.acceptInvitationButton);
-        declineInvitationBtn = findViewById(R.id.declineInvitationButton);
+        //acceptInvitationBtn = findViewById(R.id.acceptInvitationButton);
+        removeInvitationBtn = findViewById(R.id.declineInvitationButton);
 
         eventTitle_display = this.findViewById(R.id.eventTitle_display_tv);
         notificationTitle_display = this.findViewById(R.id.notificationTitle_display_tv);
         notificationContent_display = this.findViewById(R.id.notificationContent_display_tv);
 
         Intent intent = getIntent();
+        notificationId = intent.getIntExtra("eventId", 0);
         eventTitle = intent.getStringExtra("eventTitle");
         notificationTitle = intent.getStringExtra("notificationTitle");
         notificationContent = intent.getStringExtra("notificationContent");
@@ -57,7 +59,7 @@ public class NotificationDetailActivity extends AppCompatActivity {
         eventTitle_display.setText(eventTitle);
         notificationTitle_display.setText(notificationTitle);
         notificationContent_display.setText(notificationContent);
-
+/*
         acceptInvitationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +93,40 @@ public class NotificationDetailActivity extends AppCompatActivity {
                 }
             }
         });
+*/
+        removeInvitationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<ResponseBody> call_RemoveNotification = heroku.removeNotification(notificationId);
+                System.out.println("notificationId"+ notificationId);
+                call_RemoveNotification.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Event Not Found:"+response.errorBody(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            AlertDialog alertDialog = new AlertDialog.Builder(NotificationDetailActivity.this).create();
+                            alertDialog.setTitle("Result");
+                            alertDialog.setMessage("Remove Notification Successfully");
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                    finish();
+                                }
+                            });
+                            alertDialog.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
 
     }
 

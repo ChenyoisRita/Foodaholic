@@ -1,10 +1,11 @@
 package com.jhuoose.foodaholic.viewmodel;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Notification {
     private int id;
-    private Date time;
+    private String time;
     private String category;
     private String title;
     private String content;
@@ -12,13 +13,6 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(int id, Date time, String category, String title, String content) {
-        this.id = id;
-        this.time = time;
-        this.category = category;
-        this.title = title;
-        this.content = content;
-    }
 
     public int getId() {
         return id;
@@ -28,11 +22,11 @@ public class Notification {
         this.id = id;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
