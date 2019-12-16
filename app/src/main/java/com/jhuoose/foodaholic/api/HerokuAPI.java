@@ -57,14 +57,12 @@ public interface HerokuAPI {
 
     @FormUrlEncoded
     @PUT("users/current/profile")
-//    Call<UserProfile> updateCurrentUserProfile(@FieldMap Map<String, Object> map);
     Call<ResponseBody> updateCurrentUserProfile(@Field("userName") String userName, @Field("phone") String phone,
                                                @Field("email") String email);
 
 
     @FormUrlEncoded
     @POST("events")
-//    Call<ResponseBody> createEvent(@FieldMap Map<String, String> map);
     Call<ResponseBody> createEvent(@Field("eventName") String eventName, @Field("description") String description,
                                    @Field("location") String location, @Field("startTime") String startTime,
                                    @Field("endTime") String endTime, @Field("theme") String theme);
@@ -94,7 +92,6 @@ public interface HerokuAPI {
 
     @FormUrlEncoded
     @POST("events/{eventId}/activities")
-//    Call<ResponseBody> createActivity(@Path("eventId") int eventId, @FieldMap Map<String, Object> map);
     Call<ResponseBody> createActivity(@Path("eventId") int eventId, @Field("activityName") String activityName,
                                       @Field("description") String description, @Field("vote") int vote,
                                       @Field("money") float money, @Field("category") String category,
@@ -107,7 +104,7 @@ public interface HerokuAPI {
     Call<ResponseBody> splitBill(@Path("eventId") int eventId);
 
     @GET("activities/{activityId}")
-    Call<ResponseBody> getActivity(@Path("activityId") int activityId);
+    Call<Activity> getActivity(@Path("activityId") int activityId);
 
     @FormUrlEncoded
     @PUT("activities/{activityId}")

@@ -97,7 +97,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(EditProfileActivity.this, "Conneciton Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProfileActivity.this, "Get CurUser Connection Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

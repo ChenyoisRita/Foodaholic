@@ -57,8 +57,6 @@ public class HomeFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // if LoginActivity.flag==0, u can login without input username and password.
-                // if LoginActivity.flag == 1, u need to input your username and password to login.
                 Call<ResponseBody> call_logout = heroku.logout();
                 call_logout.enqueue(new Callback<ResponseBody>() {
                     @Override

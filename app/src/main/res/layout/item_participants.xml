@@ -6,12 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:id="@+id/participantName_tv"
         android:layout_width="223dp"
         android:layout_height="35dp"
         android:layout_marginStart="116dp"
         android:layout_marginTop="28dp"
         android:text="Participant Name"
-        android:textSize="20dp"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
