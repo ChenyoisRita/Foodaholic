@@ -87,8 +87,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
         getEventInfo();
 
-        getEntryCode();
-
         moreInfo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,8 +101,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                     "Location: "+eventInfo.getLocation()+"\n"+
                                     "Begin: "+eventInfo.getStartTime()+"\n"+
                                     "End: "+eventInfo.getEndTime()+"\n"+
-                                    "Theme: "+eventInfo.getTheme()+"\n"+
-                                    "EntryCode: "+entryCode)
+                                    "Theme: "+eventInfo.getTheme()+"\n")
                             .setPositiveButton("👌", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -119,15 +116,15 @@ public class EventDetailActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                             if (!response.isSuccessful()) {
-                                                Toast.makeText(getApplicationContext(), "Delete Error: "+response.errorBody(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getApplicationContext(), "Delete Event Error: "+response.errorBody(), Toast.LENGTH_SHORT).show();
                                             } else {
-
+                                                Toast.makeText(getApplicationContext(), "YOU DELETE EVENT", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
                                         @Override
                                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                                            Toast.makeText(getApplicationContext(), "Delete Event Connection Error", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -146,8 +143,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                     "Location: "+eventInfo.getLocation()+"\n"+
                                     "Begin: "+eventInfo.getStartTime()+"\n"+
                                     "End: "+eventInfo.getEndTime()+"\n"+
-                                    "Theme: "+eventInfo.getTheme()+"\n"+
-                                    "EntryCode: "+entryCode)
+                                    "Theme: "+eventInfo.getTheme()+"\n")
                             .setPositiveButton("👌", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -268,6 +264,9 @@ public class EventDetailActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Get Event Info Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
                 } else {
                     eventInfo = response.body();
+                    if (eventInfo.getOrganizer().getId()==EventsFragment.currentUserID){
+                        getEntryCode();
+                    }
                 }
             }
 
@@ -288,7 +287,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 } else {
                     try {
                         entryCode = response.body().string();
-                        Log.i("EntryCode", entryCode);
+                        Log.i("EntryCode", "EntryCode For "+eventName+" is: "+entryCode);
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Convert Response Error:"+e.getMessage(),Toast.LENGTH_SHORT).show();
                     }

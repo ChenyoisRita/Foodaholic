@@ -60,6 +60,13 @@ public interface HerokuAPI {
     Call<ResponseBody> updateCurrentUserProfile(@Field("userName") String userName, @Field("phone") String phone,
                                                @Field("email") String email);
 
+    @GET("users/{friendId}")
+    Call<ResponseBody> getUserProfile(@Path("friendId") int friendId);
+
+    @FormUrlEncoded
+    @GET("users/search/byEmail")
+    Call<ResponseBody> getUserProfileByEmail(@Field("email") String email);
+
 
     @FormUrlEncoded
     @POST("events")
