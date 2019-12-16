@@ -65,7 +65,7 @@ public interface HerokuAPI {
 
     @FormUrlEncoded
     @GET("users/search/byEmail")
-    Call<ResponseBody> getUserProfileByEmail(@Field("email") int email);
+    Call<ResponseBody> getUserProfileByEmail(@Field("email") String email);
 
 
     @FormUrlEncoded
