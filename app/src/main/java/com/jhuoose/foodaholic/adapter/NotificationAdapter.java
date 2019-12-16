@@ -28,7 +28,7 @@ public class NotificationAdapter extends ArrayAdapter<Notification>{
         TextView notificationItemView_title = view.findViewById(R.id.notification_title);
         TextView notificationItemView_content = view.findViewById(R.id.notification_content);
         notificationItemView_title.setText(notification.getCategory());
-        notificationItemView_content.setText(notification.getContent());
+        notificationItemView_content.setText(notification.getTitle());
         return view;
     }
 
