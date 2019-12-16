@@ -8,8 +8,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_width="411dp"
+        android:layout_height="235dp"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -24,21 +24,21 @@
                 android:id="@+id/profilePic_im"
                 android:layout_width="180dp"
                 android:layout_height="80dp"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="50dp"
-                android:layout_centerInParent ="true"
                 android:src="@drawable/profile_pic_circle" />
 
             <TextView
                 android:id="@+id/profileName_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:hint="username"
-                android:layout_centerInParent ="true"
-                android:textColor="#fff"
                 android:textAlignment="center"
+                android:textColor="#fff"
                 android:textSize="21sp"
                 android:textStyle="italic" />
 
@@ -55,44 +55,57 @@
 
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/bio_textView"-->
-<!--            android:layout_width="175dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginTop="176dp"-->
-<!--            android:gravity="center"-->
-<!--            android:hint="Add a bio"-->
-<!--            android:inputType="text" />-->
+
+        <!--        <EditText-->
+        <!--            android:id="@+id/bio_textView"-->
+        <!--            android:layout_width="175dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentTop="true"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="176dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:hint="Add a bio"-->
+        <!--            android:inputType="text" />-->
 
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_changepw"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginBottom="107dp"-->
-<!--            android:background="@drawable/buttonstyle"-->
-<!--            android:text="Change Password"-->
-<!--            android:textColor="#fff"-->
-<!--            android:textStyle="italic" />-->
-
-        <Button
-            android:id="@+id/btn_logout"
-            android:layout_width="149dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/buttonstyle"
-            android:text="Log out"
-            android:textColor="#fff"
-            android:textStyle="italic" />
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_changepw"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentBottom="true"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_marginBottom="107dp"-->
+        <!--            android:background="@drawable/buttonstyle"-->
+        <!--            android:text="Change Password"-->
+        <!--            android:textColor="#fff"-->
+        <!--            android:textStyle="italic" />-->
 
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="88dp"
+        android:background="@drawable/buttonstyle"
+        android:text="Log out"
+        android:textColor="#fff"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:layout_width="340dp"
+        android:layout_height="134dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="196dp"
+        android:src="@drawable/foodaholic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
