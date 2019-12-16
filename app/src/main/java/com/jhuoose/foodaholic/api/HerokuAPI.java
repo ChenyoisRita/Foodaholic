@@ -121,4 +121,10 @@ public interface HerokuAPI {
 
     @PUT("activities/{activityId}/boo")
     Call<ResponseBody> boo(@Path("activityId") int activityId);
+
+    @POST("activities/{activityId}/participate")
+    Call<ResponseBody> joinActivity(@Path("activityId") int activityId);
+
+    @DELETE("activities/{activityId}/participate")
+    Call<ResponseBody> leaveActivity(@Path("activityId") int activityId);
 }
