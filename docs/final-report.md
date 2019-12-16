@@ -11,9 +11,9 @@ How did the Project Proposal & Design documents help you develop your project?
 
 What changed in your project since you wrote the initial version of those documents?
 -->
-Initially, the Project Proposal & Design documents helps us clearly state objectives and expected outcome. Besides, It keeps us a managable timeline so that we can working on the projects before deadlines. What's more, The Project Proposal & Design documents also prevent us from “Scope Creep”. It prevents the scale of our project from growing until getting out of control.
+Initially, the Project Proposal & Design documents help us clearly state objectives and expected outcomes. Besides, It keeps us a manageable timeline so that we can working on the projects before deadlines. What's more, The Project Proposal & Design documents also prevent us from “Scope Creep”. It prevents the scale of our project from growing until getting out of control.
 
-Many thing has changed since out first version of these documents. We have add new features that is required by our project, removed trivial features that are not related to the core features, and modified features that is not well-defined or well-presented.For instance, we have deleted the payment features due to the complexity of security problems. 
+Many things have changed since our first version of these documents. We have added new features that are required by our project, removed trivial features that are not related to the core features or have securities problems, and modified features that are not well-defined or well-presented. For instance, we have deleted the payment features due to the complexity of security problems. 
 
 
 # Challenges & Victories
