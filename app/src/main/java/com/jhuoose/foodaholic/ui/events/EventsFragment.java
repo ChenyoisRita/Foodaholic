@@ -35,6 +35,7 @@ public class EventsFragment extends Fragment {
     private EventAdapter eventAdapter = null;
     public List<EventProfile> eventList;
     public static int currentUserID;
+    public static User currentUser;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -118,6 +119,7 @@ public class EventsFragment extends Fragment {
                     Toast.makeText(getContext(), "Get Current UID Error:"+response.errorBody(), Toast.LENGTH_SHORT).show();
                 } else {
                     currentUserID = response.body().getId();
+                    currentUser = response.body();
                 }
             }
 

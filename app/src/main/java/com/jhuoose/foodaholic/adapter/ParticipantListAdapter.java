@@ -12,11 +12,11 @@ import com.jhuoose.foodaholic.viewmodel.UserProfile;
 
 import java.util.ArrayList;
 
-public class participantListAdapter extends BaseAdapter {
+public class ParticipantListAdapter extends BaseAdapter {
     private ArrayList<UserProfile> mData;
     private Context mContext;
 
-    public participantListAdapter(ArrayList<UserProfile> mData, Context mContext) {
+    public ParticipantListAdapter(ArrayList<UserProfile> mData, Context mContext) {
         this.mData = mData;
         this.mContext = mContext;
     }

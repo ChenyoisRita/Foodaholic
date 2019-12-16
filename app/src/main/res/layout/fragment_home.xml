@@ -38,6 +38,7 @@
                 android:hint="username"
                 android:layout_centerInParent ="true"
                 android:textColor="#fff"
+                android:textAlignment="center"
                 android:textSize="21sp"
                 android:textStyle="italic" />
 
@@ -67,17 +68,17 @@
 <!--            android:inputType="text" />-->
 
 
-        <Button
-            android:id="@+id/btn_changepw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="107dp"
-            android:background="@drawable/buttonstyle"
-            android:text="Change Password"
-            android:textColor="#fff"
-            android:textStyle="italic" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_changepw"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginBottom="107dp"-->
+<!--            android:background="@drawable/buttonstyle"-->
+<!--            android:text="Change Password"-->
+<!--            android:textColor="#fff"-->
+<!--            android:textStyle="italic" />-->
 
         <Button
             android:id="@+id/btn_logout"

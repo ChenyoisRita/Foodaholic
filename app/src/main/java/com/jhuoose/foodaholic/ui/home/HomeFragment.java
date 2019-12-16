@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     private HerokuAPI heroku;
-    Button ChangePassword, logoutButton;
+    Button logoutButton;
     ImageView profilePicture, editBioImage;
     TextView profileName;
     public UserProfile profile = new UserProfile();
@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
 
         heroku = HerokuService.getAPI();
 
-        ChangePassword = root.findViewById(R.id.btn_changepw);
         logoutButton = root.findViewById(R.id.btn_logout);
         profilePicture = root.findViewById(R.id.profilePic_im);
         editBioImage = root.findViewById(R.id.Edit_imageView);
